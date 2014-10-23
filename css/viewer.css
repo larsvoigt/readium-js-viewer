@@ -109,6 +109,13 @@ direction: rtl;
   margin-bottom: 0px;
 }
 
+.navbar-middle
+{
+    min-height: 36px;
+    background-color: #4d4d4d;
+    color: #ffffff;
+}
+
 .navbar-right
 {
     min-height: 36px;
