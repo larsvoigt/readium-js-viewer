@@ -97,7 +97,7 @@ direction: rtl;
   width: 48px;
   height: 36px;
   background: no-repeat center center;
-    background-color: #4d4d4d;
+  background-color: #4d4d4d;
 }
 
 .navbar
@@ -111,10 +111,18 @@ direction: rtl;
 
 .navbar-middle
 {
-    min-height: 36px;
+    min-height: 24px;
     background-color: #4d4d4d;
     color: #ffffff;
+    float: left;
 }
+
+/*#pagination {*/
+    /*text-align: center;*/
+    /*display:inline;*/
+    /*position:relative;*/
+    /*color: #ff212e;*/
+/*}*/
 
 .navbar-right
 {
