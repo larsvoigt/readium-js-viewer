@@ -107,19 +107,23 @@ direction: rtl;
 
 .navbar-middle {
     background-color: #4d4d4d;
-    font-weight: bold;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: #dfdbd9;
     float: left;
-    color: #ffffff;
 }
 
 .pagination {
-    background-color: #07691a;
-    margin: 0px;
-    margin-top: 5%;
+    font-weight: bold;
+    color: #dfdbd9;
+    display: inline-block;
+    margin: 4% 0px 5px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
-#pagination-in-percent-slider{
-    background: #428041;
+#pagination-in-percent {
+    margin-left: 15px;
 }
 
 
@@ -484,28 +488,39 @@ input[type="text"] {
 
 body.keyboard button:focus,
 body.keyboard input[type="radio"]:focus + label,
-body.keyboard input[type="range"]:focus {
-    box-shadow: 0px 0px 5px #6fb5f1 !important;
-    outline: #6fb5f1 dotted 1px !important;
+body.keyboard input[type="range"]:focus
+{
+    box-shadow: 0px 0px 5px #555555 !important;
+    outline: #555555 double 3px !important;
 }
 
-body.keyboard input[type="text"]:focus {
+body.keyboard button.details:focus
+{
+    box-shadow: 0px 0px 5px #555555 !important;
+    outline: #555555 double 3px !important;
+}
+
+
+
+body.keyboard input[type="text"]:focus
+{
     background: #fff;
-    box-shadow: 0px 0px 5px #6fb5f1 !important;
-    outline: #6fb5f1 dotted 1px !important;
+    box-shadow: 0px 0px 5px #555555 !important;
+    outline: #555555 double 2px !important;
 }
 
 body.keyboard #app-navbar button:focus,
 body.keyboard #app-navbar input[type="radio"]:focus + label,
-body.keyboard #app-navbar input[type="range"]:focus {
-    box-shadow: 0px 0px 5px #6fb5f1 !important;
-    outline: #6fb5f1 dotted 1px !important;
+body.keyboard #app-navbar input[type="range"]:focus
+{
+    box-shadow: 0px 0px 5px #cccccc !important;
+    outline: #cccccc double 3px !important;
 }
 
 body.keyboard #app-navbar input[type="text"]:focus {
     background: #fff;
-    box-shadow: 0px 0px 5px #6fb5f1 !important;
-    outline: #6fb5f1 dotted 1px !important;
+    box-shadow: 0px 0px 5px #cccccc !important;
+    outline: #cccccc double 3px !important;
 }
 
 input[type="range"] {
