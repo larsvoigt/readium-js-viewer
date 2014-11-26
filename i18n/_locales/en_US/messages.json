@@ -255,6 +255,9 @@
   "i18n_vancouver_mist" : {
     "message" : "Vancouver Mist"
   },
+  "i18n_custom_theme" : {
+    "message" : "Custom Theme"
+  },
   "i18n_display_format" : {
     "message" : "DISPLAY FORMAT"
   },
