@@ -51,7 +51,8 @@ require.config({
         'templates': '../templates',
         'storage/StorageManager' : 'storage/StaticStorageManager',
         'versioning/Versioning' : 'versioning/UnpackagedVersioning',
-        'encryptionHandler': '../readium-js/epub-modules/epub-fetch/src/models/encryption_handler'
+        'encryptionHandler': '../readium-js/epub-modules/epub-fetch/src/models/encryption_handler',
+        'colpick' : 'thirdparty/colpick'
     },
     hgn : {
         templateExtension : ""
