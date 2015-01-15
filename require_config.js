@@ -30,6 +30,7 @@ require.config({
         'hogan': 'thirdparty/hogan',
         'jath' : 'thirdparty/jath.min',
         'jquery': 'thirdparty/jquery-1.11.0',
+        'jqueryui': 'thirdparty/jquery-ui',
         'spin' : 'thirdparty/spin.min',
         'underscore': 'thirdparty/underscore-1.4.4',
         'backbone': 'thirdparty/backbone-0.9.10',
