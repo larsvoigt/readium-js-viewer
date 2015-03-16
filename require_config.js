@@ -52,7 +52,7 @@ require.config({
         'storage/StorageManager' : 'storage/StaticStorageManager',
         'versioning/Versioning' : 'versioning/UnpackagedVersioning',
         'encryptionHandler': '../readium-js/epub-modules/epub-fetch/src/models/encryption_handler',
-        'bootstrapA11y': 'thirdparty/bootstrap-accessibility.min'
+        'bootstrapA11y': 'thirdparty/bootstrap-accessibility.min',
         'colpick' : 'thirdparty/colpick'
     },
     hgn : {
