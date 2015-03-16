@@ -18,12 +18,25 @@ module.exports = function(grunt) {
     return {
         chromeApp: {
             files: {
+<<<<<<< HEAD
                 'build/chrome-app/css/readium-all.css': ['css/sourcesanspro.css', 'css/bootstrap.css', 'css/readium_js.css', 'css/viewer.css', 'css/viewer_audio.css', 'css/settings.css', 'css/library.css', 'css/colpick.css']
+=======
+                'build/chrome-app/css/readium-all.css': ['css/sourcesanspro.css', 'css/bootstrap.css', 'css/bootstrap-accessibility.css', 'css/readium_js.css', 'css/viewer.css', 'css/viewer_audio.css', 'css/settings.css', 'css/library.css']
+>>>>>>> develop_upstream
             }
         },
         cloudReader: {
             files: {
+<<<<<<< HEAD
                 'build/cloud-reader/css/readium-all.css': ['css/sourcesanspro.css', 'css/bootstrap.css', 'css/readium_js.css', 'css/viewer.css', 'css/viewer_audio.css', 'css/settings.css', 'css/library.css', 'css/colpick.css']
+=======
+                'build/cloud-reader/css/readium-all.css': ['css/sourcesanspro.css', 'css/bootstrap.css', 'css/bootstrap-accessibility.css', 'css/readium_js.css', 'css/viewer.css', 'css/viewer_audio.css', 'css/settings.css', 'css/library.css']
+            }
+        },
+        cloudReaderLite: {
+            files: {
+                'build/cloud-reader-lite/css/readium-all.css': ['css/sourcesanspro.css', 'css/bootstrap.css', 'css/bootstrap-accessibility.css', 'css/readium_js.css', 'css/viewer.css', 'css/viewer_audio.css', 'css/settings.css']
+>>>>>>> develop_upstream
             }
         }
     };

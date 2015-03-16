@@ -13,13 +13,14 @@
 
 require.config({
     paths: {
-        'versioning/Versioning' : 'versioning/PackagedVersioning',
+        'versioning/Versioning' : 'versioning/UnpackagedVersioning',
         'viewer-version' : '../build/version.json'
     },
 	config : {
     	'EpubReader' : {
-            'useSimpleLoader' : false, // the cloud reader cannot pre-process HTML content documents and may need to load zipped EPUBs too.
-            'mathJaxUrl' : '/lib/mathjax/MathJax.js'
+            'useSimpleLoader' : false, // the cloud reader cannot pre-process HTML content documents and may need to load zipped EPUBs too (strictly-speaking, this config option is false by default, but we prefer to have it explicitly set here).
+            'mathJaxUrl' : '/lib/mathjax/MathJax.js',
+            'jsLibRoot' : './lib/thirdparty/'
     	}
     }
 });
