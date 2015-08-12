@@ -5,10 +5,7 @@
 
 #=====================
     'predist:cloudReader': '
-
-        npm run rimraf
-            dist/cloud-reader
-        &&
+    
         npm run rimraf
             dist/cloud-reader_sourcemap
     '
@@ -27,53 +24,53 @@
     'dist:cloudReader:copy': '
 
         npm run mkdirp
-            dist/cloud-reader/scripts/zip
+            dist/readium-full-text-search-demo/scripts/zip
         &&
         npm run mkdirp
-            dist/cloud-reader/scripts/mathjax
+            dist/readium-full-text-search-demo/scripts/mathjax
         &&
         npm run cpy
             src/cloud-reader/index.html
-            dist/cloud-reader/
+            dist/readium-full-text-search-demo/
         &&
         npm run cpy
             build-output/z-worker.js
-            dist/cloud-reader/scripts/zip
+            dist/readium-full-text-search-demo/scripts/zip
         &&
         npm run cpy
             build-output/deflate.js
-            dist/cloud-reader/scripts/zip
+            dist/readium-full-text-search-demo/scripts/zip
         &&
         npm run cpy
             build-output/inflate.js
-            dist/cloud-reader/scripts/zip
+            dist/readium-full-text-search-demo/scripts/zip
         &&
         npm run ncp
             src/images/
-            dist/cloud-reader/images/
+            dist/readium-full-text-search-demo/images/
         &&
         npm run cpy
             node_modules/MathJax-grunt-concatenator/MathJax.js
-            dist/cloud-reader/scripts/mathjax
+            dist/readium-full-text-search-demo/scripts/mathjax
         &&
         npm run ncp
             node_modules/bootstrap/fonts/
-            dist/cloud-reader/fonts/
+            dist/readium-full-text-search-demo/fonts/
         &&
         npm run cpy
             src/css/annotations.css
-            dist/cloud-reader/css/
+            dist/readium-full-text-search-demo/css/
     '
 
 #=====================
     'dist:cloudReader:css': '
 
         npm run mkdirp
-            dist/cloud-reader/css
+            dist/readium-full-text-search-demo/css
         &&
         npm run dist:cssoptimize --
             "src/css/library.css"
-            "-o" "dist/cloud-reader/css/readium-all.css"
+            "-o" "dist/readium-full-text-search-demo/css/readium-all.css"
     '
 
 #=====================
@@ -84,7 +81,7 @@
         &&
         npm run cpy
             build-output/_single-bundle/readium-js-viewer_all.js
-            dist/cloud-reader/scripts/
+            dist/readium-full-text-search-demo/scripts/
         &&
         npm run cpy
             build-output/_single-bundle/readium-js-viewer_all.js.map

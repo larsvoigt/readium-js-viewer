@@ -14,7 +14,7 @@
         &&
         npm run dev:cloudReaderWithFullTextSearch:copy
         &&
-        node ./dist/cloud-reader/main.js
+        node ./dist/readium-full-text-search-demo/main.js
         
     '
     
@@ -32,33 +32,37 @@
         
         npm run cpy
             src/cloud-reader/full_text_search/main.js
-            dist/cloud-reader/
+            dist/readium-full-text-search-demo/
         &&    
         npm run cpy
             src/cloud-reader/full_text_search/package.json
-            dist/cloud-reader/
+            dist/readium-full-text-search-demo/
+        &&    
+            npm run cpy
+            src/cloud-reader/full_text_search/epub_library.json
+            dist/readium-full-text-search-demo/epub_content
                
     '
 #=====================
     'dev:cloudReaderWithFullTextSearch:copy': '
         npm run cpy
             src/cloud-reader/full_text_search/index.html
-            dist/cloud-reader/
+            dist/readium-full-text-search-demo/
         &&
         npm run ncp 
             epub_content/ 
-            dist/cloud-reader/epub_content
+            dist/readium-full-text-search-demo/epub_content
     '
     
 #=====================
     'prepare:cloudReaderWithFullTextSearch': '
         npm run cpy
             src/cloud-reader/full_text_search/index.html
-            dist/cloud-reader/
+            dist/readium-full-text-search-demo/
         &&
         npm run ncp 
             epub_content/ 
-            dist/cloud-reader/epub_content
+            dist/readium-full-text-search-demo/epub_content
     '
 
 #=====================

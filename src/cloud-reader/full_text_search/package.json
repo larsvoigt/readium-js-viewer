@@ -6,15 +6,16 @@
     "type": "git",
     "url": ""
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "dependencies": {
-    "express": "~4.12.3",
     "body-parser": "~1.12.2",
+    "chokidar": "~1.0.1",
     "epub-full-text-search": "latest",
-    "chokidar": "~1.0.1"
+    "express": "~4.12.3",
+    "ncp": "^2.0.0",
+    "epub3-samples": "latest"
   },
   "scripts": {
-    "start": "node ./main.js"
+    "start": "node ./node_modules/ncp/bin/ncp ./node_modules/epub3-samples/ epub_content && node ./main.js"
   }
 }
