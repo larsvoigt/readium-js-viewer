@@ -31,17 +31,17 @@
     'dist:cloudReaderWithFullTextSearch:copy': '
         
         npm run cpy
-            src/cloud-reader/full_text_search/main.js
+            src/cloud-reader/full_text_search/server.js
             dist/readium-full-text-search-demo/
         &&    
         npm run cpy
             src/cloud-reader/full_text_search/package.json
             dist/readium-full-text-search-demo/
         &&    
-            npm run cpy
+        npm run cpy
             src/cloud-reader/full_text_search/epub_library.json
             dist/readium-full-text-search-demo/epub_content
-               
+             
     '
 #=====================
     'dev:cloudReaderWithFullTextSearch:copy': '
