@@ -836,10 +836,10 @@ FullTextSearch){
 
             EpubReaderBackgroundAudioTrack.init(readium);
 
-            readium.reader.plugins.annotations.on("annotationClicked", function(type, idref, cfi, id) {
-console.debug("ANNOTATION CLICK: " + id);
-                readium.reader.plugins.annotations.removeHighlight(id);
-            });
+//            readium.reader.plugins.annotations.on("annotationClicked", function(type, idref, cfi, id) {
+//console.debug("ANNOTATION CLICK: " + id);
+//                readium.reader.plugins.annotations.removeHighlight(id);
+//            });
 
             if (readium.reader.plugins.example) {
                 readium.reader.plugins.example.on("exampleEvent", function(message) {
