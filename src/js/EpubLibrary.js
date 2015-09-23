@@ -20,7 +20,8 @@ define([
 './workers/Messages',
 'Analytics',
 './Keyboard',
-'./versioning/ReadiumVersioning'],
+'./versioning/ReadiumVersioning',
+'hgn!readium_js_viewer_html_templates/navbar-footer.html'],
 
 function(
 moduleConfig,
@@ -44,7 +45,8 @@ Dialogs,
 Messages,
 Analytics,
 Keyboard,
-Versioning){
+Versioning,
+NavbarFooter){
 
     var detailsDialogStr = DetailsDialog({strings: Strings});
 
@@ -174,7 +176,7 @@ Versioning){
 
 	var loadLibraryItems = function(epubs){
 		$('#app-container .library-items').remove();
-		$('#app-container').append(LibraryBody({}));
+		$('#app-container').append(LibraryBody({strings: Strings}));
 		if (!epubs.length){
 			$('#app-container .library-items').append(EmptyLibrary({imagePathPrefix: moduleConfig.imagePathPrefix, strings: Strings}));
 			return;
@@ -370,6 +372,10 @@ Versioning){
 			$(document.body).removeClass('list-view');
             setTimeout(function(){ $('.icon-list-view')[0].focus(); }, 50);
 		});
+
+		$('footer').append(NavbarFooter);
+		
+		
 		findHeightRule();
 		setItemHeight();
 		StorageManager.initStorage(function(){

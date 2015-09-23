@@ -448,5 +448,16 @@
         "example": "en-US,ja,sr,de,zh_CN"
       }
     }
+  },
+  
+  
+  "i18n_select_book" : {
+    "message" : "Push enter to open the book."
+  },
+  "i18n_book" : {
+    "message" : "book"
+  },
+  "i18n_library" : {
+    "message" : "library"
   }
 }
