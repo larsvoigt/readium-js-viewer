@@ -176,7 +176,7 @@ NavbarFooter){
 
 	var loadLibraryItems = function(epubs){
 		$('#app-container .library-items').remove();
-		$('#app-container').append(LibraryBody({}));
+		$('#app-container').append(LibraryBody({strings: Strings}));
 		if (!epubs.length){
 			$('#app-container .library-items').append(EmptyLibrary({imagePathPrefix: moduleConfig.imagePathPrefix, strings: Strings}));
 			return;
@@ -373,7 +373,7 @@ NavbarFooter){
             setTimeout(function(){ $('.icon-list-view')[0].focus(); }, 50);
 		});
 
-		$('footer').append(NavbarFooter({strings: Strings, dialogs: Dialogs, keyboard: Keyboard}));
+		$('footer').append(NavbarFooter);
 		
 		
 		findHeightRule();

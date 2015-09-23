@@ -38,13 +38,13 @@
         "message" : "Ok"
     },
     "i18n_readium_library": {
-        "message": "Readium Bibliothek"
+        "message": "Bibliothek"
     },
     "i18n_loading": {
         "message": "Bibliothek wird geladen"
     },
     "i18n_readium_options": {
-        "message": "Readium Einstellungen:"
+        "message": "Einstellungen:"
     },
     "i18n_save_changes": {
         "message": "Änderungen speichern"
@@ -420,5 +420,15 @@
                 "example": "en-US,ja,sr,de,zh_CN"
             }
         }
+    },
+
+    "i18n_select_book" : {
+        "message" : "Zum Öffnen drücken Sie Bitte die Enter Taste "
+    },
+    "i18n_book" : {
+        "message" : "Buch"
+    },
+    "i18n_library" : {
+        "message" : "Bücherregal"
     }
 }
