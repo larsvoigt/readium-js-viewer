@@ -21,6 +21,8 @@
             "src/css/viewer_audio.css"
             "src/css/settings.css"
             "src/css/full_text_search.css"
+            "src/css/dzb.css"
+            "src/css/a11y.css"
     '
     
 #=====================
