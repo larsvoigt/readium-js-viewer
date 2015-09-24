@@ -20,6 +20,8 @@
             "src/css/viewer.css"
             "src/css/viewer_audio.css"
             "src/css/settings.css"
+            "src/css/dzb.css"
+            "src/css/a11y.css"
     '
     
 #=====================
