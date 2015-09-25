@@ -8,7 +8,7 @@
         <button type="button" style="background: none; border: none; padding: 0; margin: 0;" 
                 class="read"
                 data-book="{{epub.rootUrl}}" 
-                aria-label="{{strings.i18n_book}} {{epub.title}} {{epub.author}}" 
+                aria-label="{{strings.a11y_book}} {{epub.title}} {{epub.author}}" 
                 title="{{epub.title}}" 
                 tabindex="{{count.tabindex}}"
                 aria-describedby="selectDesc">
@@ -28,7 +28,7 @@
         </button>
     </div>
     
-    <div id="selectDesc" class="offscreen" aria-hidden="true">{{strings.i18n_select_book}}</div>
+    <div id="selectDesc" class="offscreen" aria-hidden="true">{{strings.a11y_select_book}}</div>
 
     <!-- <div class="caption buttons">
         <a href="#" class="btn btn-default read" data-book="{{epub.packageUrl}}" role="button">{{strings.i18n_read}}</a>

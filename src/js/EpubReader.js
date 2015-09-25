@@ -89,7 +89,7 @@ Helpers){
                 wasFixed = readium.reader.isCurrentViewFixedLayout();
                 var metadata = options.metadata;
     
-                $('<h2 class="book-title-header"></h2>').insertAfter('.navbar').text(metadata.title);
+                $('.navbar-reader-middle').append('<h2 class="book-title-header"></h2>').text(metadata.title);
     
     
                 $("#left-page-btn").unbind("click");
@@ -807,12 +807,12 @@ Helpers){
             });
 
             readium.reader.addIFrameEventListener('focus', function(e) {
-                $('#reading-area').addClass("contentFocus");
+                $('#reflowable-content-frame').addClass("contentFocus");
                 $(window).trigger("focus");
             });
             
             readium.reader.addIFrameEventListener('blur', function(e) {
-                $('#reading-area').removeClass("contentFocus");
+                $('#reflowable-content-frame').removeClass("contentFocus");
             });
 
             SettingsDialog.initDialog(readium.reader);

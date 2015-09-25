@@ -8,6 +8,7 @@
 
   border-left: 40px solid transparent;
   border-right: 40px solid transparent;
+  border-bottom: 40px solid transparent;
 }
 
 #about-dialog div{
@@ -290,7 +291,8 @@ html[data-theme=night-theme] #right-page-btn:hover
     
     outline-offset: -3px;
 }
- 
+
+
 #epub-reader-container {
 
     position: absolute;

@@ -440,13 +440,13 @@
   },
   
   
-  "i18n_select_book" : {
+  "a11y_select_book" : {
     "message" : "Push enter to open the book."
   },
-  "i18n_book" : {
+  "a11y_book" : {
     "message" : "book"
   },
-  "i18n_library" : {
+  "a11y_library" : {
     "message" : "library"
   }
 }
