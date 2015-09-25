@@ -8,6 +8,7 @@
 
   border-left: 40px solid transparent;
   border-right: 40px solid transparent;
+  border-bottom: 40px solid transparent;
 }
 
 #about-dialog div{
@@ -290,7 +291,8 @@ html[data-theme=night-theme] #right-page-btn:hover
     
     outline-offset: -3px;
 }
- 
+
+
 #epub-reader-container {
 
     position: absolute;
@@ -309,10 +311,10 @@ html[data-theme=night-theme] #right-page-btn:hover
   opacity: 1;
 }
 
-.hide-ui .navbar{
-  -webkit-transition: all .2s ease-out;
-  opacity:0;
-}
+/*.hide-ui .navbar{*/
+  /*-webkit-transition: all .2s ease-out;*/
+  /*opacity:0;*/
+/*}*/
 
 .hide-ui #left-page-btn, 
 .hide-ui #right-page-btn,

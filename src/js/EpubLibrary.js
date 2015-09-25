@@ -373,6 +373,7 @@ NavbarFooter){
             setTimeout(function(){ $('.icon-list-view')[0].focus(); }, 50);
 		});
 
+		$('footer').empty();
 		$('footer').append(NavbarFooter);
 		
 		

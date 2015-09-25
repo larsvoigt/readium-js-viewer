@@ -438,13 +438,13 @@
         }
     },
 
-    "i18n_select_book" : {
+    "a11y_select_book" : {
         "message" : "Zum Öffnen drücken Sie Bitte die Enter Taste "
     },
-    "i18n_book" : {
+    "a11y_book" : {
         "message" : "Buch"
     },
-    "i18n_library" : {
-        "message" : "Bücherregal"
+    "a11y_library" : {
+        "message" : "Bibliothek Bitte navigieren Sie mit der Tab Taste"
     }
 }
