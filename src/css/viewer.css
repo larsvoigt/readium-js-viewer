@@ -309,10 +309,10 @@ html[data-theme=night-theme] #right-page-btn:hover
   opacity: 1;
 }
 
-.hide-ui .navbar{
-  -webkit-transition: all .2s ease-out;
-  opacity:0;
-}
+/*.hide-ui .navbar{*/
+  /*-webkit-transition: all .2s ease-out;*/
+  /*opacity:0;*/
+/*}*/
 
 .hide-ui #left-page-btn, 
 .hide-ui #right-page-btn,
