@@ -106,8 +106,6 @@ FullTextSearch){
                 $("#right-page-btn").on("click", nextPage);
                 
                 new FullTextSearch(readium, options.metadata.title).init();
-    
-                new FullTextSearch(readium, options.metadata.title).init();
             },
             openPageRequest
         );
