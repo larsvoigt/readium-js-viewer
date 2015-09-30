@@ -1,4 +1,10 @@
-define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'], function($, EpubLibrary, EpubReader, Helpers){
+define(['jquery', 
+		'./EpubLibrary',
+		'./EpubReader',
+		'readium_shared_js/helpers',
+		'i18nStrings',
+	    'hgn!readium_js_viewer_html_templates/tutor.html'],
+	function($, EpubLibrary, EpubReader, Helpers, Strings, Tutor){
 
 
 	var initialLoad = function(){
@@ -23,6 +29,8 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers'],
         {
             $(document.body).addClass("keyboard");
         });
+
+		$(document.body).append(Tutor({strings: Strings}));
 	}
 
 	$(initialLoad);
