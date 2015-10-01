@@ -17,3 +17,11 @@
     display: block;
     width: 300px;
 }
+
+body:not(.list-view) #app-container .library-item .info-wrap button {
+    width: 100%;
+}
+
+.has-cover {
+    background-size: 101%; /* To fill the dimensions of container (button), or */
+}
