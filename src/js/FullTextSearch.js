@@ -283,9 +283,14 @@ define(['./Dialogs',
                             undefined  // styles
                         )
                             , 600
+
+                        console.debug("hightlight of cfi: " + cfi + " ready");
+                        setTimeout(function () { 
+                        
+                        $('#start-99999').focus() }, 600);
                     });
 
-                    console.debug("hightlight of cfi: " + cfi + " ready");
+                  
                 } catch (e) {
 
                     console.error(e);

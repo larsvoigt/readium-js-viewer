@@ -155,12 +155,13 @@ FullTextSearch){
         else{
             $appContainer.addClass('toc-visible');
 
-            setTimeout(function(){ $('#readium-toc-body button.close')[0].focus(); }, 100);
+            //setTimeout(function(){ $('#readium-toc-body button.close')[0].focus(); }, 100);
         }
 
         if(embedded){
             hideLoop(null, true);
-        }else if (readium.reader.handleViewportResize){
+        }
+        else if (readium.reader.handleViewportResize){
 
             readium.reader.handleViewportResize(bookmark);
 
@@ -380,10 +381,12 @@ FullTextSearch){
     
                 readium.reader.openContentUrl(href);
     
-                if (embedded) {
-                    $('.toc-visible').removeClass('toc-visible');
-                    $(document.body).removeClass('hide-ui');
-                }
+                //if (embedded) {
+                $('.toc-visible').removeClass('toc-visible');
+                $(document.body).removeClass('hide-ui');
+                $('#reading-area').attr('aria-hidden' , false);
+                hideLoop(null, true);
+                //}
             } catch (err) {
                 
                 console.error(err);
@@ -394,21 +397,21 @@ FullTextSearch){
                 return false;
             }
         });
-        $('#readium-toc-body').prepend('<button tabindex="50" type="button" class="close" data-dismiss="modal" aria-label="'+Strings.i18n_close+' '+Strings.toc+'" title="'+Strings.i18n_close+' '+Strings.toc+'"><span aria-hidden="true">&times;</span></button>');
-        $('#readium-toc-body button.close').on('click', function(){
-            tocShowHideToggle();
-            /*
-            var bookmark = JSON.parse(readium.reader.bookmarkCurrentPage());
-            $('#app-container').removeClass('toc-visible');
-            if (embedded){
-                $(document.body).removeClass('hide-ui');
-            }else if (readium.reader.handleViewportResize){
-                readium.reader.handleViewportResize();
-                readium.reader.openSpineItemElementCfi(bookmark.idref, bookmark.contentCFI, readium.reader);
-            }
-            */
-            return false;
-        })
+        //$('#readium-toc-body').prepend('<button tabindex="50" type="button" class="close" data-dismiss="modal" aria-label="'+Strings.i18n_close+' '+Strings.toc+'" title="'+Strings.i18n_close+' '+Strings.toc+'"><span aria-hidden="true">&times;</span></button>');
+        //$('#readium-toc-body button.close').on('click', function(){
+        //    tocShowHideToggle();
+        //    /*
+        //    var bookmark = JSON.parse(readium.reader.bookmarkCurrentPage());
+        //    $('#app-container').removeClass('toc-visible');
+        //    if (embedded){
+        //        $(document.body).removeClass('hide-ui');
+        //    }else if (readium.reader.handleViewportResize){
+        //        readium.reader.handleViewportResize();
+        //        readium.reader.openSpineItemElementCfi(bookmark.idref, bookmark.contentCFI, readium.reader);
+        //    }
+        //    */
+        //    return false;
+        //})
     }
 
     var toggleFullScreen = function(){
@@ -631,18 +634,18 @@ FullTextSearch){
 
         $('.icon-toc').on('click', tocShowHideToggle);
 
-        var setTocSize = function(){
-            var appHeight = $(document.body).height() - $('#app-container')[0].offsetTop;
-            $('#app-container').height(appHeight);
-            $('#readium-toc-body').height(appHeight);
-        };
+        //var setTocSize = function(){
+        //    var appHeight = $(document.body).height() - $('#app-container')[0].offsetTop;
+        //    $('#app-container').height(appHeight);
+        //    $('#readium-toc-body').height(appHeight);
+        //};
 
         Keyboard.on(Keyboard.ShowSettingsModal, 'reader', function(){$('#settings-dialog').modal("show")});
 
         $('#app-navbar').on('mousemove', hideLoop);
         
-        $(window).on('resize', setTocSize);
-        setTocSize();
+        //$(window).on('resize', setTocSize);
+        //setTocSize();
         hideLoop();
 
             // captures all clicks on the document on the capture phase. Not sure if it's possible with jquery

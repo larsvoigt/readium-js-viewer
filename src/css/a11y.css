@@ -25,3 +25,7 @@ body.keyboard input[type="text"]:focus,
     outline-offset: 3px !important;
     /*box-shadow: 0px 0px 30px  #d32d11;*/
 }
+
+#readium-toc-body {
+    aria-hidden: true;
+}
