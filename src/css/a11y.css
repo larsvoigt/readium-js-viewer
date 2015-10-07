@@ -29,3 +29,9 @@ body.keyboard input[type="text"]:focus,
 #readium-toc-body {
     aria-hidden: true;
 }
+
+/* move the jquery accessible helper to offscreen area */ 
+.ui-helper-hidden-accessible {
+    position: absolute;
+    left: -9999px;
+}

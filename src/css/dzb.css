@@ -53,3 +53,9 @@ body:not(.list-view) #app-container .library-item .info-wrap button {
     aria-hidden : true;
 }
 
+@media (max-width:800px){
+    .navbar-reader-middle
+    {
+        display:none;
+    }
+}
