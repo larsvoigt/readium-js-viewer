@@ -15,7 +15,7 @@ body.keyboard #app-navbar input[type="range"]:focus,
 body.keyboard input[type="radio"]:focus + label,
 body.keyboard input[type="range"]:focus,
 body.keyboard input[type="text"]:focus,
-.navbar-reader-middle:focus {
+.navbar-reader-center:focus {
     box-shadow: 0px 0px 25px #1182ba !important;
     outline: #d32d11 solid 4px !important;
 }

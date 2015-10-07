@@ -93,7 +93,7 @@ NavbarFooter){
                 wasFixed = readium.reader.isCurrentViewFixedLayout();
                 var metadata = options.metadata;
     
-                $('.navbar-reader-middle').append('<h2 class="book-title-header"></h2>').text(metadata.title);
+                $('.navbar-reader-center').text(metadata.title);
     
     
                 $("#left-page-btn").unbind("click");

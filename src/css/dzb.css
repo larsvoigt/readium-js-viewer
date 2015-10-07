@@ -5,17 +5,20 @@
     margin-left: 10px;
 }
 
-.navbar-reader-middle {
-    position: absolute;
-    top: 0;
-    text-align: center;
+.navbar-reader-center {
     color: #ddd;
     font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial;
     font-weight: bold;
+    position: fixed;
+    /* center the div */
+    right: 0;
+    left: 0;
+    margin-right: auto;
+    margin-left: auto;
+    width: 50%;
+    text-align: center;
     margin-top: 10px;
-    left: 40%;
-    display: block;
-    width: 300px;
+    display: inline-block;
 }
 
 body:not(.list-view) #app-container .library-item .info-wrap button {
@@ -26,36 +29,40 @@ body:not(.list-view) #app-container .library-item .info-wrap button {
     background-size: 101%; /* To fill the dimensions of container (button), or */
 }
 
-#readium-toc-body{
+#readium-toc-body {
     background: #ffffff;
-    aria-hidden : true;
+    aria-hidden: true;
     padding-left: 10%;
 }
 
 #readium-toc-body > ol > li {
     border-top: 1px solid black;
 }
-#readium-toc-body ol{
+
+#readium-toc-body ol {
     list-style-type: none;
 }
 
-#readium-toc-body li{
+#readium-toc-body li {
     margin-bottom: 10px;
 }
 
-.toc-visible #readium-toc-body{
+.toc-visible #readium-toc-body {
     width: 100%;
-    aria-hidden : false;
+    aria-hidden: false;
 }
 
-.toc-visible #reading-area{
+.toc-visible #reading-area {
     left: 100%;
-    aria-hidden : true;
+    aria-hidden: true;
 }
 
-@media (max-width:800px){
-    .navbar-reader-middle
-    {
-        display:none;
+@media (max-width: 300px) {
+    .navbar-reader-center {
+        display: none;
     }
+}
+
+.navbar-right {
+    float: right !important;
 }
