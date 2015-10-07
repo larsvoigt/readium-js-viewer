@@ -23,7 +23,8 @@ define([
 './versioning/ReadiumVersioning',
 'readium_js/Readium',
 'readium_shared_js/helpers',
-'./FullTextSearch'],
+'./FullTextSearch',
+'hgn!readium_js_viewer_html_templates/navbar-footer.html'],
 
 function (
 globalSetup,
@@ -50,7 +51,8 @@ GesturesHandler,
 Versioning,
 Readium,
 Helpers,
-FullTextSearch){
+FullTextSearch,
+NavbarFooter){
 
     // initialised in initReadium()
     var readium = undefined;
@@ -700,8 +702,10 @@ FullTextSearch){
         $('nav').empty();
         $('nav').attr("aria-label", Strings.i18n_toolbar);
         $('nav').append(ReaderNavbar({strings: Strings, dialogs: Dialogs, keyboard: Keyboard}));
+        $('footer').empty();
+        $('footer').append(NavbarFooter);
         installReaderEventHandlers();
-        document.title = "Readium";
+        document.title = "eReader";
         $('#zoom-fit-width a').on('click', setFitWidth);
         $('#zoom-fit-screen a').on('click', setFitScreen);
         $('#zoom-custom a').on('click', enableCustom);
