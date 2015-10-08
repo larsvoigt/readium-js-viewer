@@ -140,6 +140,7 @@ NavbarFooter){
 
     var tocShowHideToggle = function(){
 
+        
         $(document.body).removeClass('hide-ui');
 
         var $appContainer = $('#app-container'),
@@ -156,7 +157,7 @@ NavbarFooter){
         }
         else{
             $appContainer.addClass('toc-visible');
-
+            Keyboard.scope('reader');
             //setTimeout(function(){ $('#readium-toc-body button.close')[0].focus(); }, 100);
         }
 
@@ -623,15 +624,7 @@ NavbarFooter){
 
         Keyboard.on(Keyboard.TocShowHideToggle, 'reader', function()
         {
-            var visible = $('#app-container').hasClass('toc-visible');
-            if (!visible)
-            {
-                tocShowHideToggle();
-            }
-            else
-            {
-                setTimeout(function(){ $('#readium-toc-body button.close')[0].focus(); }, 100);
-            }
+            tocShowHideToggle();
         });
 
         $('.icon-toc').on('click', tocShowHideToggle);
