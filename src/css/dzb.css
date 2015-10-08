@@ -4,7 +4,6 @@
     font-weight: bold;
 }
 
-
 #copyright {
     margin-left: 10px;
 }
@@ -14,7 +13,7 @@
     position: fixed;
     /* center the div */
     right: 0;
-    left: 0;    
+    left: 0;
     margin-right: auto;
     margin-left: auto;
     width: 50%;
@@ -35,6 +34,8 @@ body:not(.list-view) #app-container .library-item .info-wrap button {
     background: #ffffff;
     aria-hidden: true;
     padding-left: 10%;
+    border-right: 0;
+    overflow-y: scroll; /* adds scrollbar */
 }
 
 #readium-toc-body > ol > li {
@@ -59,9 +60,13 @@ body:not(.list-view) #app-container .library-item .info-wrap button {
     aria-hidden: true;
 }
 
-@media (max-width: 300px) {
+@media (max-width: 350px) {
     .navbar-reader-center {
         display: none;
+    }
+
+    #readium-toc-body {
+        padding-left: 1%;
     }
 }
 

@@ -629,18 +629,18 @@ NavbarFooter){
 
         $('.icon-toc').on('click', tocShowHideToggle);
 
-        //var setTocSize = function(){
-        //    var appHeight = $(document.body).height() - $('#app-container')[0].offsetTop;
-        //    $('#app-container').height(appHeight);
-        //    $('#readium-toc-body').height(appHeight);
-        //};
+        var setTocSize = function(){
+            var appHeight = $(document.body).height() - $('#app-container')[0].offsetTop - $('#footer').height();
+            $('#app-container').height(appHeight);
+            $('#readium-toc-body').height(appHeight);
+        };
 
         Keyboard.on(Keyboard.ShowSettingsModal, 'reader', function(){$('#settings-dialog').modal("show")});
 
         $('#app-navbar').on('mousemove', hideLoop);
         
-        //$(window).on('resize', setTocSize);
-        //setTocSize();
+        $(window).on('resize', setTocSize);
+        setTocSize();
         hideLoop();
 
             // captures all clicks on the document on the capture phase. Not sure if it's possible with jquery
