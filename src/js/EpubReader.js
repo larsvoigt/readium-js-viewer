@@ -158,7 +158,8 @@ NavbarFooter){
         else{
             $appContainer.addClass('toc-visible');
             Keyboard.scope('reader');
-            //setTimeout(function(){ $('#readium-toc-body button.close')[0].focus(); }, 100);
+            $('#readium-toc-body a:first').focus();
+  
         }
 
         if(embedded){
