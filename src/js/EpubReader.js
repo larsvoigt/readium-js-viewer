@@ -604,6 +604,7 @@ NavbarFooter){
 
         var loadlibrary = function()
         {
+            $('#app-container').removeClass('toc-visible');
             $("html").attr("data-theme", "library");
 
             $(window).trigger('loadlibrary');
