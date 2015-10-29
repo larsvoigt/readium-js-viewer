@@ -143,7 +143,7 @@
     "dowatch": "node ./readium-js/readium-shared-js/readium-cfi-js/node_modules/watch/cli.js \"npm run build && node readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/webbrowser.js && node ./readium-js/readium-shared-js/readium-cfi-js/node_modules/rimraf/bin.js open_webbrowser.js\" dev/ src/ readium-js/js/ readium-js/readium-shared-js/js/ readium-js/readium-shared-js/plugins/ readium-js/readium-shared-js/readium-cfi-js/js/",
     "http:app": "node readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/http-server.js -LOGFILE http_app.log -OPEN /dev/index_RequireJS_no-optimize.html -p 9090 -c-1 ./",
     "http:ebooks": "node readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/http-server.js -LOGFILE http_ebooks.log -a 127.0.0.1 -p 8080 -c-1 --cors ./epub_content",
-    "http:app_ebooks": "node readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/http-server.js -LOGFILE http_app-ebooks.log -OPEN /dev/index_RequireJS_no-optimize.html -a 192.168.1.38 -p 8081 -c-1 .",
+    "http:app_ebooks": "node readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/http-server.js -LOGFILE http_app-ebooks.log -OPEN /dev/index_RequireJS_no-optimize.html -a 192.168.1.98 -p 8081 -c-1 .",
     "http:cloudReaderDist": "node readium-js/readium-shared-js/readium-cfi-js/readium-build-tools/http-server.js -LOGFILE http_app-ebooks.log -OPEN /dist/cloud-reader/?epubs=http://127.0.0.1:8080/epub_content/epub_library.json -a 127.0.0.1 -p 8080 -c-1 .",
     "http:travis": "node node_modules/http-server/bin/http-server -a 127.0.0.1 -p 8080 -c-1 ./dist/cloud-reader/",
     "mocha": "node node_modules/mocha/bin/mocha --timeout 180000 --ui bdd tests/tests.js",
