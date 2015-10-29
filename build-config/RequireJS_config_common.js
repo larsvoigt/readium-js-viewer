@@ -74,7 +74,8 @@ require.config({
         'hammerjs':
             process._RJS_rootDir(3) + '/node_modules/hammerjs/hammer',
 
-
+        'jquery_colpick':
+        process._RJS_rootDir(3) + '/node_modules/jquery-colpick/js/colpick',
 
 
         'i18nStrings':

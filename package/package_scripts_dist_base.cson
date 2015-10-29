@@ -20,6 +20,7 @@
             "src/css/viewer.css"
             "src/css/viewer_audio.css"
             "src/css/settings.css"
+            "node_modules/jquery-colpick/css/colpick.css"
     '
     
 #=====================
