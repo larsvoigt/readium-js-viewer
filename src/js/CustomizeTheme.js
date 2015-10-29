@@ -76,7 +76,7 @@ define(['Settings', 'jquery_colpick', 'bootstrap'], function (Settings) {
                         if (readerSettings.theme) {
 
                             if (!isTemporaryCustomColorSet()) {
-                                setPreviewTheme($previewText, readerSettings);
+                                setPreview(readerSettings);
                                 if (readerSettings.themeColor)
                                     setCustomThemeColor($("#custom-theme-btn"), readerSettings);
                             }
