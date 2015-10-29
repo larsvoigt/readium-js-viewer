@@ -1,4 +1,4 @@
-define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.html', './ReaderSettingsDialog_Keyboard', 'i18nStrings', './Dialogs', 'Settings', './Keyboard', 'jquery_colpick', 'bootstrap'], function(moduleConfig, SettingsDialog, KeyboardSettings, Strings, Dialogs, Settings, Keyboard){
+define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.html', './ReaderSettingsDialog_Keyboard', 'i18nStrings', './Dialogs', 'Settings', './Keyboard', './CustomizeTheme'], function(moduleConfig, SettingsDialog, KeyboardSettings, Strings, Dialogs, Settings, Keyboard, CustomizeTheme){
 
 	var defaultSettings = {
         fontSize: 100,
@@ -7,10 +7,10 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
         columnGap: 60
     }
     
-    var getBookStyles = function(readerSettings){
-        var isAuthorTheme = readerSettings.theme === "author-theme";
+    var getBookStyles = function(theme){
+        var isAuthorTheme = theme === "author-theme";
     	var $previewText = $('.preview-text');
-    	setPreviewTheme($previewText, readerSettings);
+    	setPreviewTheme($previewText, theme);
     	var previewStyle = window.getComputedStyle($previewText[0]);
     	var bookStyles = [{selector: 'body', declarations: {
             backgroundColor: isAuthorTheme ? "" : previewStyle.backgroundColor,
@@ -18,29 +18,11 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
         }}];
         return bookStyles;
     }
-    var setPreviewTheme = function($previewText, readerSettings){
+    var setPreviewTheme = function($previewText, newTheme){
         var previewTheme = $previewText.attr('data-theme');
-        var newTheme = readerSettings.theme;
         $previewText.removeClass(previewTheme);
         $previewText.addClass(newTheme);
         $previewText.attr('data-theme', newTheme);
-        
-        if(isCustomTheme(newTheme))
-            setCustomThemeColor($previewText, readerSettings);
-        else {
-            $previewText.css('color', '').css('background-color', '');
-            deleteTemporaryCustomColor();
-        }
-    }
-    
-    var setCustomThemeColor = function($element, readerSettings){
-        $element.css('color', readerSettings.themeColor.color);
-        $element.css('background-color', readerSettings.themeColor.backgroundColor);
-    }
-    
-    
-    var isCustomTheme = function(theme){
-        return theme === "custom-theme";
     }
     
     var updateReader = function(reader, readerSettings){
@@ -50,7 +32,7 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
             //$("html").addClass("_" + readerSettings.theme);
             $("html").attr("data-theme", readerSettings.theme);
             
-            var bookStyles = getBookStyles(readerSettings);
+            var bookStyles = getBookStyles(readerSettings.theme);
             reader.setBookStyles(bookStyles);
             $('#reading-area').css(bookStyles[0].declarations);
         }
@@ -68,106 +50,13 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
         $slider.attr("aria-label", label + " " + txt);
     };
     
-    var initCustomThemeDialog = function() {
-
-        $("#custom-theme-btn").on("click", function(){
-            $('#settings-dialog').modal('hide');
-            $("#custom-theme-dialog").modal('show');
-        });
-
-        $("#custom-theme-dialog").on('hidden.bs.modal', function() {
-            
-            $('#settings-dialog').modal('show'); 
-        });
-
-        $("#custom-theme-dialog").on('hide.bs.modal', function() {
-
-            $("#background-color-btn").colpickHide();
-            $("#foreground-color-btn").colpickHide();
-            $("#tab-style").prepend($("#theme-preview"));
-            $previewText.attr('data-theme', 'custom-theme');
-            setTemporaryCustomColor();
-        });
-        
-        function rgb2hex(rgb) {
-            rgb = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+))?\)$/);
-            function hex(x) {
-                return ("0" + parseInt(x).toString(16)).slice(-2);
-            }
-            return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
-        }
-        
-        $("#custom-theme-dialog").on('show.bs.modal', function() {
-            
-            $("#custom-theme-dialog-body").prepend($("#theme-preview"));
-            
-            var rgbFore = $("#custom-theme-btn").css("color");
-            var rgbBack = $("#custom-theme-btn").css("background-color");
-            
-            $("#foreground-color-btn").colpickSetColor(rgb2hex(rgbFore));
-            $("#background-color-btn").colpickSetColor(rgb2hex(rgbBack));
-
-        });
-
-        function getContrastColor(hexcolor){
-
-            if(hexcolor[0] == '#')
-                hexcolor = hexcolor.substring(1);
-            return (parseInt(hexcolor, 16) > 0xffffff/2) ? 'black':'white';
-        }
-        
-        $("#background-color-btn").colpick({
-            layout:'hex',
-            submit:0,
-            colorScheme:'light',
-            onChange:function(hsb,hex,rgb,el,bySetColor) {
-
-                hex = '#'+hex;
-                $(el).css('color', getContrastColor(hex)).css('background-color', hex);
-
-                $('#custom-theme-btn').css('background-color', hex);
-                $('.preview-text').css('background-color', hex);
-            }
-        });
-
-        $("#foreground-color-btn").colpick({
-            layout:'hex',
-            submit:0,
-            colorScheme:'light',
-            onChange:function(hsb,hex,rgb,el,bySetColor) {
-                
-                hex = '#'+hex;
-                $(el).css('color', getContrastColor(hex)).css('background-color', hex);
-                
-                $('#custom-theme-btn').css('color', hex);
-                $('.preview-text').css('color', hex);
-            }
-        });
-    }
-    
-    function setTemporaryCustomColor() {
-        
-        localStorage["tempThemeColor"] = {
-            color: $previewText.css('color'),
-            backgroundColor: $previewText.css('background-color')
-        }
-    }
-
-    function deleteTemporaryCustomColor() {
-        localStorage.removeItem("tempThemeColor");
-    }
-
-    function isTemporaryCustomColorSet() {
-        return localStorage.hasOwnProperty("tempThemeColor");
-    }
-    
 	var initDialog = function(reader){
 		$('#app-container').append(SettingsDialog({imagePathPrefix: moduleConfig.imagePathPrefix, strings: Strings, dialogs: Dialogs, keyboard: Keyboard}));
 
 		$previewText = $('.preview-text');
         $('.theme-option').on('click', function(){
             var newTheme = $(this).attr('data-theme');
-            setPreviewTheme($previewText, {theme:newTheme});
+            setPreviewTheme($previewText, newTheme);
         });
         
         var $marginSlider = $("#margin-size-input");
@@ -283,12 +172,7 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
                 }
 
                 if (readerSettings.theme){
-                    
-                    if(!isTemporaryCustomColorSet()) {
-                        setPreviewTheme($previewText, readerSettings);
-                        if(readerSettings.themeColor)
-                            setCustomThemeColor($("#custom-theme-btn"), readerSettings);
-                    }
+                    setPreviewTheme($previewText, readerSettings.theme);
                 }
 
                 $previewText.css({fontSize: (readerSettings.fontSize/100) + 'em'});
@@ -332,19 +216,7 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
 
             readerSettings.theme = $previewText.attr('data-theme');
             
-            if(isCustomTheme(readerSettings.theme)) {
-                readerSettings.themeColor = {
-                    color: $previewText.css('color'),
-                    backgroundColor: $previewText.css('background-color')
-                }
-            } else {
-                readerSettings.themeColor = {
-                    color: 'black',
-                    backgroundColor: 'white'
-                }
-            }
-            
-            
+            CustomizeTheme.save(readerSettings);
             
             if (reader){
                updateReader(reader, readerSettings);
@@ -417,9 +289,8 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
         });
 
         $('#settings-dialog .btn-primary').on('click', save);
-
-        deleteTemporaryCustomColor();
-        initCustomThemeDialog();
+        
+        CustomizeTheme.init();
 	}
 
 	return {
