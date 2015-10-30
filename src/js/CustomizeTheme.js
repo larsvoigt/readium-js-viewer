@@ -1,4 +1,4 @@
-define(['Settings', 'jquery_colpick', 'bootstrap'], function (Settings) {
+define(['Settings', 'hgn!readium_js_viewer_html_templates/customize-theme-dialog.html', 'i18nStrings','jquery_colpick', 'bootstrap'], function (Settings, CustomThemeDialog, Strings) {
 
     // z-index ccs 
     var CustomizeTheme = {};
@@ -8,6 +8,9 @@ define(['Settings', 'jquery_colpick', 'bootstrap'], function (Settings) {
     CustomizeTheme.init = function () {
 
         deleteTemporaryCustomColor();
+
+        $('#app-container').append(CustomThemeDialog({strings: Strings}));
+        $('#theme-radio-group').append($('#custom-theme-btn'));
 
         Settings.get('reader', function (readerSettings) {
 
@@ -30,13 +33,12 @@ define(['Settings', 'jquery_colpick', 'bootstrap'], function (Settings) {
 
             $("#background-color-btn").colpickHide();
             $("#foreground-color-btn").colpickHide();
-            $("#tab-style").prepend($("#theme-preview"));
             setTemporaryCustomColor();
         });
 
         $("#custom-theme-dialog").on('show.bs.modal', function () {
 
-            $("#custom-theme-dialog-body").prepend($("#theme-preview"));
+            $($('.preview-text').clone()).insertAfter($("#PreviewHeader"));
 
             var rgbFore = $("#custom-theme-btn").css("color");
             var rgbBack = $("#custom-theme-btn").css("background-color");
@@ -168,5 +170,4 @@ define(['Settings', 'jquery_colpick', 'bootstrap'], function (Settings) {
     }
 
     return CustomizeTheme;
-
 });

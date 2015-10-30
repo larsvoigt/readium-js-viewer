@@ -420,5 +420,14 @@
                 "example": "en-US,ja,sr,de,zh_CN"
             }
         }
+    },
+    "i18n_custom_theme": {
+        "message": "Eigenes Farbschema"
+    },
+    "i18n_foreground_color_customize_theme": {
+        "message": "Vordergrund"
+    },
+    "i18n_background_color_customize_theme": {
+        "message": "Hintergrund"
     }
 }
