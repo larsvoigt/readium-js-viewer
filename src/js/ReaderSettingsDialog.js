@@ -290,7 +290,7 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
 
         $('#settings-dialog .btn-primary').on('click', save);
         
-        new CustomizeTheme().init();
+        CustomizeTheme.init();
 	}
 
 	return {
