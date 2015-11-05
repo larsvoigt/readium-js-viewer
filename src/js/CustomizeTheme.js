@@ -8,7 +8,7 @@ define(['Settings', 'hgn!readium_js_viewer_html_templates/customize-theme-dialog
     CustomizeTheme.init = function () {
 
         deleteTemporaryCustomColor();
-
+        
         $('#app-container').append(CustomThemeDialog({strings: Strings}));
         $('#theme-radio-group').append($('#custom-theme-btn'));
 
@@ -97,6 +97,7 @@ define(['Settings', 'hgn!readium_js_viewer_html_templates/customize-theme-dialog
             setPreview({theme: selectedTheme});
         });
 
+        $('.colpick').css('z-index', '9999');
     };
 
     CustomizeTheme.save = function (readerSettings) {
