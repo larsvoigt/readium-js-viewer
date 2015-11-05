@@ -1,4 +1,4 @@
-define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.html', './ReaderSettingsDialog_Keyboard', 'i18nStrings', './Dialogs', 'Settings', './Keyboard'], function(moduleConfig, SettingsDialog, KeyboardSettings, Strings, Dialogs, Settings, Keyboard){
+define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.html', './ReaderSettingsDialog_Keyboard', 'i18nStrings', './Dialogs', 'Settings', './Keyboard', './CustomizeTheme'], function(moduleConfig, SettingsDialog, KeyboardSettings, Strings, Dialogs, Settings, Keyboard, CustomizeTheme){
 
 	var defaultSettings = {
         fontSize: 100,
@@ -6,7 +6,7 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
         scroll: "auto",
         columnGap: 60
     }
-
+    
     var getBookStyles = function(theme){
         var isAuthorTheme = theme === "author-theme";
     	var $previewText = $('.preview-text');
@@ -24,14 +24,14 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
         $previewText.addClass(newTheme);
         $previewText.attr('data-theme', newTheme);
     }
-
+    
     var updateReader = function(reader, readerSettings){
         reader.updateSettings(readerSettings); // triggers on pagination changed
 
         if (readerSettings.theme){
             //$("html").addClass("_" + readerSettings.theme);
             $("html").attr("data-theme", readerSettings.theme);
-
+            
             var bookStyles = getBookStyles(readerSettings.theme);
             reader.setBookStyles(bookStyles);
             $('#reading-area').css(bookStyles[0].declarations);
@@ -49,7 +49,7 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
         $slider.attr("title", label + " " + txt);
         $slider.attr("aria-label", label + " " + txt);
     };
-
+    
 	var initDialog = function(reader){
 		$('#app-container').append(SettingsDialog({imagePathPrefix: moduleConfig.imagePathPrefix, strings: Strings, dialogs: Dialogs, keyboard: Keyboard}));
 
@@ -58,7 +58,7 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
             var newTheme = $(this).attr('data-theme');
             setPreviewTheme($previewText, newTheme);
         });
-
+        
         var $marginSlider = $("#margin-size-input");
         $marginSlider.on("change",
         function() {
@@ -215,6 +215,9 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
             }
 
             readerSettings.theme = $previewText.attr('data-theme');
+            
+            CustomizeTheme.save(readerSettings);
+            
             if (reader){
                updateReader(reader, readerSettings);
 	        }
@@ -286,6 +289,8 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
         });
 
         $('#settings-dialog .btn-primary').on('click', save);
+        
+        CustomizeTheme.init();
 	}
 
 	return {

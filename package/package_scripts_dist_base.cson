@@ -23,6 +23,7 @@
             "src/css/full_text_search.css"
             "src/css/dzb.css"
             "src/css/a11y.css"
+            "node_modules/jquery-colpick/css/colpick.css"
     '
     
 #=====================

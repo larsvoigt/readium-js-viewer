@@ -437,6 +437,15 @@
             }
         }
     },
+    "i18n_custom_theme": {
+        "message": "Eigenes Farbschema"
+    },
+    "i18n_foreground_color_customize_theme": {
+        "message": "Vordergrund"
+    },
+    "i18n_background_color_customize_theme": {
+        "message": "Hintergrund"
+    },
 
     "a11y_select_book" : {
         "message" : "Zum Öffnen drücken Sie Bitte die Enter Taste "

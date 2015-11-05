@@ -63,6 +63,7 @@
     "requirejs-hogan-plugin": "latest",
     "remotestoragejs": "latest",
     "spin.js": "latest",
+    "jquery-colpick": "latest",
     "epub-full-text-search": "latest",
     "express": "latest",
     "body-parser": "latest",
