@@ -24,7 +24,8 @@ define([
 'readium_js/Readium',
 'readium_shared_js/helpers',
 './FullTextSearch',
-'hgn!readium_js_viewer_html_templates/navbar-footer.html'],
+'hgn!readium_js_viewer_html_templates/navbar-footer.html', 
+'./DZB'],
 
 function (
 globalSetup,
@@ -52,7 +53,8 @@ Versioning,
 Readium,
 Helpers,
 FullTextSearch,
-NavbarFooter){
+NavbarFooter,
+DZB){
 
     // initialised in initReadium()
     var readium = undefined;
@@ -130,6 +132,7 @@ NavbarFooter){
                 $("#right-page-btn").on("click", nextPage);
                 
                 new FullTextSearch(readium, options.metadata.title).init();
+                DZB.customizationsForTouchDevice();
             },
             openPageRequest
         );
