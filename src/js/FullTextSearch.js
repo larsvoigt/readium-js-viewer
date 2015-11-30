@@ -26,10 +26,10 @@ define(['./Dialogs',
 
         // todo: host should be configurable 
         //var host = window.location.protocol + '//' + window.location.hostname + ':8081';
-        //var host = 'http://localhost:8080';
-        var host = window.location.origin;
-        var spinner;
+        var host = 'http://localhost:8080';
+        //var host = window.location.origin;
         var readium;
+        var spinner;
         var epubTitle = "";
 
         var FullTextSearch = function (readiumRef, title) {
@@ -67,7 +67,7 @@ define(['./Dialogs',
                     newSearch = true;
                     event.stopPropagation();
                 });
-                
+
                 Keyboard.on(Keyboard.FullTextSearchForwards, 'reader', forwards);
                 Keyboard.on(Keyboard.FullTextSearchBackwards, 'reader', backwards);
 
@@ -281,22 +281,63 @@ define(['./Dialogs',
                             999999,// Math.floor((Math.random() * 1000000)),
                             "highlight", //"underline"
                             undefined  // styles
-                        )
-                            , 600
+                        ), 600
 
                         console.debug("hightlight of cfi: " + cfi + " ready");
-                        setTimeout(function () { 
-                        
-                        $('#start-99999').focus() }, 600);
+                        setTimeout(function () {
+
+
+                            var $epubContentIframe = $('#epubContentIframe');
+                            //$epubContentIframe[0].contentDocument.designMode = "on";
+                            var startMarker = $epubContentIframe.contents().find(".range-start-marker")[0];
+                            var range = document.createRange();
+
+
+                            $(startMarker.nextSibling).wrap('<span id="searchResult" tabindex="555" style="display:inline"></span>');
+                            var $searchResult = $epubContentIframe.contents().find("#searchResult");
+                            $searchResult.css("color","#1182ba");
+                            $searchResult.css("background-color","yellow");
+                            $searchResult.focus();
+
+                        }, 500);
                     });
 
-                  
+
                 } catch (e) {
 
                     console.error(e);
                 }
             }
 
+
+            function highlightRange(range) {
+                var newNode = document.createElement("div");
+                newNode.setAttribute("style", "background-color: yellow; display: inline;");
+                newNode.setAttribute("contenteditable", "true");
+                newNode.id = "searchResult";
+                range.surroundContents(newNode);
+                //newNode.onclick = function () {
+                //    alert("click");
+                //};
+                //
+                //newNode.click();
+                //newNode.focus();
+            }
+            
+            //function markieren (elem) {
+            //    if (document.selection && document.selection.createRange) {
+            //        var textRange = document.selection.createRange();
+            //        textRange.moveToElementText(elem);
+            //        textRange.select();
+            //    } else if (document.createRange && window.getSelection) {
+            //        var range = document.createRange();
+            //        range.selectNode(elem);
+            //        var selection = window.getSelection();
+            //        selection.removeAllRanges();
+            //        selection.addRange(range);
+            //    }
+            //}
+            
             function setNextCfi() {
 
                 // wrap around:

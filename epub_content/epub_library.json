@@ -1,5 +1,12 @@
 [
     {
+        "title": "Sprachpraxis",
+        "author": "Hufnagl, Gerhard u.a.",
+        "coverHref": "epub_content/Sprachpraxis_UT/EPUB/Cover.jpg",
+        "packagePath": "Sprachpraxis_UT/EPUB/content.opf",
+        "rootUrl": "epub_content/Sprachpraxis_UT/"
+    },
+    {
         "title" : "Accessible EPUB 3",
         "author" : "Matt Garrish",
         "coverHref" : "epub_content/accessible_epub_3/EPUB/covers/9781449328030_lrg.jpg",

@@ -21,6 +21,10 @@ a:focus,
     outline: #d32d11 solid 4px !important;
 }
 
+/*:active {*/
+    /*color: red;*/
+/*}*/
+
 .contentFocus {
     outline: #d32d11 solid 4px !important;
     outline-offset: 3px !important;
