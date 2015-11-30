@@ -73,3 +73,10 @@ body:not(.list-view) #app-container .library-item .info-wrap button {
 .navbar-right {
     float: right !important;
 }
+
+nav.landmarks ol li,
+nav.page-list  ol li {
+    float: left;
+    padding-right: 1em;
+    margin: 1em 0px 0px;
+}

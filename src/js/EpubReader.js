@@ -113,6 +113,8 @@ DZB){
                 currentPackageDocument = packageDocument;
                 currentPackageDocument.generateTocListDOM(function(dom){
                     loadToc(dom)
+                    DZB.loadNavLandmarks(dom);
+                    DZB.loadNavPageList(dom);
                 });
     
                 wasFixed = readium.reader.isCurrentViewFixedLayout();
@@ -137,7 +139,7 @@ DZB){
             openPageRequest
         );
     };
-
+    
     var spin = function(on)
     {
         if (on) {
@@ -314,6 +316,8 @@ DZB){
             $iframe.attr("aria-label", "EPUB");
 
             lastIframe = $iframe[0];
+            
+            //DZB.testCfiHighlighting(readium);
         });
 
         readium.reader.on(ReadiumSDK.Events.PAGINATION_CHANGED, function (pageChangeData)
@@ -844,7 +848,7 @@ DZB){
             readium.reader.addIFrameEventListener('keyup', function(e) {
                 Keyboard.dispatch(document.documentElement, e.originalEvent);
             });
-
+            
             readium.reader.addIFrameEventListener('focus', function(e) {
                 $('#reflowable-content-frame').addClass("contentFocus");
                 $(window).trigger("focus");
