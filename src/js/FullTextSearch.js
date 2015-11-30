@@ -321,7 +321,7 @@ define(['./Dialogs',
                 newNode.setAttribute("contenteditable", "true");
                 newNode.id = "searchResult";
                 range.surroundContents(newNode);
-            }
+            };
             
             function setNextCfi() {
 
