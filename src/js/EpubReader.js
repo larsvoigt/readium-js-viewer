@@ -318,6 +318,7 @@ DZB){
             lastIframe = $iframe[0];
             
             //DZB.testCfiHighlighting(readium);
+            DZB.ignoreHyperlinksOnTabbingOrder();
         });
 
         readium.reader.on(ReadiumSDK.Events.PAGINATION_CHANGED, function (pageChangeData)
@@ -818,6 +819,7 @@ DZB){
                     readium.reader.plugins.annotations.initialize({annotationCSSUrl: readerOptions.annotationCSSUrl});
                     
                     readium.reader.plugins.annotations.on("annotationClicked", function(type, idref, cfi, id) {
+                        alert(cfi);
         console.debug("ANNOTATION CLICK: " + id);
                         readium.reader.plugins.annotations.removeHighlight(id);
                     });

@@ -27,6 +27,15 @@ define([], function () {
         };
 
 
+        // The intention for this function that reflowable documents creates a 
+        // partial pagination offset when focus on hyperlinks
+        DZB.ignoreHyperlinksOnTabbingOrder = function () {
+
+            $('#epubContentIframe').contents().find("a").each(function() {
+                $(this).attr('tabindex', '-1');
+            });
+        };
+        
         DZB.testCfiHighlighting = function (readium) {
 
             setTimeout(function () {
@@ -49,10 +58,12 @@ define([], function () {
                     var range = document.createRange();
 
 
-                    $(startMarker.nextSibling).wrap('<span id="searchResult" tabindex="555" style="display:inline"></span>');
+                    $(startMarker.nextSibling).wrap('<span id="searchResult" tabindex="-1" style="display:inline"></span>');
                     var $searchResult = $epubContentIframe.contents().find("#searchResult");
-                    $searchResult.css("color", "#1182ba");
-                    $searchResult.css("background-color", "yellow");
+                    //$searchResult.css("color", "#1182ba");
+                    //$searchResult.css("background-color", "yellow");
+
+                    $searchResult.css("border", "1px dotted");
                     $searchResult.focus();
 
                     //range.setStart(startMarker.nextSibling , 0);
