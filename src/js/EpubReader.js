@@ -687,7 +687,24 @@ DZB){
             // captures all clicks on the document on the capture phase. Not sure if it's possible with jquery
             // so I'm using DOM api directly
             //document.addEventListener('click', hideLoop, true);
-    };
+
+        $('.icon-textSize').on('click', function () {
+
+            Settings.get('reader', function(json)
+            {
+                if (!json)
+                {
+                    json = {};
+                }
+
+                json.fontSize = json.fontSize === 100 ? 140 : 100;
+
+                Settings.put('reader', json);
+
+                readium.reader.updateSettings(json);
+            });
+        });
+    };  
 
     var setFitScreen = function(e){
         readium.reader.setZoom({style: 'fit-screen'});

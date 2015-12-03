@@ -455,5 +455,8 @@
     },
     "a11y_library" : {
         "message" : "Bibliothek Bitte navigieren Sie mit der Tab Taste"
+    },
+    "toogle_text_size": {
+        "message": "Schriftgröße ändern"
     }
 }

@@ -30,13 +30,3 @@ a:focus,
     outline-offset: 3px !important;
     /*box-shadow: 0px 0px 30px  #d32d11;*/
 }
-
-#readium-toc-body {
-    aria-hidden: true;
-}
-
-/* move the jquery accessible helper to offscreen area */ 
-.ui-helper-hidden-accessible {
-    position: absolute;
-    left: -9999px;
-}
