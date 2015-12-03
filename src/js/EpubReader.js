@@ -301,6 +301,7 @@ Helpers){
             //TODO not picked-up by all screen readers, so for now this short description will suffice
             $iframe.attr("title", "EPUB");
             $iframe.attr("aria-label", "EPUB");
+            $iframe.attr("tabindex", "6");
 
             lastIframe = $iframe[0];
         });
@@ -686,7 +687,7 @@ Helpers){
                     json = {};
                 }
 
-                json.fontSize = json.fontSize === 100 ? 140 : 100;
+                json.fontSize = json.fontSize === 100 ? 160 : 100;
 
                 Settings.put('reader', json);
 
