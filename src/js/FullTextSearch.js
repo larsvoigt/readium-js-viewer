@@ -49,14 +49,14 @@ define(['./Dialogs',
 
                 Keyboard.scope('reader');
 
-                //$("#searchbox").keydown(function (event) {
-                //
-                //    if (event.which === 13) { // enter key
-                //
-                //        $("#search-btn-next").trigger("click");
-                //    }
-                //    event.stopPropagation();
-                //});
+                $("#searchbox").keydown(function (event) {
+                
+                    if (event.which === 13) { // enter key
+                
+                        $("#search-btn-next").trigger("click");
+                    }
+                    event.stopPropagation();
+                });
 
                 $("#searchbox").keyup(function (event) {
 
@@ -67,7 +67,7 @@ define(['./Dialogs',
                     newSearch = true;
                     event.stopPropagation();
                 });
-                
+
                 Keyboard.on(Keyboard.FullTextSearchForwards, 'reader', forwards);
                 Keyboard.on(Keyboard.FullTextSearchBackwards, 'reader', backwards);
 
@@ -264,6 +264,15 @@ define(['./Dialogs',
                 }
 
                 try {
+
+                    var $epubContentIframe = $('#epubContentIframe');
+
+                    // delete old auxiliary element
+                    var $searchResult = $epubContentIframe.contents().find("#searchResult");
+                    //$searchResult;
+
+                    $searchResult.replaceWith($searchResult.text());
+                    
                     console.debug("try to hightlight: " + cfi);
 
                     var idref = getIdref(cfi);
@@ -283,22 +292,15 @@ define(['./Dialogs',
                             undefined  // styles
                         ), 600
 
-                    console.debug("hightlight of cfi: " + cfi + " ready");
+                        console.debug("hightlight of cfi: " + cfi + " ready");
                         setTimeout(function () {
 
-
-                            var $epubContentIframe = $('#epubContentIframe');
-                            
-                            // delete old auxiliary element
-                            var $searchResult = $epubContentIframe.contents().find("#searchResult");
-                            $searchResult.first().unwrap();
-                            
                             //$epubContentIframe[0].contentDocument.designMode = "on";
                             var startMarker = $epubContentIframe.contents().find(".range-start-marker")[0];
                             var range = document.createRange();
-
-
-                            $(startMarker.nextSibling).wrap('<span id="searchResult" tabindex="555" style="display:inline"></span>');
+                            
+                            
+                            $(startMarker.nextSibling).wrap('<span id="searchResult" tabindex="-1"></span>');
                             $searchResult = $epubContentIframe.contents().find("#searchResult");
                             //$searchResult.css("color","#1182ba");
                             //$searchResult.css("background-color","yellow");
@@ -322,7 +324,7 @@ define(['./Dialogs',
                 newNode.id = "searchResult";
                 range.surroundContents(newNode);
             };
-            
+
             function setNextCfi() {
 
                 // wrap around:

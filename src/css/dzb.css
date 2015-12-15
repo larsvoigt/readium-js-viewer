@@ -52,12 +52,10 @@ body:not(.list-view) #app-container .library-item .info-wrap button {
 
 .toc-visible #readium-toc-body {
     width: 100%;
-    aria-hidden: false;
 }
 
 .toc-visible #reading-area {
     left: 100%;
-    aria-hidden: true;
 }
 
 @media (max-width: 350px) {

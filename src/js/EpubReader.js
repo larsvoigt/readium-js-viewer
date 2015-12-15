@@ -196,9 +196,13 @@ DZB){
             $appContainer.removeClass('toc-visible');
 
             setTimeout(function(){ $('#tocButt')[0].focus(); }, 100);
+            $('#reading-area').attr('aria-hidden' , false);
+            $('#readium-toc-body').attr('aria-hidden' , true);
         }
         else{
             $appContainer.addClass('toc-visible');
+            $('#reading-area').attr('aria-hidden' , true);
+            $('#readium-toc-body').attr('aria-hidden' , false);
             Keyboard.scope('reader');
             $('#readium-toc-body a:first').focus();
   
@@ -315,11 +319,12 @@ DZB){
             $iframe.attr("title", "EPUB");
             $iframe.attr("aria-label", "EPUB");
             $iframe.attr("tabindex", "6");
+            $iframe.attr("aria-describedby" , "epubDisc");
 
             lastIframe = $iframe[0];
             
             //DZB.testCfiHighlighting(readium);
-            DZB.ignoreHyperlinksOnTabbingOrder();
+            DZB.ignoreHyperlinksAtTabbing();
         });
 
         readium.reader.on(ReadiumSDK.Events.PAGINATION_CHANGED, function (pageChangeData)
@@ -698,7 +703,7 @@ DZB){
                     json = {};
                 }
 
-                json.fontSize = json.fontSize === 100 ? 160 : 100;
+                json.fontSize = json.fontSize === 100 ? 220 : 100;
 
                 Settings.put('reader', json);
 
@@ -872,6 +877,8 @@ DZB){
             readium.reader.addIFrameEventListener('focus', function(e) {
                 $('#reflowable-content-frame').addClass("contentFocus");
                 $(window).trigger("focus");
+                // No jQuery:
+                //alert(document.activeElement);
             });
             
             readium.reader.addIFrameEventListener('blur', function(e) {

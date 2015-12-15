@@ -29,7 +29,7 @@ define([], function () {
 
         // The intention for this function that reflowable documents creates a 
         // partial pagination offset when focus on hyperlinks
-        DZB.ignoreHyperlinksOnTabbingOrder = function () {
+        DZB.ignoreHyperlinksAtTabbing = function () {
 
             $('#epubContentIframe').contents().find("a").each(function() {
                 $(this).attr('tabindex', '-1');
