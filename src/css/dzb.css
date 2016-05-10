@@ -55,7 +55,8 @@ body:not(.list-view) #app-container .library-item .info-wrap button {
 }
 
 .toc-visible #reading-area {
-    left: 100%;
+    opacity: 0;
+    /*left: 100%;*/
 }
 
 @media (max-width: 350px) {
