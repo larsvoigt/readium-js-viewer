@@ -1,18 +1,21 @@
 define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.html', './ReaderSettingsDialog_Keyboard', 'i18nStrings', './Dialogs', 'Settings', './Keyboard', './CustomizeTheme'], function(moduleConfig, SettingsDialog, KeyboardSettings, Strings, Dialogs, Settings, Keyboard, CustomizeTheme){
 
-	var defaultSettings = {
+    // change these values to affec the default state of the application's preferences at first-run.
+    var defaultSettings = {
         fontSize: 100,
         syntheticSpread: "auto",
         scroll: "auto",
-        columnGap: 60
+        columnGap: 60,
+        columnMaxWidth: 550,
+        columnMinWidth: 400
     }
-    
+
     var getBookStyles = function(theme){
         var isAuthorTheme = theme === "author-theme";
-    	var $previewText = $('.preview-text');
-    	setPreviewTheme($previewText, theme);
-    	var previewStyle = window.getComputedStyle($previewText[0]);
-    	var bookStyles = [{selector: 'body', declarations: {
+        var $previewText = $('.preview-text');
+        setPreviewTheme($previewText, theme);
+        var previewStyle = window.getComputedStyle($previewText[0]);
+        var bookStyles = [{selector: 'body', declarations: {
             backgroundColor: isAuthorTheme ? "" : previewStyle.backgroundColor,
             color: isAuthorTheme ? "" : previewStyle.color
         }}];
@@ -24,14 +27,14 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
         $previewText.addClass(newTheme);
         $previewText.attr('data-theme', newTheme);
     }
-    
+
     var updateReader = function(reader, readerSettings){
         reader.updateSettings(readerSettings); // triggers on pagination changed
 
         if (readerSettings.theme){
             //$("html").addClass("_" + readerSettings.theme);
             $("html").attr("data-theme", readerSettings.theme);
-            
+
             var bookStyles = getBookStyles(readerSettings.theme);
             reader.setBookStyles(bookStyles);
             $('#reading-area').css(bookStyles[0].declarations);
@@ -50,15 +53,15 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
         $slider.attr("aria-label", label + " " + txt);
     };
     
-	var initDialog = function(reader){
-		$('#app-container').append(SettingsDialog({imagePathPrefix: moduleConfig.imagePathPrefix, strings: Strings, dialogs: Dialogs, keyboard: Keyboard}));
+    var initDialog = function(reader){
+        $('#app-container').append(SettingsDialog({imagePathPrefix: moduleConfig.imagePathPrefix, strings: Strings, dialogs: Dialogs, keyboard: Keyboard}));
 
-		$previewText = $('.preview-text');
+        $previewText = $('.preview-text');
         $('.theme-option').on('click', function(){
             var newTheme = $(this).attr('data-theme');
             setPreviewTheme($previewText, newTheme);
         });
-        
+
         var $marginSlider = $("#margin-size-input");
         $marginSlider.on("change",
         function() {
@@ -67,6 +70,20 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
             updateSliderLabels($marginSlider, val, val + "px", Strings.i18n_margins);
         }
         );
+        
+        var $columnMaxWidthSlider = $("#column-max-width-input");
+        $columnMaxWidthSlider.on("change",
+        function() {
+            var val = $columnMaxWidthSlider.val();
+            
+            var maxVal = Number($columnMaxWidthSlider.attr("max"));
+
+            var columnMaxWidth_text = (val >= maxVal) ? Strings.i18n_pageMaxWidth_Disabled : (val + "px");
+            
+            updateSliderLabels($columnMaxWidthSlider, val, columnMaxWidth_text, Strings.i18n_pageMaxWidth);
+        }
+        );
+        
 
         var $fontSizeSlider = $("#font-size-input");
         $fontSizeSlider.on('change', function(){
@@ -126,9 +143,20 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
                 $fontSizeSlider.val(readerSettings.fontSize);
                 updateSliderLabels($fontSizeSlider, readerSettings.fontSize, readerSettings.fontSize + '%', Strings.i18n_font_size);
 
-
+                // reset column gap top default, as page width control is now used (see readerSettings.columnMaxWidth) 
+                readerSettings.columnGap = defaultSettings.columnGap;
+                //
                 $marginSlider.val(readerSettings.columnGap);
                 updateSliderLabels($marginSlider, readerSettings.columnGap, readerSettings.columnGap + "px", Strings.i18n_margins);
+
+                var maxVal = Number($columnMaxWidthSlider.attr("max"));
+                
+                var columnMaxWidth = readerSettings.columnMaxWidth;
+                if (columnMaxWidth >= maxVal) columnMaxWidth = maxVal;
+                
+                var columnMaxWidth_text = (columnMaxWidth >= maxVal) ? Strings.i18n_pageMaxWidth_Disabled : (columnMaxWidth + "px");
+                $columnMaxWidthSlider.val(columnMaxWidth);
+                updateSliderLabels($columnMaxWidthSlider, columnMaxWidth, columnMaxWidth_text, Strings.i18n_pageMaxWidth);
 
                 if (readerSettings.syntheticSpread == "double"){
                     $('#two-up-option input').prop('checked', true);
@@ -181,10 +209,15 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
 
         var save = function(){
 
+            var maxVal = Number($columnMaxWidthSlider.attr("max"));
+            var columnMaxWidth = Number($columnMaxWidthSlider.val());
+            if (columnMaxWidth >= maxVal) columnMaxWidth = 99999; // really big pixel distance
+                
             var readerSettings = {
                 fontSize: Number($fontSizeSlider.val()),
                 syntheticSpread: "auto",
                 columnGap: Number($marginSlider.val()),
+                columnMaxWidth: columnMaxWidth,
                 scroll: "auto"
             };
 
@@ -220,7 +253,7 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
             
             if (reader){
                updateReader(reader, readerSettings);
-	        }
+            }
 
 
             var keys = KeyboardSettings.saveKeys();
@@ -293,9 +326,9 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
         CustomizeTheme.init();
 	}
 
-	return {
-		initDialog : initDialog,
-		updateReader : updateReader,
-		defaultSettings : defaultSettings
-	}
+    return {
+        initDialog : initDialog,
+        updateReader : updateReader,
+        defaultSettings : defaultSettings
+    }
 });
