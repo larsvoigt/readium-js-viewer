@@ -968,7 +968,6 @@ DZB){
                 readium.reader.updateSettings(json);
             });
         });
-    };  
 
     var setFitScreen = function(e){
         readium.reader.setZoom({style: 'fit-screen'});
