@@ -48,5 +48,12 @@
         "title" : "packed EPUB",
         "author" : "Readium",
         "rootUrl" : "epub_content/internal_link.epub"
+    },
+    {
+        "title" : "Moby Dick with Media Overlays",
+        "author" : "Herman Melville",
+        "coverHref" : "epub_content/moby_dick/OPS/images/9780316000000.jpg",
+
+        "rootUrl" : "epub_content/moby_dick_with"
     }
 ]
