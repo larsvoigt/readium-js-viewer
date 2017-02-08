@@ -60,6 +60,11 @@ var getURLQueryParams = function() {
 
 var urlParams = getURLQueryParams();
 
+var fontsArray = [];
+if (typeof getFontFaces != "undefined") { // defined externally
+    fontsArray = getFontFaces(HTTPServerRootFolder + "/src/fonts/");
+}
+
 // MUST BE *SINGLE* CALL TO require.config() FOR ALMOND (SINGLE BUNDLE) TO WORK CORRECTLY!!!
 require.config({
     /* http://requirejs.org/docs/api.html#config-waitSeconds */
@@ -71,18 +76,18 @@ require.config({
 
             'mathJaxUrl': HTTPServerRootFolder + '/node_modules/mathjax-single-file/dist/MMLSVG/MathJax.js',
 
-//          'annotationCSSUrl': HTTPServerRootFolder + '/src/css/annotations.css',
-            'annotationCSSUrl': HTTPServerRootFolder + '/readium-js-viewer/src/css/annotations.css',
+            'fonts': fontsArray,
+
+            'annotationCSSUrl': HTTPServerRootFolder + '/src/css/annotations.css',
 
             'jsLibRoot': HTTPServerRootFolder + '/readium-js/node_modules/zip-js/WebContent/',
             //'jsLibRoot': HTTPServerRootFolder + '/build-output/',
 
             'useSimpleLoader' : false, // cloud reader (strictly-speaking, this config option is false by default, but we prefer to have it explicitly set here).
 
-            'epubLibraryPath': "../epub_content/epub_library.json",
-            //'epubLibraryPath': urlParams['epubs'] ? urlParams['epubs'] : EPUB_LIB_JSON,
+            'epubLibraryPath': urlParams['epubs'] ? urlParams['epubs'] : EPUB_LIB_JSON,
 
-            'imagePathPrefix': '/readium-js-viewer/src/',
+            'imagePathPrefix': '/src/',
 
             'canHandleUrl' : false,
             'canHandleDirectory' : false,
