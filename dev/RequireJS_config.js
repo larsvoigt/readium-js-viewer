@@ -60,6 +60,11 @@ var getURLQueryParams = function() {
 
 var urlParams = getURLQueryParams();
 
+var fontsArray = [];
+if (typeof getFontFaces != "undefined") { // defined externally
+    fontsArray = getFontFaces(HTTPServerRootFolder + "/src/fonts/");
+}
+
 // MUST BE *SINGLE* CALL TO require.config() FOR ALMOND (SINGLE BUNDLE) TO WORK CORRECTLY!!!
 require.config({
     /* http://requirejs.org/docs/api.html#config-waitSeconds */
@@ -71,7 +76,8 @@ require.config({
 
             'mathJaxUrl': HTTPServerRootFolder + '/node_modules/mathjax-single-file/dist/MMLSVG/MathJax.js',
 
-//          'annotationCSSUrl': HTTPServerRootFolder + '/src/css/annotations.css',
+            'fonts': fontsArray,
+
             'annotationCSSUrl': HTTPServerRootFolder + '/src/css/annotations.css',
 
             'jsLibRoot': HTTPServerRootFolder + '/readium-js/node_modules/zip-js/WebContent/',

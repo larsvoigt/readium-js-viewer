@@ -42,7 +42,7 @@
 
 name: "readium-js-viewer"
 
-version: "0.23.0"
+version: "0.26.0-alpha"
 
 engines:
     node: ">=0.12"
@@ -101,7 +101,11 @@ files: [
 #####################################################################
 dependencies:
 
-    "parallelshell": 'latest'
+    #"parallelshell": 'latest'
+    "concurrently": 'latest'
+
+    "npm-run-all": 'latest'
+
 
     "opener": 'latest'
 
@@ -133,7 +137,7 @@ devDependencies:
 
     "bootstrap": '3.x'
 
-    "bootstrap-accessibility-plugin": 'latest'
+    "bootstrap-accessibility-plugin": 'paypal/bootstrap-accessibility-plugin'
 
     "hammerjs": 'latest'
 
@@ -173,7 +177,10 @@ devDependencies:
     # versionsMaker.js
     "gift": 'latest'
 
-    "clean-css": 'latest'
+    # Automatically included with the CLI
+    # "clean-css": 'latest'
+    "clean-css-cli": 'latest'
+    
     "uglify-js": 'latest'
 
     #"nodeunit": 'latest'
