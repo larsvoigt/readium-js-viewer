@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" prefix="dc: http://purl.org/dc/elements/1.1/"
+                unique-identifier="d194673e35" version="3.0">
+                <metadata>
+                                <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                xmlns:f="http://www.daisy.org/ns/pipeline/internal-functions"
+                                                xmlns:d="http://www.daisy.org/ns/pipeline/data"
+                                                id="d193121e17">Sprachpraxis UT</dc:title>
+                                <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                xmlns:f="http://www.daisy.org/ns/pipeline/internal-functions"
+                                                xmlns:d="http://www.daisy.org/ns/pipeline/data"
+                                                id="d193121e17b">Hufnagl, Spengler, Steudle</dc:creator>
+                                <meta xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                xmlns:f="http://www.daisy.org/ns/pipeline/internal-functions"
+                                                xmlns:d="http://www.daisy.org/ns/pipeline/data"
+                                                property="title-type" refines="#d193121e17"
+                                                >main</meta>
+                                <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                id="d194673e35"
+                                                >706101ba-e3c1-4e10-8d16-2955bab2458c</dc:identifier>
+                                <dc:language xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                xmlns:f="http://www.daisy.org/ns/pipeline/internal-functions"
+                                                xmlns:d="http://www.daisy.org/ns/pipeline/data"
+                                                >de</dc:language>
+                                <meta property="dcterms:modified">2015-05-05T14:58:14Z</meta>
+                                <meta xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                xmlns:f="http://www.daisy.org/ns/pipeline/internal-functions"
+                                                xmlns:d="http://www.daisy.org/ns/pipeline/data"
+                                                property="dc:date">2015-05-05T14:58:05+00:00</meta>
+                                <meta xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                xmlns:f="http://www.daisy.org/ns/pipeline/internal-functions"
+                                                xmlns:d="http://www.daisy.org/ns/pipeline/data"
+                                                property="dcterms:title">Sprachpraxis</meta>
+                                <meta xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                xmlns:f="http://www.daisy.org/ns/pipeline/internal-functions"
+                                                xmlns:d="http://www.daisy.org/ns/pipeline/data"
+                                                property="dcterms:creator">Hufnagl, Gerhard
+                                                u.a.</meta>
+                                <meta xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                xmlns:f="http://www.daisy.org/ns/pipeline/internal-functions"
+                                                xmlns:d="http://www.daisy.org/ns/pipeline/data"
+                                                property="dcterms:publisher">SBS Schweizerische
+                                                Bibliothek für Blinde, Seh- und
+                                                Lesebehinderte</meta>
+                                <meta xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                xmlns:f="http://www.daisy.org/ns/pipeline/internal-functions"
+                                                xmlns:d="http://www.daisy.org/ns/pipeline/data"
+                                                property="dcterms:date">2014-05-12</meta>
+                                <meta xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                xmlns:f="http://www.daisy.org/ns/pipeline/internal-functions"
+                                                xmlns:d="http://www.daisy.org/ns/pipeline/data"
+                                                property="dcterms:type">Text</meta>
+                                <meta xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                xmlns:f="http://www.daisy.org/ns/pipeline/internal-functions"
+                                                xmlns:d="http://www.daisy.org/ns/pipeline/data"
+                                                property="dcterms:format">ANSI/NISO
+                                                Z39.86-2005</meta>
+                                <meta xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                xmlns:f="http://www.daisy.org/ns/pipeline/internal-functions"
+                                                xmlns:d="http://www.daisy.org/ns/pipeline/data"
+                                                property="dcterms:source">978-3-8242-0357-4</meta>
+                                <meta xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                xmlns:f="http://www.daisy.org/ns/pipeline/internal-functions"
+                                                xmlns:d="http://www.daisy.org/ns/pipeline/data"
+                                                property="dcterms:language">de</meta>
+                                <link xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                xmlns:f="http://www.daisy.org/ns/pipeline/internal-functions"
+                                                xmlns:d="http://www.daisy.org/ns/pipeline/data"
+                                                rel="mods-record" href="zedai-mods.xml"/>
+                </metadata>
+                <manifest>
+                                <item id="cover" href="Cover.jpg" media-type="image/jpeg"
+                                                properties="cover-image"/>
+                                <item id="idstylesheet_css" href="stylesheet.css" media-type="text/css"/>
+                                <item id="item_1" media-type="image/jpeg"
+                                                href="Sprachpraxis-001.jpg"/>
+                                <item id="item_2" media-type="image/jpeg"
+                                                href="Sprachpraxis-002.jpg"/>
+                                <item id="item_3" media-type="image/jpeg"
+                                                href="Sprachpraxis-003.jpg"/>
+                                <item id="item_4" media-type="image/jpeg"
+                                                href="Sprachpraxis-004.jpg"/>
+                                <item id="item_5" media-type="image/jpeg"
+                                                href="Sprachpraxis-005.jpg"/>
+                                <item id="item_6" media-type="image/jpeg"
+                                                href="Sprachpraxis-006.jpg"/>
+                                <item id="item_7" media-type="image/jpeg"
+                                                href="Sprachpraxis-007.jpg"/>
+                                <item id="item_8" media-type="image/jpeg"
+                                                href="Sprachpraxis-008.jpg"/>
+                                <item id="item_9" media-type="image/jpeg"
+                                                href="Sprachpraxis-009.jpg"/>
+                                <item id="item_10" media-type="image/jpeg"
+                                                href="Sprachpraxis-010.jpg"/>
+                                <item id="item_11" media-type="image/jpeg"
+                                                href="Sprachpraxis-011.jpg"/>
+                                <item id="item_12" media-type="image/jpeg"
+                                                href="Sprachpraxis-012.jpg"/>
+                                <item id="item_13" media-type="image/jpeg"
+                                                href="Sprachpraxis-013.jpg"/>
+                                <item id="item_14" media-type="image/jpeg"
+                                                href="Sprachpraxis-014.jpg"/>
+                                <item id="item_15" media-type="image/jpeg"
+                                                href="Sprachpraxis-015.jpg"/>
+                                <item id="item_16" media-type="image/jpeg"
+                                                href="Sprachpraxis-016.jpg"/>
+                                <item id="item_17" media-type="image/jpeg"
+                                                href="Sprachpraxis-017.jpg"/>
+                                <item id="item_18" media-type="image/jpeg"
+                                                href="Sprachpraxis-018.jpg"/>
+                                <item id="item_19" media-type="image/jpeg"
+                                                href="Sprachpraxis-019.jpg"/>
+                                <item id="item_20" media-type="image/jpeg"
+                                                href="Sprachpraxis-020.jpg"/>
+                                <item id="item_21" media-type="image/jpeg"
+                                                href="Sprachpraxis-021.jpg"/>
+                                <item id="item_22" media-type="image/jpeg"
+                                                href="Sprachpraxis-022.jpg"/>
+                                <item id="item_23" media-type="image/jpeg"
+                                                href="Sprachpraxis-023.jpg"/>
+                                <item id="item_24" media-type="image/jpeg"
+                                                href="Sprachpraxis-024.jpg"/>
+                                <item id="item_25" media-type="image/jpeg"
+                                                href="Sprachpraxis-025.jpg"/>
+                                <item id="item_26" media-type="image/jpeg"
+                                                href="Sprachpraxis-026.jpg"/>
+                                <item id="item_27" media-type="image/jpeg"
+                                                href="Sprachpraxis-027.jpg"/>
+                                <item id="item_28" media-type="image/jpeg"
+                                                href="Sprachpraxis-028.jpg"/>
+                                <item id="item_29" media-type="image/jpeg"
+                                                href="Sprachpraxis-029.jpg"/>
+                                <item id="item_30" media-type="image/jpeg"
+                                                href="Sprachpraxis-030.jpg"/>
+                                <item id="item_31" media-type="image/jpeg"
+                                                href="Sprachpraxis-031.jpg"/>
+                                <item id="item_32" media-type="image/jpeg"
+                                                href="Sprachpraxis-032.jpg"/>
+                                <item id="item_33" media-type="image/jpeg"
+                                                href="Sprachpraxis-033.jpg"/>
+                                <item id="item_34" media-type="image/jpeg"
+                                                href="Sprachpraxis-034.jpg"/>
+                                <item id="item_35" media-type="image/jpeg"
+                                                href="Sprachpraxis-035.jpg"/>
+                                <item id="item_36" media-type="image/jpeg"
+                                                href="Sprachpraxis-036.jpg"/>
+                                <item id="item_37" media-type="image/jpeg"
+                                                href="Sprachpraxis-037.jpg"/>
+                                <item id="item_38" media-type="image/jpeg"
+                                                href="Sprachpraxis-038.jpg"/>
+                                <item id="item_39" media-type="image/jpeg"
+                                                href="Sprachpraxis-039.jpg"/>
+                                <item id="item_40" media-type="image/jpeg"
+                                                href="Sprachpraxis-040.jpg"/>
+                                <item id="item_41" media-type="image/jpeg"
+                                                href="Sprachpraxis-041.jpg"/>
+                                <item id="item_42" media-type="image/jpeg"
+                                                href="Sprachpraxis-042.jpg"/>
+                                <item id="item_43" media-type="image/jpeg"
+                                                href="Sprachpraxis-043.jpg"/>
+                                <item id="item_44" media-type="image/jpeg"
+                                                href="Sprachpraxis-044.jpg"/>
+                                <item id="item_45" media-type="image/jpeg"
+                                                href="Sprachpraxis-045.jpg"/>
+                                <item id="item_46" media-type="image/jpeg"
+                                                href="Sprachpraxis-046.jpg"/>
+                                <item id="item_47" media-type="image/jpeg"
+                                                href="Sprachpraxis-047.jpg"/>
+                                <item id="item_48" media-type="image/jpeg"
+                                                href="Sprachpraxis-048.jpg"/>
+                                <item id="item_49" media-type="image/jpeg"
+                                                href="Sprachpraxis-049.jpg"/>
+                                <item id="item_50" media-type="image/jpeg"
+                                                href="Sprachpraxis-050.jpg"/>
+                                <item id="item_51" media-type="image/jpeg"
+                                                href="Sprachpraxis-051.jpg"/>
+                                <item id="item_52" media-type="image/jpeg"
+                                                href="Sprachpraxis-052.jpg"/>
+                                <item id="item_53" media-type="image/jpeg"
+                                                href="Sprachpraxis-053.jpg"/>
+                                <item id="item_54" media-type="image/jpeg"
+                                                href="Sprachpraxis-054.jpg"/>
+                                <item id="item_55" media-type="image/jpeg"
+                                                href="Sprachpraxis-055.jpg"/>
+                                <item id="item_56" media-type="image/jpeg"
+                                                href="Sprachpraxis-056.jpg"/>
+                                <item id="item_57" media-type="image/jpeg"
+                                                href="Sprachpraxis-057.jpg"/>
+                                <item id="item_58" media-type="image/jpeg"
+                                                href="Sprachpraxis-058.jpg"/>
+                                <item id="item_59" media-type="image/jpeg"
+                                                href="Sprachpraxis-059.jpg"/>
+                                <item id="item_60" media-type="image/jpeg"
+                                                href="Sprachpraxis-060.jpg"/>
+                                <item id="item_61" media-type="image/jpeg"
+                                                href="Sprachpraxis-061.jpg"/>
+                                <item id="item_62" media-type="image/jpeg"
+                                                href="Sprachpraxis-062.jpg"/>
+                                <item id="item_63" media-type="image/jpeg"
+                                                href="Sprachpraxis-063.jpg"/>
+                                <item id="item_64" media-type="image/jpeg"
+                                                href="Sprachpraxis-064.jpg"/>
+                                <item id="item_65" media-type="image/jpeg"
+                                                href="Sprachpraxis-065.jpg"/>
+                                <item id="item_66" media-type="image/jpeg"
+                                                href="Sprachpraxis-066.jpg"/>
+                                <item id="item_67" media-type="image/jpeg"
+                                                href="Sprachpraxis-067.jpg"/>
+                                <item id="item_68" media-type="image/jpeg"
+                                                href="Sprachpraxis-068.jpg"/>
+                                <item id="item_69" media-type="image/jpeg"
+                                                href="Sprachpraxis-069.jpg"/>
+                                <item id="item_70" media-type="image/jpeg"
+                                                href="Sprachpraxis-070.jpg"/>
+                                <item id="item_71" media-type="image/jpeg"
+                                                href="Sprachpraxis-071.jpg"/>
+                                <item id="item_72" media-type="image/jpeg"
+                                                href="Sprachpraxis-072.jpg"/>
+                                <item id="item_73" media-type="image/jpeg"
+                                                href="Sprachpraxis-073.jpg"/>
+                                <item id="item_74" media-type="image/jpeg"
+                                                href="Sprachpraxis-074.jpg"/>
+                                <item id="item_75" media-type="image/jpeg"
+                                                href="Sprachpraxis-075.jpg"/>
+                                <item id="item_76" media-type="image/jpeg"
+                                                href="Sprachpraxis-076.jpg"/>
+                                <item media-type="application/xhtml+xml" id="item_77"
+                                                href="SprachpraxisUT-1.xhtml"/>
+                                <item media-type="application/xhtml+xml" id="item_78"
+                                                href="SprachpraxisUT-2.xhtml"/>
+                                <item media-type="application/xhtml+xml" id="item_79"
+                                                href="SprachpraxisUT-3.xhtml"/>
+                                <item media-type="application/xhtml+xml" id="item_80"
+                                                href="SprachpraxisUT-4.xhtml"/>
+                                <item properties="nav" media-type="application/xhtml+xml"
+                                                id="item_81" href="toc.xhtml"/>
+                </manifest>
+                <spine>
+                                <itemref idref="item_77" id="itemref_1"/>
+                                <itemref idref="item_78" id="itemref_2"/>
+                                <itemref idref="item_79" id="itemref_3"/>
+                                <itemref idref="item_80" id="itemref_4"/>
+                                <itemref idref="item_81" id="itemref_5"/>
+                </spine>
+</package>

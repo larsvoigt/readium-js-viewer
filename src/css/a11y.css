@@ -21,12 +21,6 @@ a:focus,
     outline: #d32d11 solid 4px !important;
 }
 
-/*:active {*/
-    /*color: red;*/
-/*}*/
-
-.contentFocus {
-    outline: #d32d11 solid 4px !important;
-    outline-offset: 3px !important;
-    /*box-shadow: 0px 0px 30px  #d32d11;*/
+.focus-on-content {
+    border: 3px solid #ee0013;
 }

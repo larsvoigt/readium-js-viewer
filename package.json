@@ -45,9 +45,10 @@
     "README.md"
   ],
   "dependencies": {
-    "parallelshell": "latest",
+    "http-server": "danielweck/http-server",
+    "jquery-colpick": "^3.1.0",
     "opener": "latest",
-    "http-server": "danielweck/http-server"
+    "parallelshell": "latest"
   },
   "devDependencies": {
     "keymaster": "danielweck/keymaster",
@@ -64,13 +65,12 @@
     "remotestoragejs": "latest",
     "spin.js": "latest",
     "jquery-colpick": "latest",
-    "epub-full-text-search": "latest",
     "express": "latest",
     "body-parser": "latest",
     "ncp": "latest",
     "jquery-ui": "jquery/jquery-ui#1-11-stable",
     "gift": "latest",
-    "clean-css": "latest",
+    "clean-css": "3.4.24",
     "uglify-js": "latest",
     "mocha": "latest",
     "wd": "latest",

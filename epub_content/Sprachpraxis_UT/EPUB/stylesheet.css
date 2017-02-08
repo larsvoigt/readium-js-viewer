@@ -1,0 +1,153 @@
+
+body{
+    line-height:1.3;
+    padding:0;
+    margin-left:5%;
+    margin-right:5%;
+    font-size:95%;
+    font-family:arial, helvetica, sans-serif;
+}
+
+h1{
+    text-indent:0;
+    font-size:2em;
+    font-weight:bold;
+    color:blue;
+    page-break-after:avoid;
+}
+h2{
+    text-indent:0;
+    font-size:1.5em;
+    font-weight:bold;
+    page-break-after:avoid;
+    margin:0;
+
+}
+
+p{
+    margin-bottom:0;
+    margin-top:1em;
+    text-align:left;
+    line-height:150%;
+}
+
+.toc{
+    list-style:none;
+    margin:1em;
+    padding:0;
+}
+
+.tocol{
+
+    margin:1em;
+    padding:0;
+    color:red;
+}
+
+
+li{
+    margin-top:1em;
+    list-style-position:inside;
+}
+
+
+/*---FONTS------------------------------------------------------------------*/
+
+/*@font-face { font-family:LinLibertine; src:url(fonts/LinLibertine_Re-4.1.8.otf); }
+@font-face { font-family:LinLibertine; src:url(fonts/LinLibertine_Bd-4.0.2.otf); font-weight:bold; }
+@font-face { font-family:LinLibertine; src:url(fonts/LinLibertine_It-4.0.3.otf); font-style:italic, oblique; }
+@font-face { font-family:LinLibertine; src:url(fonts/LinLibertine_BI-4.0.3.otf); font-weight:bold; font-style:italic, oblique; }
+@font-face { font-family:LinLibertineCaps; src:url(fonts/LinLibertineC_Re-4.0.1.otf); }
+
+body { 
+  line-height:1.3; 
+  background-color:#fff; 
+  padding:0; 
+  margin-left:5%;
+  margin-right:5%; 
+  font-size:95%;
+  font-family:arial, helvetica, sans-serif; 
+}
+
+img { max-width:100%; } 
+
+a { text-decoration:none; }
+
+p { 
+  text-indent:1em;
+  margin-bottom:0;
+  margin-top:1em;
+  text-align:left;
+ }
+
+sup { font-size:0.75em; line-height:0.5em; }
+
+ul { margin:1em 0 0 0.5em; }
+li { margin-top:1em; }
+
+p.top { margin-top:1em; }
+p.noindent-h1 { text-indent:0; margin-top:2em; }
+p.noindent-h2 { text-indent:0; margin-top:1.25em; }
+p.noindent-top { text-indent:0; margin-top:1em; }
+p.noindent { text-indent:0; margin-top:0; }
+span.initial { font-size:2em; line-height:0.5em; }
+p.edit-right { text-align:right; margin-top:1em; }
+p.chap-autor { text-align:left; font-size:1.2em; text-indent:0; margin-top:0; }
+
+p.essay { text-indent:0; color:#bebebe; font-size:2em; margin:0; padding:0; }
+
+div.autor-info { margin-top:1em; }
+p.autor-info { text-indent:0; }
+
+span.Spitzmarke { background-color:#f1c8d2; }
+span.fn-marke { color:#d11bbc; font-weight: bold; font-family: sans-serif;}
+
+
+
+
+a.footnote-anchor { float:left; width:2em; margin-left:-2em; }
+p.footnote { padding-left:2em; text-indent:0em; clear:left; margin-top:0.25em; font-size:0.9em; text-align:left; }
+p.footnote-h2 { padding-left:2em; text-indent:0em; clear:left; margin-top:1.25em; font-size:0.9em; text-align:left; }
+
+div.toc-chap { page-break-inside:avoid; }
+p.toc-autor { text-indent:0; text-align:left; color:#d11bbc; margin-top:1em; }
+p.toc-titel { text-indent:0; text-align:left; font-size:1.2em; font-weight: bold; margin-top:0em; }
+p.toc-zusammenfassung { text-indent:0; text-align:left; margin-top:0em; }
+
+p.zitat { text-indent:0; margin-top:1em; }
+
+div.image, div.table { width:100%; text-align:left; margin-top:1em; page-break-inside:avoid; }
+p.caption, p.tab-caption  { text-indent:0; text-align:left; font-weight: bold; margin-bottom: 0.5em; page-break-after:avoid; margin-top:0; }
+p.images-footnote, p.table-footnote { text-indent:0; text-align:left; line-height: 0.95em; margin-top:0; }
+
+table { border-collapse:collapse; margin-bottom: 0.5em; width:100%; }
+
+td { vertical-align:top; padding:0 0.4em; }
+
+td p { text-indent:0; margin:0;  word-wrap:break-word; }
+p.kopf-center { text-indent:0; margin:0; text-align:center; }
+p.left { text-indent:0; margin:0; text-align:left; }
+p.center { text-indent:0; margin:0; text-align:center; }
+
+td.kopf-left { text-align:left; background-color:#e69fb2; padding-left:0.25em; }
+td.kopf-center { text-align:center; background-color:#e69fb2; padding:0 0.4em; }
+td.left { text-align:left; background-color:#faedf0; padding-left:0.25em; }
+td.left2 { text-align:left; background-color:#f1c8d2; padding-left:0.25em; }
+td.center { text-align:center; background-color:#faedf0; padding:0 0.4em; }
+
+p.impress { text-indent:0; font-size:0.9em; text-align:left; margin-top:0; }
+p.impress-sansserif { text-indent:0; font-size:0.9em; text-align:left; font-family:sans-serif; margin-top:1em; font-weight:bold; }
+p.impress-top { text-indent:0; font-size:0.9em; text-align:left; margin-top:1em; }
+p.impress-top2 { text-indent:0; font-size:0.9em; text-align:left; margin-top:2em; }
+p.impress-top5 { text-indent:0; font-size:0.9em; text-align:left; margin-top:.5em; }
+
+span.grau1 { font-family:sans-serif; font-weight:bold; }
+span.grau2 { font-family:sans-serif; font-weight:bold; }
+span.farbig { color:#d11bbc; }
+span.farbig a { color:#d11bbc; }
+
+/* ---------- Dialoge/Zitate -------------------- */
+/*
+div.top { margin-top:1em; }
+p.margin-left-top { margin-left:1em; text-indent:0; margin-top:1em; }
+p.margin-left { margin-left:1em; text-indent:0; }*/

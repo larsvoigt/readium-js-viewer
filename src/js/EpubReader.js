@@ -250,6 +250,7 @@ DZB){
     
                 new FullTextSearch(readium, options.metadata.title).init();
                 DZB.customizationsForTouchDevice();
+                DZB.setIFrameListener(readium);
             },
             openPageRequest
         );
@@ -1181,18 +1182,7 @@ DZB){
             readium.reader.addIFrameEventListener('keyup', function(e) {
                 Keyboard.dispatch(document.documentElement, e.originalEvent);
             });
-            
-            readium.reader.addIFrameEventListener('focus', function(e) {
-                $('#reflowable-content-frame').addClass("contentFocus");
-                $(window).trigger("focus");
-                // No jQuery:
-                //alert(document.activeElement);
-            });
-            
-            readium.reader.addIFrameEventListener('blur', function(e) {
-                $('#reflowable-content-frame').removeClass("contentFocus");
-            });
-
+          
             SettingsDialog.initDialog(readium.reader);
 
             $('#settings-dialog').on('hidden.bs.modal', function () {
@@ -1228,8 +1218,12 @@ DZB){
             if (settings.reader){
                 readerSettings = JSON.parse(settings.reader);
             }
+
+            DZB.forceScrollContinuousAsDefault(SettingsDialog.defaultSettings);
+            
             if (!embedded){
                 readerSettings = readerSettings || SettingsDialog.defaultSettings;
+                
                 SettingsDialog.updateReader(readium.reader, readerSettings);
             }
             else{

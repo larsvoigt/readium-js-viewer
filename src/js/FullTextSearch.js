@@ -27,9 +27,9 @@ define(['./Dialogs',
 
 
         // todo: host should be configurable 
-        //var host = window.location.protocol + '//' + window.location.hostname + ':8081';
+        var host = 'http://' + window.location.hostname + ':8085';
         //var host = 'http://localhost:8080';
-        var host = window.location.origin;
+        // var host = window.location.origin;
         var readium;
         var spinner;
         var epubTitle = "";

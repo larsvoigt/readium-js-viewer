@@ -1,13 +1,29 @@
 define([], function () {
 
         var DZB = {};
-        
+
         const EPUB_TYPE_PAGE_LIST = 'page-list';
         const EPUB_TYPE_LANDMARKS = 'landmarks';
 
         //$(window).on('readepub', eventHandler);
         //$(window).on('loadlibrary', eventHandler);
 
+
+        DZB.setIFrameListener = function (readium) {
+
+            readium.reader.addIFrameEventListener('focus', function (e) {
+                $('iframe').addClass("focus-on-content");
+            });
+
+            readium.reader.addIFrameEventListener('blur', function (e) {
+                $('iframe').removeClass("focus-on-content");
+            });
+        };
+
+        DZB.forceScrollContinuousAsDefault = function (readerSettings) {
+
+            readerSettings.scroll = "scroll-continuous";
+        };
 
         DZB.customizationsForTouchDevice = function () {
 
@@ -17,7 +33,7 @@ define([], function () {
         };
 
         DZB.loadNavPageList = function (dom) {
-         
+
             loadNavElement(dom, EPUB_TYPE_PAGE_LIST);
         };
 
@@ -31,11 +47,11 @@ define([], function () {
         // partial pagination offset when focus on hyperlinks
         DZB.ignoreHyperlinksAtTabbing = function () {
 
-            $('#epubContentIframe').contents().find("a").each(function() {
+            $('#epubContentIframe').contents().find("a").each(function () {
                 $(this).attr('tabindex', '-1');
             });
         };
-        
+
         DZB.testCfiHighlighting = function (readium) {
 
             setTimeout(function () {
@@ -78,7 +94,7 @@ define([], function () {
 
 
         function loadNavElement(dom, epubType) {
-            
+
             if (dom) {
                 var pageListNav;
                 var $navs = $('nav', dom);
@@ -90,7 +106,7 @@ define([], function () {
                     }
                     return true;
                 });
-                
+
                 if (pageListNav) {
                     $(pageListNav).addClass(epubType).removeAttr('hidden');
                     $('#readium-toc-body').append(pageListNav);
@@ -98,7 +114,7 @@ define([], function () {
             }
         };
 
-        
+
         function disableToolTipsOnMobileDevices() {
             console.debug("disableToolTipsOnMobileDevices");
             // prevent the user need to click twice to select any menu item
