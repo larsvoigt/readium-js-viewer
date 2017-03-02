@@ -1,4 +1,4 @@
-define([], function () {
+define(['readium_shared_js/models/bookmark_data',], function (BookmarkData) {
 
         var DZB = {};
 
@@ -55,41 +55,44 @@ define([], function () {
         DZB.testCfiHighlighting = function (readium) {
 
             setTimeout(function () {
+                
 
-                readium.reader.plugins.annotations.removeHighlight(999999);
-                readium.reader.plugins.annotations.addHighlight(
-                    "id-id2635343",
-                    "/4/2[building_a_better_epub]/4,/1:106,/1:110",
+                readium.reader.openSpineItemElementCfi('id-id2642385', '/4/2/38/52,/9:20,/9:27');
+                readium.reader.plugins.highlights.removeHighlight(999999);
+                readium.reader.plugins.highlights.addHighlight(
+                    "id-id2642385",
+                    "/4/2/38/52,/9:20,/9:27",
                     999999,// Math.floor((Math.random() * 1000000)),
                     "highlight", //"underline"
                     undefined  // styles
                 ), 600
 
 
-                setTimeout(function () {
-
-                    var $epubContentIframe = $('#epubContentIframe');
-                    //$epubContentIframe[0].contentDocument.designMode = "on";
-                    var startMarker = $epubContentIframe.contents().find(".range-start-marker")[0];
-                    var range = document.createRange();
-
-
-                    $(startMarker.nextSibling).wrap('<span id="searchResult" tabindex="-1" style="display:inline"></span>');
-                    var $searchResult = $epubContentIframe.contents().find("#searchResult");
-                    //$searchResult.css("color", "#1182ba");
-                    //$searchResult.css("background-color", "yellow");
-
-                    $searchResult.css("border", "1px dotted");
-                    $searchResult.focus();
-
-                    //range.setStart(startMarker.nextSibling , 0);
-                    //range.setEnd(startMarker.nextSibling, 4);
-                    //var sel = window.getSelection();
-                    //sel.removeAllRanges();
-                    //sel.addRange(range);
-                }, 1000);
+                //     // setTimeout(function () {
+                //     //
+                //     //     var $epubContentIframe = $('#epubContentIframe');
+                //     //     //$epubContentIframe[0].contentDocument.designMode = "on";
+                //     //     var startMarker = $epubContentIframe.contents().find(".range-start-marker")[0];
+                //     //     var range = document.createRange();
+                //     //
+                //     //
+                //     //     $(startMarker.nextSibling).wrap('<span id="searchResult" tabindex="-1" style="display:inline"></span>');
+                //     //     var $searchResult = $epubContentIframe.contents().find("#searchResult");
+                //     //     //$searchResult.css("color", "#1182ba");
+                //     //     //$searchResult.css("background-color", "yellow");
+                //     //
+                //     //     $searchResult.css("border", "1px dotted");
+                //     //     $searchResult.focus();
+                //     //
+                //     //     //range.setStart(startMarker.nextSibling , 0);
+                //     //     //range.setEnd(startMarker.nextSibling, 4);
+                //     //     //var sel = window.getSelection();
+                //     //     //sel.removeAllRanges();
+                //     //     //sel.addRange(range);
+                //     // }, 1000);
             });
 
+// highlightCfi("/6/30[id-id2642385]!/4/2/38/52,/9:20,/9:27", readium);
         };
 
 
@@ -127,6 +130,187 @@ define([], function () {
             || (navigator.MaxTouchPoints > 0)
             || (navigator.msMaxTouchPoints > 0));
         }
+
+
+        // function highlightCfi(cfi, readium) {
+        //
+        //     if (!cfi) {
+        //         console.error("cfi not defined");
+        //         return;
+        //     }
+        //
+        //     try {
+        //         console.debug("try to hightlight: " + cfi);
+        //
+        //         var idref = getIdref(cfi);
+        //         var partialCfi = getPartialCfi(cfi);
+        //
+        //         readium.reader.openSpineItemElementCfi(idref, partialCfi);
+        //         var highlighter = new Highlighter(readium);
+        //         // TODO: looks like this should be call after spineitem is loaded
+        //         highlighter.add(idref, partialCfi, 'blue');
+        //
+        //
+        //     } catch (e) {
+        //
+        //         console.error(e);
+        //     }
+        //
+        // }
+        //
+        // function getPartialCfi(cfi) {
+        //
+        //     return cfi.split('!')[1];
+        // }
+        //
+        // function getIdref(cfi) {
+        //
+        //     return cfi.split('!')[0].match(/\[(.*?)\]/)[1];
+        // }
+        //
+        // /**
+        //  * Highlighter use part from CFI navigation helper class.
+        //  *
+        //  * Own Hightlighter should be full text search module
+        //  * a little bit more independent from future developing waves
+        //  */
+        // var Highlighter = function (readium) {
+        //
+        //     // todo: focus screenreader
+        //
+        //     var self = this;
+        //     var lastOverlay;
+        //
+        //     self.add = function (idref, partialCfi, borderColor) {
+        //
+        //         if (lastOverlay)
+        //             lastOverlay.remove();
+        //
+        //         var range = readium.reader.getDomRangeFromRangeCfi(new BookmarkData(idref, partialCfi));
+        //         console.log("________________________ range: " + range);
+        //
+        //         drawOverlayFromDomRange(range, borderColor)
+        //     };
+        //
+        //
+        //     function drawOverlayFromDomRange(range, borderColor) {
+        //         var rect = getNodeRangeClientRect(
+        //             range.startContainer,
+        //             range.startOffset,
+        //             range.endContainer,
+        //             range.endOffset);
+        //
+        //         drawOverlayFromRect(rect, borderColor);
+        //     }
+        //
+        //
+        //     function drawOverlayFromRect(rect, borderColor) {
+        //         var leftOffset, topOffset;
+        //
+        //         if (isVerticalWritingMode()) {
+        //             leftOffset = 0;
+        //             topOffset = -getPaginationLeftOffset();
+        //         } else {
+        //             leftOffset = -getPaginationLeftOffset();
+        //             topOffset = 0;
+        //         }
+        //
+        //         addOverlayRect({
+        //             left: rect.left + leftOffset,
+        //             top: rect.top + topOffset,
+        //             width: rect.width,
+        //             height: rect.height
+        //         }, borderColor, self.getRootDocument());
+        //     }
+        //
+        //
+        //     function addOverlayRect(rects, borderColor, doc) {
+        //
+        //         if (!(rects instanceof Array)) {
+        //             rects = [rects];
+        //         }
+        //         for (var i = 0; i != rects.length; i++) {
+        //             var rect = rects[i];
+        //             var overlayDiv = doc.createElement('div');
+        //             overlayDiv.style.position = 'absolute';
+        //             $(overlayDiv).css('z-index', '1000');
+        //             $(overlayDiv).css('pointer-events', 'none');
+        //             $(overlayDiv).css('opacity', '0.4');
+        //             overlayDiv.style.border = '2px dashed ' + borderColor;
+        //             overlayDiv.style.background = 'yellow';
+        //             overlayDiv.style.margin = overlayDiv.style.padding = '0';
+        //             overlayDiv.style.top = (rect.top ) + 'px';
+        //             overlayDiv.style.left = (rect.left ) + 'px';
+        //             // we want rect.width to be the border width, so content width is 2px less.
+        //             overlayDiv.style.width = (rect.width - 2) + 'px';
+        //             overlayDiv.style.height = (rect.height - 2) + 'px';
+        //             doc.documentElement.appendChild(overlayDiv);
+        //             lastOverlay = overlayDiv;
+        //         }
+        //     }
+        //
+        //     function getPaginationLeftOffset() {
+        //
+        //         var $htmlElement = $("html", self.getRootDocument());
+        //         var offsetLeftPixels = $htmlElement.css(isVerticalWritingMode() ? "top" : (isPageProgressionRightToLeft() ? "right" : "left"));
+        //         var offsetLeft = parseInt(offsetLeftPixels.replace("px", ""));
+        //         if (isNaN(offsetLeft)) {
+        //             //for fixed layouts, $htmlElement.css("left") has no numerical value
+        //             offsetLeft = 0;
+        //         }
+        //         if (isPageProgressionRightToLeft() && !isVerticalWritingMode()) return -offsetLeft;
+        //         return offsetLeft;
+        //     }
+        //
+        //     function getNodeRangeClientRect(startNode, startOffset, endNode, endOffset) {
+        //         var range = createRange();
+        //         range.setStart(startNode, startOffset ? startOffset : 0);
+        //         if (endNode.nodeType === Node.ELEMENT_NODE) {
+        //             range.setEnd(endNode, endOffset ? endOffset : endNode.childNodes.length);
+        //         } else if (endNode.nodeType === Node.TEXT_NODE) {
+        //             range.setEnd(endNode, endOffset ? endOffset : 0);
+        //         }
+        //         return normalizeRectangle(range.getBoundingClientRect(), 0, 0);
+        //     }
+        //
+        //     function normalizeRectangle(textRect, leftOffset, topOffset) {
+        //
+        //         var plainRectObject = {
+        //             left: textRect.left,
+        //             right: textRect.right,
+        //             top: textRect.top,
+        //             bottom: textRect.bottom,
+        //             width: textRect.right - textRect.left,
+        //             height: textRect.bottom - textRect.top
+        //         };
+        //         offsetRectangle(plainRectObject, leftOffset, topOffset);
+        //         return plainRectObject;
+        //     }
+        //
+        //     function offsetRectangle(rect, leftOffset, topOffset) {
+        //
+        //         rect.left += leftOffset;
+        //         rect.right += leftOffset;
+        //         rect.top += topOffset;
+        //         rect.bottom += topOffset;
+        //     }
+        //
+        //     function isPageProgressionRightToLeft() {
+        //         return readium.reader.getPaginationInfo().rightToLeft;
+        //     }
+        //
+        //     function isVerticalWritingMode() {
+        //         return readium.reader.getPaginationInfo().isVerticalWritingMode;
+        //     }
+        //
+        //     this.getRootDocument = function () {
+        //         return $('#epubContentIframe')[0].contentDocument;
+        //     };
+        //
+        //     function createRange() {
+        //         return self.getRootDocument().createRange();
+        //     }
+        // };
 
         return DZB;
     }

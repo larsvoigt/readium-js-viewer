@@ -427,7 +427,7 @@ DZB){
 
             lastIframe = $iframe[0];
             
-            //DZB.testCfiHighlighting(readium);
+            // DZB.testCfiHighlighting(readium);
             DZB.ignoreHyperlinksAtTabbing();
         });
 
@@ -544,7 +544,9 @@ DZB){
                 $('.toc-visible').removeClass('toc-visible');
                 $(document.body).removeClass('hide-ui');
                 $('#reading-area').attr('aria-hidden' , false);
+                $('#readium-toc-body').attr('aria-hidden' , true);
                 hideLoop(null, true);
+                $('#reading-area').focus();
                 //}
             } catch (err) {
                 
@@ -873,7 +875,7 @@ DZB){
 
         // Set handlers for click events
         $(".icon-annotations").on("click", function () {
-            readium.reader.plugins.highlights.addSelectionHighlight(Math.floor((Math.random()*1000000)), "test-highlight");
+            console.log(readium.reader.plugins.highlights.addSelectionHighlight(Math.floor((Math.random()*1000000)), "test-highlight"));
         });
 
         var isWithinForbiddenNavKeysArea = function()
