@@ -546,7 +546,8 @@ DZB){
                 $('#reading-area').attr('aria-hidden' , false);
                 $('#readium-toc-body').attr('aria-hidden' , true);
                 hideLoop(null, true);
-                $('#reading-area').focus();
+                
+               DZB.setScreenReaderFocus(href);
                 //}
             } catch (err) {
                 
@@ -1274,7 +1275,7 @@ DZB){
                 readerSettings = settings.reader;
             }
 
-            DZB.forceScrollContinuousAsDefault(SettingsDialog.defaultSettings);
+            // DZB.forceScrollContinuousAsDefault(SettingsDialog.defaultSettings);
             
             if (!embedded){
                 readerSettings = readerSettings || SettingsDialog.defaultSettings;

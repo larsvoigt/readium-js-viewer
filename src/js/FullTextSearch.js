@@ -5,7 +5,9 @@ define(['./Dialogs',
         'hgn!readium_js_viewer_html_templates/search.html',
         'spin',
         'readium_shared_js/models/bookmark_data',
-        'jquery.ui.autocomplete'
+        './DZB',
+        'jquery.ui.autocomplete' // only loading no instance
+
     ],
 
     function (Dialogs,
@@ -14,7 +16,8 @@ define(['./Dialogs',
               $,
               SearchDialog,
               Spinner,
-              BookmarkData) {
+              BookmarkData,
+              DZB) {
 
         var newSearch;
         var cfis = [];
@@ -27,19 +30,21 @@ define(['./Dialogs',
 
 
         // todo: host should be configurable 
-        var host = 'http://' + window.location.hostname + ':8085';
-        //var host = 'http://localhost:8080';
+        //var host = 'http://' + window.location.hostname + ':8085';
+        var host = 'http://192.168.1.103:8080';
+        // var host = 'http://localhost:8080';
         // var host = window.location.origin;
         var readium;
         var spinner;
         var epubTitle = "";
         var highlighter;
+        var startContainer;
 
         var FullTextSearch = function (readiumRef, title) {
 
             readium = readiumRef;
             epubTitle = title;
-            highlighter = new Highlighter(readium);
+            highlighter = new Highlighter();
 
             this.init = function () {
 
@@ -90,14 +95,7 @@ define(['./Dialogs',
                     e.stopPropagation();
                 });
 
-                readium.reader.on(ReadiumSDK.Events.CONTENT_DOCUMENT_LOADED, function contentLoadedHandler() {
-
-                    if (curCfi)
-                        highlightCfi(curCfi);
-                });
-
                 setUpSpinner();
-
             };
 
             // search forwards
@@ -201,12 +199,7 @@ define(['./Dialogs',
             function hightlightNextHit() {
 
                 setNextCfi();
-
-                if (isSameSpineItem())
-                    highlightCfi(curCfi);
-
-                readium.reader.openSpineItemElementCfi(getIdref(curCfi), getPartialCfi(curCfi));
-
+                commonHighlightCfi();
             }
 
             function highlightPreviousHit(pattern) {
@@ -216,20 +209,28 @@ define(['./Dialogs',
                     return;
                 }
                 setPreviousCfi();
-
-                if (isSameSpineItem())
-                    highlightCfi(curCfi);
-
-                readium.reader.openSpineItemElementCfi(getIdref(curCfi), getPartialCfi(curCfi));
+                commonHighlightCfi();
             }
+
+
+            function commonHighlightCfi() {
+
+                (isSameSpineItem())
+                highlightCfi(curCfi);
+
+                window.READIUM.reader.on(ReadiumSDK.Events.CONTENT_DOCUMENT_LOADED, triggerContentIsLoaded);
+
+                window.READIUM.reader.openSpineItemElementCfi(getIdref(curCfi), getPartialCfi(curCfi));
+            }
+
 
             function highlightCurrentCFI() {
 
                 if (cfis.length !== 0) {
 
-                    readium.reader.openSpineItemElementCfi(getIdref(curCfi), getPartialCfi(curCfi));
+                    window.READIUM.reader.openSpineItemElementCfi(getIdref(curCfi), getPartialCfi(curCfi));
 
-                    var curIdref = readium.reader.getLoadedSpineItems()[0].idref;
+                    var curIdref = window.READIUM.reader.getLoadedSpineItems()[0].idref;
                     var idref = getIdref(curCfi);
                     if (curIdref === idref)
                         highlightCfi(curCfi);
@@ -239,7 +240,7 @@ define(['./Dialogs',
 
             function setCurrentCFI(hits) {
 
-                var curIdref = readium.reader.getLoadedSpineItems()[0].idref;
+                var curIdref = window.READIUM.reader.getLoadedSpineItems()[0].idref;
 
                 for (hit in hits) {
 
@@ -274,7 +275,7 @@ define(['./Dialogs',
                     var partialCfi = getPartialCfi(cfi);
 
                     // TODO: looks like this should be call after spineitem is loaded
-                    highlighter.add(idref, partialCfi, 'blue');
+                    highlighter.apply(idref, partialCfi, 'blue');
 
                 } catch (e) {
 
@@ -338,7 +339,7 @@ define(['./Dialogs',
 
             function isSameSpineItem() {
 
-                var curIdref = readium.reader.getLoadedSpineItems()[0].idref;
+                var curIdref = window.READIUM.reader.getLoadedSpineItems()[0].idref;
                 var idref = getIdref(curCfi);
 
                 return curIdref === idref;
@@ -415,6 +416,14 @@ define(['./Dialogs',
                 };
                 spinner = new Spinner(opts);
             }
+
+            function triggerContentIsLoaded() {
+
+                if (curCfi)
+                    highlightCfi(curCfi);
+
+                window.READIUM.reader.off(ReadiumSDK.Events.CONTENT_DOCUMENT_LOADED, triggerContentIsLoaded);
+            }
         };
 
 
@@ -424,22 +433,25 @@ define(['./Dialogs',
          * Own Hightlighter should be full text search module
          * a little bit more independent from future developing waves
          */
-        var Highlighter = function (readium) {
+        var Highlighter = function () {
 
-            // todo: focus screenreader
-            
             var self = this;
             var lastOverlay;
 
-            self.add = function (idref, partialCfi, borderColor) {
+            self.apply = function (idref, partialCfi, borderColor) {
 
-                if (lastOverlay)
-                    lastOverlay.remove();
-                
-                var range = readium.reader.getDomRangeFromRangeCfi(new BookmarkData(idref, partialCfi));
+                if (lastOverlay && lastOverlay.parentNode)
+                    lastOverlay.parentNode.removeChild(lastOverlay);
+                // lastOverlay.remove(); Ohh Dear! not supported by IE11 
+
+                var range = window.READIUM.reader.getDomRangeFromRangeCfi(new BookmarkData(idref, partialCfi));
+                startContainer = range.startContainer;
                 console.log("________________________ range: " + range);
 
-                drawOverlayFromDomRange(range, borderColor)
+                drawOverlayFromDomRange(range, borderColor);
+                
+                // console.log("name" + $(range.startContainer).parents("html"));
+                DZB.setScreenReaderFocusOnElement($(range.startContainer).parent());
             };
 
 
@@ -450,6 +462,7 @@ define(['./Dialogs',
                     range.endContainer,
                     range.endOffset);
 
+                console.log(rect);
                 drawOverlayFromRect(rect, borderColor);
             }
 
@@ -486,14 +499,15 @@ define(['./Dialogs',
                     $(overlayDiv).css('z-index', '1000');
                     $(overlayDiv).css('pointer-events', 'none');
                     $(overlayDiv).css('opacity', '0.4');
-                    overlayDiv.style.border = '2px dashed ' + borderColor;
-                    overlayDiv.style.background = 'yellow';
+                    $(overlayDiv).css('border-radius', '16px');
+                    overlayDiv.style.border = '3px solid ' + borderColor;
+                    overlayDiv.style.background = 'orange';
                     overlayDiv.style.margin = overlayDiv.style.padding = '0';
-                    overlayDiv.style.top = (rect.top ) + 'px';
-                    overlayDiv.style.left = (rect.left ) + 'px';
+                    overlayDiv.style.top = (rect.top - 2) + 'px';
+                    overlayDiv.style.left = (rect.left - 4) + 'px';
                     // we want rect.width to be the border width, so content width is 2px less.
-                    overlayDiv.style.width = (rect.width - 2) + 'px';
-                    overlayDiv.style.height = (rect.height - 2) + 'px';
+                    overlayDiv.style.width = (rect.width - 1) + 'px';
+                    overlayDiv.style.height = (rect.height) + 'px';
                     doc.documentElement.appendChild(overlayDiv);
                     lastOverlay = overlayDiv;
                 }
@@ -513,7 +527,7 @@ define(['./Dialogs',
             }
 
             function getNodeRangeClientRect(startNode, startOffset, endNode, endOffset) {
-                var range = createRange();
+                var range = self.getRootDocument().createRange();
                 range.setStart(startNode, startOffset ? startOffset : 0);
                 if (endNode.nodeType === Node.ELEMENT_NODE) {
                     range.setEnd(endNode, endOffset ? endOffset : endNode.childNodes.length);
@@ -546,20 +560,17 @@ define(['./Dialogs',
             }
 
             function isPageProgressionRightToLeft() {
-                return readium.reader.getPaginationInfo().rightToLeft;
+                return window.READIUM.reader.getPaginationInfo().rightToLeft;
             }
 
             function isVerticalWritingMode() {
-                return readium.reader.getPaginationInfo().isVerticalWritingMode;
+                return window.READIUM.reader.getPaginationInfo().isVerticalWritingMode;
             }
 
             this.getRootDocument = function () {
-                return $('#epubContentIframe')[0].contentDocument;
+               return $(startContainer).parents("html").parent()[0];
             };
-
-            function createRange() {
-                return self.getRootDocument().createRange();
-            }
+            
         };
 
         return FullTextSearch;
