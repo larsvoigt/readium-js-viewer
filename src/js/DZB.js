@@ -9,41 +9,19 @@ define(['readium_shared_js/models/bookmark_data', 'jquery'], function (BookmarkD
         //$(window).on('loadlibrary', eventHandler);
 
 
-        DZB.setIFrameListener = function (readium) {
+        DZB.customize = function () {
 
-            readium.reader.addIFrameEventListener('focus', function (e) {
-                $('iframe').addClass("focus-on-content");
-                Keyboard.scope('reader');
-            });
-
-            readium.reader.addIFrameEventListener('blur', function (e) {
-                $('iframe').removeClass("focus-on-content");
-            });
-
-            window.READIUM.reader.on(ReadiumSDK.Events.PAGINATION_CHANGED, function () {
-                //
-                // const firstVisible = getFirstVisibleElement();
-                // DZB.setScreenReaderFocusOnElement(firstVisible.parent());
-
-                // hideInvisibleForScreenreaderUser();
-
-                console.log('PAGINATION_CHANGED');
-            });
+            setIFrameListener();
+            customizationsForTouchDevice();
+            removeSettingsButton();
         };
-
+    
 
         DZB.forceScrollContinuousAsDefault = function (readerSettings) {
 
             readerSettings.scroll = "scroll-continuous";
         };
-
-        DZB.customizationsForTouchDevice = function () {
-
-            // todo: find a better way to this action because it is once on initialisation necessary 
-            if (isTouchDevice())
-                disableToolTipsOnMobileDevices();
-        };
-
+    
         DZB.loadNavPageList = function (dom) {
 
             loadNavElement(dom, EPUB_TYPE_PAGE_LIST);
@@ -129,7 +107,46 @@ define(['readium_shared_js/models/bookmark_data', 'jquery'], function (BookmarkD
         //
         // private
         //
-        function setScreenReaderFocusbyHref(href) {
+    function removeSettingsButton() {
+        const btnSettings = $('#settbutt1');
+        if(btnSettings)
+            btnSettings[0].parentNode.removeChild(btnSettings[0]);
+        else 
+            console.error('Settings button not found!')
+    }
+
+    function customizationsForTouchDevice() {
+
+        // todo: find a better way to this action because it is once on initialisation necessary 
+        if (isTouchDevice())
+            disableToolTipsOnMobileDevices();
+    }
+
+    
+    function setIFrameListener() {
+
+        window.READIUM.reader.addIFrameEventListener('focus', function (e) {
+            $('iframe').addClass("focus-on-content");
+            Keyboard.scope('reader');
+        });
+
+        window.READIUM.reader.addIFrameEventListener('blur', function (e) {
+            $('iframe').removeClass("focus-on-content");
+        });
+
+        window.READIUM.reader.on(ReadiumSDK.Events.PAGINATION_CHANGED, function () {
+            //
+            // const firstVisible = getFirstVisibleElement();
+            // DZB.setScreenReaderFocusOnElement(firstVisible.parent());
+
+            // hideInvisibleForScreenreaderUser();
+
+            console.log('PAGINATION_CHANGED');
+        });
+    }
+
+    
+    function setScreenReaderFocusbyHref(href) {
 
             var hashIndex = href.indexOf("#");
             var elementIdWithHash;
@@ -164,7 +181,7 @@ define(['readium_shared_js/models/bookmark_data', 'jquery'], function (BookmarkD
                     $('#readium-toc-body').append(pageListNav);
                 }
             }
-        };
+        }
 
 
         function disableToolTipsOnMobileDevices() {
