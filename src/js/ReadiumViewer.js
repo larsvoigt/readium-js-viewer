@@ -1,9 +1,11 @@
 define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers', 'URIjs', 'i18nStrings',
-	'hgn!readium_js_viewer_html_templates/tutor.html'], function($, EpubLibrary, EpubReader, Helpers, URI, Strings, Tutor){
+	'hgn!readium_js_viewer_html_templates/tutor.html', './DZB'], function($, EpubLibrary, EpubReader, Helpers, URI, Strings, Tutor, DZB){
 
     var _initialLoad = true; // replaces pushState() with replaceState() at first load 
     var initialLoad = function(){
 
+        DZB.initial();
+        
         var urlParams = Helpers.getURLQueryParams();
 
         var ebookURL = urlParams['epub'];

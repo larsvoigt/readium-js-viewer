@@ -2,9 +2,9 @@
     {
         "title": "Sprachpraxis",
         "author": "Hufnagl, Gerhard u.a.",
-        "coverHref": "epub_content/Sprachpraxis_UT/EPUB/Cover.jpg",
-        "packagePath": "Sprachpraxis_UT/EPUB/content.opf",
-        "rootUrl": "epub_content/Sprachpraxis_UT/"
+        "coverHref": "epub_content/Sprachpraxis/EPUB/Cover.jpg",
+        "packagePath": "Sprachpraxis/EPUB/content.opf",
+        "rootUrl": "epub_content/Sprachpraxis/"
     },
     {
         "title" : "Accessible EPUB 3",

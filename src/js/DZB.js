@@ -8,20 +8,59 @@ define(['readium_shared_js/models/bookmark_data', 'jquery'], function (BookmarkD
         //$(window).on('readepub', eventHandler);
         //$(window).on('loadlibrary', eventHandler);
 
+        DZB.initial = function () {
+            setFocusOnFirstMenuEntry();
+        };
 
         DZB.customize = function () {
 
             setIFrameListener();
             customizationsForTouchDevice();
+            setScreenReaderFocusOnFirstVisibleElement();
             removeSettingsButton();
         };
-    
+
+
+        DZB.setFocusToNearestHeader = function () {
+
+            const $first = getFirstVisibleElement();
+
+            var $el = $first.parent();
+            var $h;
+
+            while ($h = hasHeaderAsPredecessor($el), $el.length !== 0 && $h.length === 0)
+                $el = $el.parent();
+
+            $el = $h;
+
+            const text = $($el[$el.length - 1]).text();
+            const $tocEl = $("#readium-toc-body a").filter(function () {
+                // console.log('text : ' + $(this).text() + ' === ' + text);
+                return $(this).text() === text;
+            });
+
+            const toc = $("#readium-toc-body");
+
+            const scrollOffset = $tocEl.position().top - toc.offset().top + toc.scrollTop() - 20;
+            console.log('offset: ' + scrollOffset);
+            
+            toc.animate({scrollTop: scrollOffset}, "slow");
+
+            // DZB.setScreenReaderFocusOnElement($tocEl);
+
+            setTimeout(function () {
+                $tocEl.focus();
+            }, 100);
+
+        };
+
 
         DZB.forceScrollContinuousAsDefault = function (readerSettings) {
 
             readerSettings.scroll = "scroll-continuous";
+            console.log('Force continuous scroll mode.');
         };
-    
+
         DZB.loadNavPageList = function (dom) {
 
             loadNavElement(dom, EPUB_TYPE_PAGE_LIST);
@@ -37,53 +76,10 @@ define(['readium_shared_js/models/bookmark_data', 'jquery'], function (BookmarkD
         // partial pagination offset when focus on hyperlinks
         DZB.ignoreHyperlinksAtTabbing = function () {
 
-            const viewType = window.READIUM.reader.getCurrentViewType();
-
-            var $iframe = $('.iframe-fixed');
-            if (viewType === 4)
-            //  ReadiumSDK.Views.ReaderView.VIEW_TYPE_SCROLLED_CONTINUOUS
-                $frame = $('.iframe-fixed');
-            else if (viewType === 1)
-            // ReadiumSDK.Views.ReaderView.VIEW_TYPE_COLUMNIZED
-                $frame = $('#epubContentIframe');
-            else
-                throw viewType + ' not supported.';
-
-
-            $iframe.contents().find("a").each(function () {
+            $("#epub-reader-frame iframe").contents().find("a").each(function () {
                 $(this).attr('tabindex', '-1');
             });
         };
-
-        DZB.testCfiHighlighting = function (readium) {
-
-            setTimeout(function () {
-
-
-                readium.reader.openSpineItemElementCfi('id-id2642385', '/4/2/38/52,/9:20,/9:27');
-                readium.reader.plugins.highlights.removeHighlight(999999);
-                readium.reader.plugins.highlights.addHighlight(
-                    "id-id2642385",
-                    "/4/2/38/52,/9:20,/9:27",
-                    999999,// Math.floor((Math.random() * 1000000)),
-                    "highlight", //"underline"
-                    undefined  // styles
-                ), 600
-            });
-
-// highlightCfi("/6/30[id-id2642385]!/4/2/38/52,/9:20,/9:27", readium);
-        };
-
-        // DZB.setScreenReaderFocusOnFirstVisibleELement = function () {
-        //
-        //     // console.log(window.READIUM);
-        //     // window.READIUM.reader.on(ReadiumSDK.Events.PAGINATION_CHANGED, function () {
-        //     //
-        //     //     const firstVisible = getFirstVisibleElement();
-        //     //     DZB.setScreenReaderFocusOnElement(firstVisible.parent());
-        //     //
-        //     // });
-        // };
 
         DZB.setScreenReaderFocus = function (href) {
 
@@ -98,68 +94,102 @@ define(['readium_shared_js/models/bookmark_data', 'jquery'], function (BookmarkD
 
         DZB.setScreenReaderFocusOnElement = function ($el) {
 
-            $el.css('background-color', 'lightblue');
-            $el.attr("tabindex", "-1"); // "A tabindex value of -1 is a special value that means scripts can focus the element, but not users."
-            $el.focus();
+            $el.css('border', '4px solid #0027ee');
+            $el.attr("tabindex", "-1"); // "A tabindex value of -1 is a special value 
+            // that means scripts can focus the element, but not users."
+            setTimeout(function () {
+                $el.focus();
+
+                $el.on('blur', function () {
+                    $el.css('border', '');
+                });
+            }, 500);
         };
 
+        /***********************************************************************************************************
+         *
+         *   private
+         *
+         ***********************************************************************************************************/
 
-        //
-        // private
-        //
-    function removeSettingsButton() {
-        const btnSettings = $('#settbutt1');
-        if(btnSettings)
-            btnSettings[0].parentNode.removeChild(btnSettings[0]);
-        else 
-            console.error('Settings button not found!')
-    }
+        function hasHeaderAsPredecessor($el) {
 
-    function customizationsForTouchDevice() {
+            while ($el.length !== 0 && !$el.is(':header'))
+                $el = $el.prev();
 
-        // todo: find a better way to this action because it is once on initialisation necessary 
-        if (isTouchDevice())
-            disableToolTipsOnMobileDevices();
-    }
+            return $el;
+        }
 
-    
-    function setIFrameListener() {
+        function setScreenReaderFocusOnFirstVisibleElement() {
+            const listener = function () {
+                const $firstVisible = getFirstVisibleElement();
+                DZB.setScreenReaderFocusOnElement($firstVisible.parent());
+                console.log('focus on first visible');
+                window.READIUM.reader.off(ReadiumSDK.Events.PAGINATION_CHANGED, listener);
+            };
+            window.READIUM.reader.on(ReadiumSDK.Events.PAGINATION_CHANGED, listener);
+        }
 
-        window.READIUM.reader.addIFrameEventListener('focus', function (e) {
-            $('iframe').addClass("focus-on-content");
-            Keyboard.scope('reader');
-        });
+        function setFocusOnFirstMenuEntry() {
 
-        window.READIUM.reader.addIFrameEventListener('blur', function (e) {
-            $('iframe').removeClass("focus-on-content");
-        });
+            $(window).bind('libraryUIReady', function () {
 
-        window.READIUM.reader.on(ReadiumSDK.Events.PAGINATION_CHANGED, function () {
-            //
-            // const firstVisible = getFirstVisibleElement();
-            // DZB.setScreenReaderFocusOnElement(firstVisible.parent());
+                setTimeout(function () {
+                    $('button[tabindex=1]').focus();
+                    // console.log('set focus on first menu entry');
+                }, 0);
+            });
+        }
 
-            // hideInvisibleForScreenreaderUser();
 
-            console.log('PAGINATION_CHANGED');
-        });
-    }
+        function removeSettingsButton() {
+            const btnSettings = $('#settbutt1');
+            if (btnSettings.length > 0)
+                btnSettings[0].parentNode.removeChild(btnSettings[0]);
+            else
+                console.error('Settings button not found!')
+        }
 
-    
-    function setScreenReaderFocusbyHref(href) {
+        function customizationsForTouchDevice() {
+
+            // todo: find a better way to this action because it is once on initialisation necessary 
+            if (isTouchDevice())
+                disableToolTipsOnMobileDevices();
+        }
+
+
+        function setIFrameListener() {
+
+            window.READIUM.reader.addIFrameEventListener('focus', function (e) {
+                $('iframe').addClass("focus-on-content");
+                Keyboard.scope('reader');
+            });
+
+            window.READIUM.reader.addIFrameEventListener('blur', function (e) {
+                $('iframe').removeClass("focus-on-content");
+            });
+
+            window.READIUM.reader.on(ReadiumSDK.Events.PAGINATION_CHANGED, function () {
+
+                // hideInvisibleForScreenreaderUser();
+
+                // console.log('PAGINATION_CHANGED');
+            });
+        }
+
+
+        function setScreenReaderFocusbyHref(href) {
 
             var hashIndex = href.indexOf("#");
-            var elementIdWithHash;
-            if (hashIndex >= 0) {
-                elementIdWithHash = href.substr(hashIndex);
+            var filter;
 
-                const $el = $('.iframe-fixed').contents().find(elementIdWithHash);
+            if (hashIndex >= 0)
+                filter = href.substr(hashIndex);
+            else
+                filter = ":header:first";
 
-                console.log('text: ' + $el.text());
-                DZB.setScreenReaderFocusOnElement($el);
-
-
-            }
+            var $el = $('.iframe-fixed').contents().find(filter);
+            DZB.setScreenReaderFocusOnElement($el);
         }
 
         function loadNavElement(dom, epubType) {
@@ -218,27 +248,35 @@ define(['readium_shared_js/models/bookmark_data', 'jquery'], function (BookmarkD
         // }
 
 
-        // function getFirstVisibleElement() {
+        function getFirstVisibleElement() {
+
+            const cfi = window.READIUM.reader.getFirstVisibleCfi();
+            const range = window.READIUM.reader.getDomRangeFromRangeCfi(new BookmarkData(cfi.idref, cfi.contentCFI));
+            return $(range.startContainer);
+        }
+
+
         //
-        //     var first = {};
+        // testing
         //
-        //     $('#epubContentIframe').contents().find('*').contents().filter(function () {
-        //
-        //         return this.nodeType === 3;
-        //
-        //     }).each(function () {
-        //
-        //         // console.log($(this).text());
-        //
-        //         if (window.READIUM.reader.isElementVisible($(this))) {
-        //
-        //             // console.log($(this).text());
-        //             first = $(this);
-        //             return false;
-        //         }
-        //     });
-        //     return first;
-        // }
+        DZB.testCfiHighlighting = function (readium) {
+
+            setTimeout(function () {
+
+
+                readium.reader.openSpineItemElementCfi('id-id2642385', '/4/2/38/52,/9:20,/9:27');
+                readium.reader.plugins.highlights.removeHighlight(999999);
+                readium.reader.plugins.highlights.addHighlight(
+                    "id-id2642385",
+                    "/4/2/38/52,/9:20,/9:27",
+                    999999,// Math.floor((Math.random() * 1000000)),
+                    "highlight", //"underline"
+                    undefined  // styles
+                ), 600
+            });
+
+// highlightCfi("/6/30[id-id2642385]!/4/2/38/52,/9:20,/9:27", readium);
+        };
 
         return DZB;
     }

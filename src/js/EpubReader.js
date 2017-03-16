@@ -275,17 +275,23 @@ DZB){
             //   existsFocusable[0].setAttribute("tabindex", "-1");
             //}
             /* end of clear focusable tab item */
-            setTimeout(function(){ $('#tocButt')[0].focus(); }, 100);
-            $('#reading-area').attr('aria-hidden' , false);
+            // setTimeout(function(){ $('#tocButt')[0].focus(); }, 100);
+            $("#epub-reader-frame iframe").attr('aria-hidden' , false);
             $('#readium-toc-body').attr('aria-hidden' , true);
-        }
-        else{
+            $('#left-page-btn').attr("tabindex", "8");
+            $('#right-page-btn').attr("tabindex", "7");
+        
+        } else {
+
+            $('#left-page-btn').attr("tabindex", "-1");
+            $('#right-page-btn').attr("tabindex", "-1");
+            
             $appContainer.addClass('toc-visible');
-            $('#reading-area').attr('aria-hidden' , true);
+            $("#epub-reader-frame iframe").attr('aria-hidden' , true);
+            
             $('#readium-toc-body').attr('aria-hidden' , false);
             Keyboard.scope('reader');
-            $('#readium-toc-body h2').focus();
-  
+            DZB.setFocusToNearestHeader();
         }
 
         if(embedded){
@@ -369,22 +375,22 @@ DZB){
                     $toc[0].style.direction = "rtl"; // The CSS stylesheet property does not trigger :(
                 }
 
-                // // remove default focus from anchor elements in TOC after added to #readium-toc-body
-                // var $items = $('#readium-toc-body li >a');
-                // $items.each(function(){
-                //   $(this).attr("tabindex", "-1");
-                //    $(this).on("focus", function(event){
-                //     //console.log("toc item focus: " + event.target);
-                //     // remove tabindex from previously focused
-                //     var $prevFocus = $('#readium-toc-body a[tabindex="60"]');
-                //     if ($prevFocus.length>0 && $prevFocus[0] !== event.target){
-                //       //console.log("previous focus: " + $prevFocus[0]);
-                //       $prevFocus.attr("tabindex","-1");
-                //     }
-                //     // add to newly focused
-                //     event.target.setAttribute("tabindex", "60");
-                //   });
-                // });
+                // remove default focus from anchor elements in TOC after added to #readium-toc-body
+                var $items = $('#readium-toc-body li >a');
+                $items.each(function(){
+                  $(this).attr("tabindex", "-1");
+                   $(this).on("focus", function(event){
+                    //console.log("toc item focus: " + event.target);
+                    // remove tabindex from previously focused
+                    var $prevFocus = $('#readium-toc-body a[tabindex="60"]');
+                    if ($prevFocus.length>0 && $prevFocus[0] !== event.target){
+                      //console.log("previous focus: " + $prevFocus[0]);
+                      $prevFocus.attr("tabindex","-1");
+                    }
+                    // add to newly focused
+                    event.target.setAttribute("tabindex", "60");
+                  });
+                });
 
             }
 
@@ -423,6 +429,9 @@ DZB){
             $iframe.attr("aria-label", "EPUB");
             $iframe.attr("tabindex", "6");
             $iframe.attr("aria-describedby" , "epubDisc");
+            // $iframe.attr("aria-live" , "polite");
+            //  $iframe.contents().find('html').attr("aria-live" , "polite")
+            $iframe.contents().find('html').attr('aria-role','document');
 
             lastIframe = $iframe[0];
             
@@ -545,6 +554,9 @@ DZB){
                 $('#reading-area').attr('aria-hidden' , false);
                 $('#readium-toc-body').attr('aria-hidden' , true);
                 hideLoop(null, true);
+
+                $('#left-page-btn').attr("tabindex", "8");
+                $('#right-page-btn').attr("tabindex", "7");
                 
                DZB.setScreenReaderFocus(href);
                 //}
@@ -574,67 +586,69 @@ DZB){
         //    return false;
         //})
         
-//         //        var KEY_ENTER = 0x0D;
-// //        var KEY_SPACE = 0x20;
-//         var KEY_END = 0x23;
-//         var KEY_HOME = 0x24;
-// //        var KEY_LEFT = 0x25;
-//         var KEY_UP = 0x26;
-// //        var KEY_RIGHT = 0x27;
-//         var KEY_DOWN = 0x28;
-//
-//         $('#readium-toc-body').keydown( function(event){
-//             var next = null;
-//             var blurNode = event.target;
-//             switch (event.which) {
-//               case KEY_HOME:
-//                   //find first li >a
-//                   next = $('#readium-toc-body li >a')[0];
-//               break;
-//
-//               case KEY_END:
-//               // find last a within toc
-//                 next = $('#readium-toc-body a').last()[0];
-//               break;
-//
-//               case KEY_DOWN:
-//                 if (blurNode.tagName == "BUTTON") {
-//                     var existsFocusable = $('#readium-toc-body a[tabindex="60"]');
-//                     if (existsFocusable.length > 0) {
-//                       next = existsFocusable[0];
-//                     } else {
-//                       // go to first entry
-//                       next = $('#readium-toc-body li >a')[0];
-//                     }
-//                 } else {
-//                   // find all the a elements, find previous focus (tabindex=60) then get next
-//                   var $items = $('#readium-toc-body a');
-//                   var index = $('a[tabindex="60"]').index('#readium-toc-body a');
-//                   //var index = $('a[tabindex="60"]').index($items); // not sure why this won't work?
-//                   if (index > -1 && index < $items.length-1) {
-//                     next = $items.get(index+1);
-//                   } 
-//                 }
-//               break;
-//
-//               case KEY_UP:
-//                 // find all the a elements, find previous focus (tabindex=60) then get previous
-//                 var $items = $('#readium-toc-body a');
-//                 var index = $('a[tabindex="60"]').index('#readium-toc-body a');
-//                 if (index > -1 && index > 0 ) {
-//                   next = $items.get(index-1);
-//                 } 
-//               break;
-//
-//               default:
-//                 return;
-//             }
-//             if (next) {
-//               event.preventDefault();
-//               setTimeout(next.focus(), 5);
-//             }
-//           return;
-//       }); // end of onkeyup
+        //        var KEY_ENTER = 0x0D;
+//        var KEY_SPACE = 0x20;
+        var KEY_END = 0x23;
+        var KEY_HOME = 0x24;
+//        var KEY_LEFT = 0x25;
+        var KEY_UP = 0x26;
+//        var KEY_RIGHT = 0x27;
+        var KEY_DOWN = 0x28;
+
+        $('#readium-toc-body').keydown( function(event){
+            
+            console.log('keydown');
+            var next = null;
+            var blurNode = event.target;
+            switch (event.which) {
+              case KEY_HOME:
+                  //find first li >a
+                  next = $('#readium-toc-body li >a')[0];
+              break;
+
+              case KEY_END:
+              // find last a within toc
+                next = $('#readium-toc-body a').last()[0];
+              break;
+
+              case KEY_DOWN:
+                if (blurNode.tagName == "BUTTON") {
+                    var existsFocusable = $('#readium-toc-body a[tabindex="60"]');
+                    if (existsFocusable.length > 0) {
+                      next = existsFocusable[0];
+                    } else {
+                      // go to first entry
+                      next = $('#readium-toc-body li >a')[0];
+                    }
+                } else {
+                  // find all the a elements, find previous focus (tabindex=60) then get next
+                  var $items = $('#readium-toc-body a');
+                  var index = $('a[tabindex="60"]').index('#readium-toc-body a');
+                  //var index = $('a[tabindex="60"]').index($items); // not sure why this won't work?
+                  if (index > -1 && index < $items.length-1) {
+                    next = $items.get(index+1);
+                  } 
+                }
+              break;
+
+              case KEY_UP:
+                // find all the a elements, find previous focus (tabindex=60) then get previous
+                var $items = $('#readium-toc-body a');
+                var index = $('a[tabindex="60"]').index('#readium-toc-body a');
+                if (index > -1 && index > 0 ) {
+                  next = $items.get(index-1);
+                } 
+              break;
+
+              default:
+                return;
+            }
+            if (next) {
+              event.preventDefault();
+              setTimeout(next.focus(), 5);
+            }
+          return;
+      }); // end of onkeyup
     } // end of loadToc
 
     var toggleFullScreen = function(){
@@ -1273,12 +1287,10 @@ DZB){
             if (settings.reader){
                 readerSettings = settings.reader;
             }
-
-            // DZB.forceScrollContinuousAsDefault(SettingsDialog.defaultSettings);
             
             if (!embedded){
                 readerSettings = readerSettings || SettingsDialog.defaultSettings;
-                
+                DZB.forceScrollContinuousAsDefault(readerSettings);
                 SettingsDialog.updateReader(readium.reader, readerSettings);
             }
             else{
