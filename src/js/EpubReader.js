@@ -984,6 +984,7 @@ DZB){
         };
 
         Keyboard.on(Keyboard.ShowSettingsModal, 'reader', function(){$('#settings-dialog').modal("show")});
+        Keyboard.on(Keyboard.ShowHelpModal, 'reader', function(){$('#help-modal').modal("show")});
 
         $('#app-navbar').on('mousemove', hideLoop);
         
@@ -995,23 +996,6 @@ DZB){
             // so I'm using DOM api directly
             //document.addEventListener('click', hideLoop, true);
     };
-
-        $('.icon-textSize').on('click', function () {
-
-            Settings.get('reader', function(json)
-            {
-                if (!json)
-                {
-                    json = {};
-                }
-
-                json.fontSize = json.fontSize === 100 ? 220 : 100;
-
-                Settings.put('reader', json);
-
-                readium.reader.updateSettings(json);
-            });
-        });
 
     var setFitScreen = function(e){
         readium.reader.setZoom({style: 'fit-screen'});
@@ -1424,6 +1408,7 @@ DZB){
         Dialogs.reset();
         $('#settings-dialog').modal('hide');
         $('#about-dialog').modal('hide');
+        $('#help-modal').modal('hide');
         $('.modal-backdrop').remove();
         $('#app-navbar').off('mousemove');
 
@@ -1436,6 +1421,9 @@ DZB){
 
         $('#about-dialog').off('hidden.bs.modal');
         $('#about-dialog').off('shown.bs.modal');
+
+        $('#help-modal').off('hidden.bs.modal');
+        $('#help-modal').off('shown.bs.modal');
 
         // visibility check fails because iframe is unloaded
         //if (readium.reader.isMediaOverlayAvailable())

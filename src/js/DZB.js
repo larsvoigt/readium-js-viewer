@@ -1,4 +1,9 @@
-define(['readium_shared_js/models/bookmark_data', 'jquery'], function (BookmarkData, $) {
+define([
+    'readium_shared_js/models/bookmark_data', 
+    'jquery',
+    'hgn!readium_js_viewer_html_templates/help.html',
+    'Settings'],
+    function (BookmarkData, $, HelpDialog, Settings) {
 
         var DZB = {};
 
@@ -14,10 +19,27 @@ define(['readium_shared_js/models/bookmark_data', 'jquery'], function (BookmarkD
 
         DZB.customize = function () {
 
+            help();
             setIFrameListener();
             customizationsForTouchDevice();
             setScreenReaderFocusOnFirstVisibleElement();
             removeSettingsButton();
+
+            $('.icon-textSize').on('click', function () {
+
+                Settings.get('reader', function (json) {
+                    if (!json) {
+                        json = {};
+                    }
+
+                    json.fontSize = json.fontSize === 100 ? 220 : 100;
+                    json.scroll = "scroll-continuous";
+
+                    Settings.put('reader', json);
+
+                    window.READIUM.reader.updateSettings(json);
+                });
+            });
         };
 
 
@@ -34,17 +56,21 @@ define(['readium_shared_js/models/bookmark_data', 'jquery'], function (BookmarkD
             $el = $h;
 
             const text = $($el[$el.length - 1]).text();
-            const $tocEl = $("#readium-toc-body a").filter(function () {
+            var $tocEl = $("#readium-toc-body a").filter(function () {
                 // console.log('text : ' + $(this).text() + ' === ' + text);
                 return $(this).text() === text;
             });
 
             const toc = $("#readium-toc-body");
 
-            const scrollOffset = $tocEl.position().top - toc.offset().top + toc.scrollTop() - 20;
-            console.log('offset: ' + scrollOffset);
-            
-            toc.animate({scrollTop: scrollOffset}, "slow");
+            if ($tocEl.length !== 0) {
+                const scrollOffset = $tocEl.position().top - toc.offset().top + toc.scrollTop() - 20;
+                console.log('offset: ' + scrollOffset);
+                toc.animate({scrollTop: scrollOffset}, "slow");
+
+            } else {
+                $tocEl = $('#readium-toc-body li >a')[0];
+            }
 
             // DZB.setScreenReaderFocusOnElement($tocEl);
 
@@ -106,11 +132,19 @@ define(['readium_shared_js/models/bookmark_data', 'jquery'], function (BookmarkD
             }, 500);
         };
 
+
         /***********************************************************************************************************
          *
          *   private
          *
          ***********************************************************************************************************/
+
+
+        function help() {
+
+            const $appContainer = $('#app-container');
+            $appContainer.append(HelpDialog({}));
+        }
 
         function hasHeaderAsPredecessor($el) {
 

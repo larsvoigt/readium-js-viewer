@@ -443,7 +443,7 @@ define(['i18nStrings', 'keymaster', 'Settings'], function(Strings, key, Settings
         FullTextSearchBackwards: '4',
         FullTextSearchForwards: '3',
 
-
+        ShowHelpModal: '.',
         ShowSettingsModal: 'o', //accesskey'ed
 
         SettingsModalSave: 'i', //accesskey'ed
@@ -457,7 +457,7 @@ define(['i18nStrings', 'keymaster', 'Settings'], function(Strings, key, Settings
         ToolbarShow: 'v', //accesskey'ed
         ToolbarHide: 'x', //accesskey'ed
 
-        FullScreenToggle: 'h', //accesskey'ed
+        FullScreenToggle: 'e', //accesskey'ed
 
         SwitchToLibrary: 'b', //accesskey'ed
 

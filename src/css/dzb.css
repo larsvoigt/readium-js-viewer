@@ -1,6 +1,51 @@
+.navbar{
+    padding: 1rem;
+    background: whitesmoke !important; 
+    box-shadow: none !important;
+    border-bottom: 1px solid #135772;
+    border-top: 1px solid #135772;
+}
+
+.btn {
+    background: whitesmoke !important;
+    border: 1px solid #204e99 !important;
+    box-shadow: none !important;
+    margin: 7px !important;
+    font-size: 20px !important;
+    height: 100% !important;
+    
+}
+
+
+#audioplayer {
+
+    background: transparent !important;
+    border-right: 0;
+    border-left: 0;
+}
+
+#audioplayer.expanded-audio > #audioExpanded {
+    background-color: whitesmoke !important;
+}
+
+#audioResponsive {
+    display: none;    
+}
+
+button:focus, .btn  {
+    border-radius: 10px !important;
+}
+
+#copyright, .navbar-reader-center, .btn, #btn-expand-audio > .glyphicon, #btn-collapse-audio > .glyphicon {
+    color: #204e99 !important;
+}
+
+#copyright, .navbar-reader-center, .btn{
+    margin: 10px;
+}
+
 #copyright, .navbar-reader-center {
     font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial;
-    color: #ddd;
     font-weight: bold;
 }
 
@@ -10,16 +55,9 @@
 
 .navbar-reader-center {
     font-size: 16px;
-    position: fixed;
-    /* center the div */
-    right: 0;
-    left: 0;
-    margin-right: auto;
-    margin-left: auto;
-    width: 50%;
-    text-align: center;
-    margin-top: 7px;
     display: inline-block;
+    text-align: center;
+    width: 50%;
 }
 
 body:not(.list-view) #app-container .library-item .info-wrap button {
@@ -28,6 +66,15 @@ body:not(.list-view) #app-container .library-item .info-wrap button {
 
 .has-cover {
     background-size: 101%; /* To fill the dimensions of container (button), or */
+}
+
+/*** TOC ****************************************/
+
+#readium-toc-body a:focus {
+    background-color: rgba(144, 203, 203, 0.64) !important;
+    color: black !important;
+    font-size: 20px !important;
+    font-style: oblique;
 }
 
 #readium-toc-body {
@@ -39,7 +86,15 @@ body:not(.list-view) #app-container .library-item .info-wrap button {
 }
 
 #readium-toc-body > ol > li {
-    border-top: 1px solid black;
+    border-top: 1px solid rgb(145, 145, 145);
+}
+
+#readium-toc-body ol li a {
+    color: #135772;
+    display: block;
+    padding: 1rem;
+    text-decoration: none;
+    width: 90%;
 }
 
 #readium-toc-body ol {
@@ -59,6 +114,15 @@ body:not(.list-view) #app-container .library-item .info-wrap button {
     /*left: 100%;*/
 }
 
+nav.landmarks ol li,
+nav.page-list  ol li {
+    float: left;
+    padding-right: 1em;
+    margin: 1em 0px 0px;
+}
+/**************************************************/
+
+
 @media (max-width: 350px) {
     .navbar-reader-center {
         display: none;
@@ -71,11 +135,99 @@ body:not(.list-view) #app-container .library-item .info-wrap button {
 
 .navbar-right {
     float: right !important;
+    background-color: whitesmoke !important;
+    height: 100%;
 }
 
-nav.landmarks ol li,
-nav.page-list  ol li {
-    float: left;
-    padding-right: 1em;
-    margin: 1em 0px 0px;
+
+
+.offscreen {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
 }
+
+body.keyboard button:focus,
+body.keyboard #app-navbar button:focus,
+body.keyboard #app-navbar input[type="text"]:focus,
+body.keyboard #app-navbar input[type="radio"]:focus + label,
+body.keyboard #app-navbar input[type="range"]:focus,
+body.keyboard input[type="radio"]:focus + label,
+body.keyboard input[type="range"]:focus,
+body.keyboard input[type="text"]:focus,
+    /*button:focus,*/
+a:focus,
+.navbar-reader-center:focus {
+    /*box-shadow: 0px 0px 25px #1182ba !important;*/
+    outline: 0 !important;
+    border: #d32d11 solid 2px !important;
+}
+
+
+
+
+.focus-on-content {
+    border: 3px solid #ee0013;
+}
+
+.screenreader-focus {
+    border: 4px solid #0027ee;
+}
+
+
+
+
+/***** HELP Dialog ****************************/
+#viewer-help-body {
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 12px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 450px;
+    color: #111; }
+
+#viewer-help-body table.toolbar-help {
+    margin: 14px; }
+
+#viewer-help-body table.toolbar-help td {
+    background-color: #DDD;
+    text-align: left;
+    vertical-align: top;
+    padding: 0.25em; }
+
+#viewer-help-body table.toolbar-help td.ico {
+    background-color: #333333;
+    width: 100px;
+    text-align: center;
+    vertical-align: middle; }
+
+#help-modal #help-heading {
+    text-align: left;
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    color: #000;
+    margin: 14px;
+    padding: 0px; }
+
+#help-modal h2, h3 {
+    text-align: left;
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    color: #000;
+    margin: 14px;
+    padding: 0px; }
+
+#help-modal p {
+    margin: 14px; }
+
+#help-modal .help-header {
+    text-align: left;
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 12px;
+    color: #000;
+    margin: 12px 0px;
+    padding: 0px; }
+
