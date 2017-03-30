@@ -429,8 +429,6 @@ DZB){
             $iframe.attr("aria-label", "EPUB");
             $iframe.attr("tabindex", "6");
             $iframe.attr("aria-describedby" , "epubDisc");
-            // $iframe.attr("aria-live" , "polite");
-            //  $iframe.contents().find('html').attr("aria-live" , "polite")
             $iframe.contents().find('html').attr('aria-role','document');
 
             lastIframe = $iframe[0];

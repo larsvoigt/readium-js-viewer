@@ -1,8 +1,8 @@
 define([
-    'readium_shared_js/models/bookmark_data', 
-    'jquery',
-    'hgn!readium_js_viewer_html_templates/help.html',
-    'Settings'],
+        'readium_shared_js/models/bookmark_data',
+        'jquery',
+        'hgn!readium_js_viewer_html_templates/help.html',
+        'Settings'],
     function (BookmarkData, $, HelpDialog, Settings) {
 
         var DZB = {};
@@ -24,22 +24,7 @@ define([
             customizationsForTouchDevice();
             setScreenReaderFocusOnFirstVisibleElement();
             removeSettingsButton();
-
-            $('.icon-textSize').on('click', function () {
-
-                Settings.get('reader', function (json) {
-                    if (!json) {
-                        json = {};
-                    }
-
-                    json.fontSize = json.fontSize === 100 ? 220 : 100;
-                    json.scroll = "scroll-continuous";
-
-                    Settings.put('reader', json);
-
-                    window.READIUM.reader.updateSettings(json);
-                });
-            });
+            addTextSizeToogle();
         };
 
 
@@ -140,10 +125,33 @@ define([
          ***********************************************************************************************************/
 
 
+        function addTextSizeToogle() {
+            
+            $('.icon-textSize').on('click', function () {
+
+                Settings.get('reader', function (json) {
+                    if (!json) {
+                        json = {};
+                    }
+
+                    json.fontSize = json.fontSize === 100 ? 220 : 100;
+                    json.scroll = "scroll-continuous";
+
+                    Settings.put('reader', json);
+
+                    window.READIUM.reader.updateSettings(json);
+                });
+            });
+        }
+
         function help() {
 
             const $appContainer = $('#app-container');
             $appContainer.append(HelpDialog({}));
+            $('#help-modal').on('hidden.bs.modal', function() {
+                const $firstVisible = getFirstVisibleElement();
+                DZB.setScreenReaderFocusOnElement($firstVisible.parent());
+            });
         }
 
         function hasHeaderAsPredecessor($el) {
