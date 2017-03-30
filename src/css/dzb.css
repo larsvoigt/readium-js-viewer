@@ -234,3 +234,59 @@ a:focus,
     margin: 12px 0px;
     padding: 0px; }
 
+
+
+
+/*********** full text search **********/
+
+.invisible {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.combobox-container {
+    position: relative;
+    max-width: 250px;
+    margin: 0 auto;
+}
+
+.combobox-suggestions {
+    position: absolute;
+    left: 0;
+    width: 250px;
+    background: #fff;
+}
+.combobox-suggestion {
+    color: #666;
+    border-bottom: 1px solid #000;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+    cursor: pointer;
+    text-align: left;
+}
+.combobox-suggestion:first-child {
+    border-top: 1px solid #000;
+}
+.combobox-suggestion:hover,
+.combobox-suggestion:focus {
+    color: #000;
+}
+
+.combobox-clear-button {
+    position: absolute;
+    right: 1px;
+    font-family: inherit;
+    font-size: 1em;
+    padding: .5em;
+    background: transparent
+}
+
+/* http://geektnt.com/how-to-remove-x-from-search-input-field-on-chrome-and-ie.html */
+.js-combobox[type=text]::-ms-clear { display: none; width: 0; height: 0; }
+.js-combobox[type=text]::-ms-reveal { display: none; width: 0; height: 0; }

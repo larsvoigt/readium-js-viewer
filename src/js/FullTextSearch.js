@@ -6,8 +6,8 @@ define(['./Dialogs',
         'spin',
         'readium_shared_js/models/bookmark_data',
         './DZB',
-        'jquery.ui.autocomplete' // only loading no instance
-
+        'jquery.ui.autocomplete', // only loading no instance
+        'jquery.accessible.autocomplete.list.aria' // only loading no instance
     ],
 
     function (Dialogs,
@@ -31,9 +31,10 @@ define(['./Dialogs',
 
         // todo: host should be configurable 
         //var host = 'http://' + window.location.hostname + ':8085';
-        var host = 'http://192.168.1.103:8080';
+        // var host = 'http://192.168.1.103:8080';
         // var host = 'http://localhost:8080';
         // var host = window.location.origin;
+        var host = 'http://dzbvm-badi.dzbnet.local:8085';
         var readium;
         var spinner;
         var epubTitle = "";
@@ -183,13 +184,19 @@ define(['./Dialogs',
                 $.getJSON(request, '', {})
                     .done(function (data) {
 
-                        $("#searchbox").autocomplete({
-                            source: data,
-                            select: function (event) {
-                                event.stopPropagation();
-                                $("#search-btn-next").trigger("click");
-                            }
-                        });
+                        // $("#searchbox").autocomplete({
+                        //     source: data,
+                        //     select: function (event) {
+                        //         event.stopPropagation();
+                        //         $("#search-btn-next").trigger("click");
+                        //     }
+                        // });
+                        data.forEach(function (item) {
+                            var option = $('option');
+                            option.value = item;
+                            const suggestions = $('#suggestions')
+                            suggestions.append('test');
+                        })
                     })
                     .fail(function () {
                         console.log("error fulltext search request");
@@ -275,7 +282,7 @@ define(['./Dialogs',
                     var partialCfi = getPartialCfi(cfi);
 
                     // TODO: looks like this should be call after spineitem is loaded
-                    highlighter.apply(idref, partialCfi, 'blue');
+                    highlighter.apply(idref, partialCfi, 'black');
 
                 } catch (e) {
 
@@ -449,7 +456,7 @@ define(['./Dialogs',
                 console.log("________________________ range: " + range);
 
                 drawOverlayFromDomRange(range, borderColor);
-                
+
                 // console.log("name" + $(range.startContainer).parents("html"));
                 DZB.setScreenReaderFocusOnElement($(range.startContainer).parent());
             };
@@ -499,14 +506,13 @@ define(['./Dialogs',
                     $(overlayDiv).css('z-index', '1000');
                     $(overlayDiv).css('pointer-events', 'none');
                     $(overlayDiv).css('opacity', '0.4');
-                    $(overlayDiv).css('border-radius', '16px');
-                    overlayDiv.style.border = '3px solid ' + borderColor;
-                    overlayDiv.style.background = 'orange';
+                    overlayDiv.style.border = '1px solid ' + borderColor;
+                    overlayDiv.style.background = 'yellow';
                     overlayDiv.style.margin = overlayDiv.style.padding = '0';
                     overlayDiv.style.top = (rect.top - 2) + 'px';
-                    overlayDiv.style.left = (rect.left - 4) + 'px';
+                    overlayDiv.style.left = (rect.left - 2) + 'px';
                     // we want rect.width to be the border width, so content width is 2px less.
-                    overlayDiv.style.width = (rect.width - 1) + 'px';
+                    overlayDiv.style.width = (rect.width + 3) + 'px';
                     overlayDiv.style.height = (rect.height) + 'px';
                     doc.documentElement.appendChild(overlayDiv);
                     lastOverlay = overlayDiv;
@@ -568,9 +574,9 @@ define(['./Dialogs',
             }
 
             this.getRootDocument = function () {
-               return $(startContainer).parents("html").parent()[0];
+                return $(startContainer).parents("html").parent()[0];
             };
-            
+
         };
 
         return FullTextSearch;
