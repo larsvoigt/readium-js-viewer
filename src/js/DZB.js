@@ -118,6 +118,16 @@ define([
         };
 
 
+        DZB.setScreenReaderFocusOnFirstVisibleElement = function () {
+            const listener = function () {
+                const $firstVisible = getFirstVisibleElement();
+                DZB.setScreenReaderFocusOnElement($firstVisible.parent());
+                console.log('focus on first visible');
+                window.READIUM.reader.off(ReadiumSDK.Events.PAGINATION_CHANGED, listener);
+            };
+            window.READIUM.reader.on(ReadiumSDK.Events.PAGINATION_CHANGED, listener);
+        };
+        
         /***********************************************************************************************************
          *
          *   private
@@ -160,16 +170,6 @@ define([
                 $el = $el.prev();
 
             return $el;
-        }
-
-        function setScreenReaderFocusOnFirstVisibleElement() {
-            const listener = function () {
-                const $firstVisible = getFirstVisibleElement();
-                DZB.setScreenReaderFocusOnElement($firstVisible.parent());
-                console.log('focus on first visible');
-                window.READIUM.reader.off(ReadiumSDK.Events.PAGINATION_CHANGED, listener);
-            };
-            window.READIUM.reader.on(ReadiumSDK.Events.PAGINATION_CHANGED, listener);
         }
 
         function setFocusOnFirstMenuEntry() {

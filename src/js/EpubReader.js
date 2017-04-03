@@ -280,6 +280,7 @@ DZB){
             $('#readium-toc-body').attr('aria-hidden' , true);
             $('#left-page-btn').attr("tabindex", "8");
             $('#right-page-btn').attr("tabindex", "7");
+            DZB.setScreenReaderFocusOnFirstVisibleElement();
         
         } else {
 
