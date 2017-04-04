@@ -5,9 +5,8 @@ define(['./Dialogs',
         'hgn!readium_js_viewer_html_templates/search.html',
         'spin',
         'readium_shared_js/models/bookmark_data',
-        './DZB',
-        'jquery.ui.autocomplete', // only loading no instance
-        'jquery.accessible.autocomplete.list.aria' // only loading no instance
+        './DZB'
+        // 'jquery.ui.autocomplete', // only load no instance
     ],
 
     function (Dialogs,
@@ -97,6 +96,7 @@ define(['./Dialogs',
                 });
 
                 setUpSpinner();
+                require(['jquery.accessible.autocomplete.list.aria']);
             };
 
             // search forwards
@@ -172,7 +172,7 @@ define(['./Dialogs',
             function instantSearch() {
 
                 var q = $("#searchbox").val();
-                if (q === '')
+                if (q === '' || q.length < 3)
                     return;
 
                 var matcher = "/matcher?beginsWith=" + q;
@@ -191,16 +191,26 @@ define(['./Dialogs',
                         //         $("#search-btn-next").trigger("click");
                         //     }
                         // });
-                        data.forEach(function (item) {
-                            var option = $('option');
-                            option.value = item;
-                            const suggestions = $('#suggestions')
-                            suggestions.append('test');
-                        })
+                        if (data.length > 0) {
+
+                            $('#suggestions').remove();
+
+                            const dataList = $('<datalist>');
+                            dataList.attr('id', 'suggestions');
+                            dataList.insertAfter($('.js-combobox'));
+
+                            data.forEach(function (item) {
+                                var option = $('<option>');
+                                option.attr('value', item);
+                                dataList.append(option);
+                            });
+
+                        }
                     })
-                    .fail(function () {
-                        console.log("error fulltext search request");
-                    });
+                    .fail(function (jqxhr, textStatus, error) {
+                    var err = textStatus + ", " + error;
+                    console.error("Request " + request + " Failed: " + err);
+                });
             }
 
             function hightlightNextHit() {

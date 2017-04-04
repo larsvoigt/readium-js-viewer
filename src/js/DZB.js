@@ -22,7 +22,7 @@ define([
             help();
             setIFrameListener();
             customizationsForTouchDevice();
-            setScreenReaderFocusOnFirstVisibleElement();
+            DZB.setScreenReaderFocusOnFirstVisibleElement();
             removeSettingsButton();
             addTextSizeToogle();
         };
