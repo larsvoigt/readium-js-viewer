@@ -20,7 +20,7 @@ define([
         DZB.customize = function () {
 
             help();
-            setIFrameListener();
+            setListener();
             customizationsForTouchDevice();
             DZB.setScreenReaderFocusOnFirstVisibleElement();
             removeSettingsButton();
@@ -28,41 +28,18 @@ define([
         };
 
 
-        DZB.setFocusToNearestHeader = function () {
-
-            const $first = getFirstVisibleElement();
-
-            var $el = $first.parent();
-            var $h;
-
-            while ($h = hasHeaderAsPredecessor($el), $el.length !== 0 && $h.length === 0)
-                $el = $el.parent();
-
-            $el = $h;
-
-            const text = $($el[$el.length - 1]).text();
-            var $tocEl = $("#readium-toc-body a").filter(function () {
-                // console.log('text : ' + $(this).text() + ' === ' + text);
-                return $(this).text() === text;
-            });
+        DZB.setFocusToActiveHeader = function () {
 
             const toc = $("#readium-toc-body");
+            const $activeTOCEl = toc.find('.ActiveHeader');
 
-            if ($tocEl.length !== 0) {
-                const scrollOffset = $tocEl.position().top - toc.offset().top + toc.scrollTop() - 20;
-                console.log('offset: ' + scrollOffset);
-                toc.animate({scrollTop: scrollOffset}, "slow");
-
-            } else {
-                $tocEl = $('#readium-toc-body li >a')[0];
-            }
-
-            // DZB.setScreenReaderFocusOnElement($tocEl);
-
+            const scrollOffset = $activeTOCEl.position().top - toc.offset().top + toc.scrollTop() - 20;
+            // console.log('offset: ' + scrollOffset);
+            toc.animate({scrollTop: scrollOffset}, 700);
+            
             setTimeout(function () {
-                $tocEl.focus();
-            }, 100);
-
+                $activeTOCEl.focus();
+            }, 800);
         };
 
 
@@ -110,7 +87,7 @@ define([
             // that means scripts can focus the element, but not users."
             setTimeout(function () {
                 $el.focus();
-                console.log($el);
+                // console.log($el);
 
                 $el.on('blur', function () {
                     $el.css('border', '');
@@ -128,7 +105,7 @@ define([
             };
             window.READIUM.reader.on(ReadiumSDK.Events.PAGINATION_CHANGED, listener);
         };
-        
+
         /***********************************************************************************************************
          *
          *   private
@@ -137,7 +114,7 @@ define([
 
 
         function addTextSizeToogle() {
-            
+
             $('.icon-textSize').on('click', function () {
 
                 Settings.get('reader', function (json) {
@@ -159,19 +136,12 @@ define([
 
             const $appContainer = $('#app-container');
             $appContainer.append(HelpDialog({}));
-            $('#help-modal').on('hidden.bs.modal', function() {
+            $('#help-modal').on('hidden.bs.modal', function () {
                 const $firstVisible = getFirstVisibleElement();
                 DZB.setScreenReaderFocusOnElement($firstVisible.parent());
             });
         }
 
-        function hasHeaderAsPredecessor($el) {
-
-            while ($el.length !== 0 && !$el.is(':header'))
-                $el = $el.prev();
-
-            return $el;
-        }
 
         function setFocusOnFirstMenuEntry() {
 
@@ -201,7 +171,7 @@ define([
         }
 
 
-        function setIFrameListener() {
+        function setListener() {
 
             window.READIUM.reader.addIFrameEventListener('focus', function (e) {
                 $('iframe').addClass("focus-on-content");
@@ -215,9 +185,54 @@ define([
             window.READIUM.reader.on(ReadiumSDK.Events.PAGINATION_CHANGED, function () {
 
                 // hideInvisibleForScreenreaderUser();
-
-                // console.log('PAGINATION_CHANGED');
+                setActiveHeaderInTOCfromReadingPosition();
+                console.log('PAGINATION_CHANGED');
             });
+        }
+
+
+        function setActiveHeaderInTOCfromReadingPosition() {
+
+            $('#readium-toc-body li > a').removeClass('ActiveHeader');
+
+            const $first = getFirstVisibleElement();
+            const $el = getNearestHeader($first);
+
+
+            const text = $($el[$el.length - 1]).text();
+            const $tocEl = $("#readium-toc-body a").filter(function () {
+                // console.log('text : ' + $(this).text() + ' === ' + text);
+                return $(this).text() === text;
+            });
+
+            if ($tocEl.length !== 0)
+                $tocEl.addClass('ActiveHeader');
+            else
+                $('#readium-toc-body li > a').addClass('ActiveHeader');
+
+        }
+
+
+        function getNearestHeader($firstVisibleEl) {
+
+            var $h;
+            var $el = $firstVisibleEl;
+
+            while ($h = hasHeaderAsPredecessor($el), $el.length !== 0 && $h.length === 0)
+                $el = $el.parent();
+
+            return $h;
+        }
+
+        function hasHeaderAsPredecessor($el) {
+
+            while ($el.length !== 0 && !$el.is(':header')) {
+                // console.log('Current element: ' + $el.prop('tagName'));
+                $el = $el.prev();
+            }
+
+            // console.log('Header : ' + $el.text());
+            return $el;
         }
 
 

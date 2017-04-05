@@ -283,7 +283,7 @@ DZB){
             DZB.setScreenReaderFocusOnFirstVisibleElement();
         
         } else {
-
+            
             $('#left-page-btn').attr("tabindex", "-1");
             $('#right-page-btn').attr("tabindex", "-1");
             
@@ -291,7 +291,9 @@ DZB){
             $("#epub-reader-frame iframe").attr('aria-hidden' , true);
             $('#readium-toc-body').attr('aria-hidden' , false);
             Keyboard.scope('reader');
-            DZB.setFocusToNearestHeader();
+            
+            // TODO: replace setFocusToActiveHeader with trigger in DZB.js TOC .toc-visible ???
+            DZB.setFocusToActiveHeader();
         }
 
         if(embedded){
