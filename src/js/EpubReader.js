@@ -289,7 +289,6 @@ DZB){
             
             $appContainer.addClass('toc-visible');
             $("#epub-reader-frame iframe").attr('aria-hidden' , true);
-            
             $('#readium-toc-body').attr('aria-hidden' , false);
             Keyboard.scope('reader');
             DZB.setFocusToNearestHeader();
@@ -550,7 +549,7 @@ DZB){
                 //if (embedded) {
                 $('.toc-visible').removeClass('toc-visible');
                 $(document.body).removeClass('hide-ui');
-                $('#reading-area').attr('aria-hidden' , false);
+                $("#epub-reader-frame iframe").attr('aria-hidden' , false);
                 $('#readium-toc-body').attr('aria-hidden' , true);
                 hideLoop(null, true);
 

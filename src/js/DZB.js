@@ -22,7 +22,7 @@ define([
             help();
             setIFrameListener();
             customizationsForTouchDevice();
-            setScreenReaderFocusOnFirstVisibleElement();
+            DZB.setScreenReaderFocusOnFirstVisibleElement();
             removeSettingsButton();
             addTextSizeToogle();
         };
@@ -110,6 +110,7 @@ define([
             // that means scripts can focus the element, but not users."
             setTimeout(function () {
                 $el.focus();
+                console.log($el);
 
                 $el.on('blur', function () {
                     $el.css('border', '');
