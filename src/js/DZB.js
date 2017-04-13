@@ -174,12 +174,12 @@ define([
         function setListener() {
 
             window.READIUM.reader.addIFrameEventListener('focus', function (e) {
-                $('iframe').addClass("focus-on-content");
+                 $('#reflowable-book-frame').addClass("focus-on-content");
                 Keyboard.scope('reader');
             });
 
             window.READIUM.reader.addIFrameEventListener('blur', function (e) {
-                $('iframe').removeClass("focus-on-content");
+                $('#reflowable-book-frame').removeClass("focus-on-content");
             });
 
             window.READIUM.reader.on(ReadiumSDK.Events.PAGINATION_CHANGED, function () {

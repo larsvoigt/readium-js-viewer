@@ -74,7 +74,7 @@ define(['./Dialogs',
 
                     instantSearch();
                     newSearch = true;
-                    event.stopPropagation();
+                    // event.stopPropagation();
                 });
 
                 Keyboard.on(Keyboard.FullTextSearchForwards, 'reader', forwards);

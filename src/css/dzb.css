@@ -1,6 +1,26 @@
-.navbar{
+::-webkit-scrollbar {
+display: none;
+}
+
+#epub-reader-frame {
+    border-bottom: 60px solid transparent !important;
+}
+
+#reflowable-book-frame {
+    top: 2px;
+
+}
+
+/* hack to hide scrollbar of content frame in FF browser*/
+@-moz-document url-prefix() {
+    #scrolled-content-frame {
+        width: 103% !important;
+    }
+}
+
+.navbar {
     padding: 1rem;
-    background: whitesmoke !important; 
+    background: whitesmoke !important;
     box-shadow: none !important;
     border-bottom: 1px solid #135772;
     border-top: 1px solid #135772;
@@ -13,11 +33,11 @@
     margin: 7px !important;
     font-size: 20px !important;
     height: 100% !important;
-    
+
 }
 
 #reading-area {
-    top: 77px !important; 
+    top: 77px !important;
 }
 
 #audioplayer {
@@ -32,10 +52,10 @@
 }
 
 #audioResponsive {
-    display: none;    
+    display: none;
 }
 
-button:focus, .btn  {
+button:focus, .btn {
     border-radius: 10px !important;
 }
 
@@ -43,7 +63,7 @@ button:focus, .btn  {
     color: #204e99 !important;
 }
 
-#copyright, .navbar-reader-center, .btn{
+#copyright, .navbar-reader-center, .btn {
     margin: 10px;
 }
 
@@ -100,6 +120,12 @@ body:not(.list-view) #app-container .library-item .info-wrap button {
     width: 90%;
 }
 
+#readium-toc-body ol li a:hover {
+    background-color: darkcyan;
+    color: white;
+    font-weight: bold;
+}
+
 #readium-toc-body ol {
     list-style-type: none;
 }
@@ -118,13 +144,13 @@ body:not(.list-view) #app-container .library-item .info-wrap button {
 }
 
 nav.landmarks ol li,
-nav.page-list  ol li {
+nav.page-list ol li {
     float: left;
     padding-right: 1em;
     margin: 1em 0px 0px;
 }
-/**************************************************/
 
+/**************************************************/
 
 @media (max-width: 350px) {
     .navbar-reader-center {
@@ -141,8 +167,6 @@ nav.page-list  ol li {
     background-color: whitesmoke !important;
     height: 100%;
 }
-
-
 
 .offscreen {
     position: absolute;
@@ -169,73 +193,72 @@ a:focus,
     border: #d32d11 solid 2px !important;
 }
 
-
-
-
 .focus-on-content {
-    border: 3px solid #ee0013;
+    border: 1px solid #992032;
 }
 
 .screenreader-focus {
     border: 4px solid #0027ee;
 }
 
-
-
-
 /***** HELP Dialog ****************************/
 #viewer-help-body {
-    font-family: Helvetica,Arial,sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-size: 12px;
     overflow-y: scroll;
     overflow-x: hidden;
     max-height: 450px;
-    color: #111; }
+    color: #111;
+}
 
 #viewer-help-body table.toolbar-help {
-    margin: 14px; }
+    margin: 14px;
+}
 
 #viewer-help-body table.toolbar-help td {
     background-color: #DDD;
     text-align: left;
     vertical-align: top;
-    padding: 0.25em; }
+    padding: 0.25em;
+}
 
 #viewer-help-body table.toolbar-help td.ico {
     background-color: #333333;
     width: 100px;
     text-align: center;
-    vertical-align: middle; }
+    vertical-align: middle;
+}
 
 #help-modal #help-heading {
     text-align: left;
-    font-family: Helvetica,Arial,sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-size: 14px;
     color: #000;
     margin: 14px;
-    padding: 0px; }
+    padding: 0px;
+}
 
 #help-modal h2, h3 {
     text-align: left;
-    font-family: Helvetica,Arial,sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-size: 14px;
     color: #000;
     margin: 14px;
-    padding: 0px; }
+    padding: 0px;
+}
 
 #help-modal p {
-    margin: 14px; }
+    margin: 14px;
+}
 
 #help-modal .help-header {
     text-align: left;
-    font-family: Helvetica,Arial,sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-size: 12px;
     color: #000;
     margin: 12px 0px;
-    padding: 0px; }
-
-
-
+    padding: 0px;
+}
 
 /*********** full text search **********/
 
@@ -262,6 +285,7 @@ a:focus,
     width: 250px;
     background: #fff;
 }
+
 .combobox-suggestion {
     color: #666;
     border-bottom: 1px solid #000;
@@ -270,9 +294,11 @@ a:focus,
     cursor: pointer;
     text-align: left;
 }
+
 .combobox-suggestion:first-child {
     border-top: 1px solid #000;
 }
+
 .combobox-suggestion:hover,
 .combobox-suggestion:focus {
     color: #000;
@@ -288,5 +314,14 @@ a:focus,
 }
 
 /* http://geektnt.com/how-to-remove-x-from-search-input-field-on-chrome-and-ie.html */
-.js-combobox[type=text]::-ms-clear { display: none; width: 0; height: 0; }
-.js-combobox[type=text]::-ms-reveal { display: none; width: 0; height: 0; }
+.js-combobox[type=text]::-ms-clear {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+.js-combobox[type=text]::-ms-reveal {
+    display: none;
+    width: 0;
+    height: 0;
+}
