@@ -6,9 +6,7 @@ define(['./Dialogs',
         'spin',
         'readium_shared_js/models/bookmark_data',
         './DZB'
-        // 'jquery.ui.autocomplete', // only load no instance
     ],
-
     function (Dialogs,
               Strings,
               Keyboard,
@@ -34,11 +32,13 @@ define(['./Dialogs',
         // var host = 'http://localhost:8080';
         // var host = window.location.origin;
         var host = 'http://dzbvm-badi.dzbnet.local:8085';
-        var readium;
-        var spinner;
-        var epubTitle = "";
-        var highlighter;
-        var startContainer;
+        var readium,
+            spinner,
+            epubTitle = "",
+            highlighter,
+            startContainer,
+            autocomplete;
+
 
         var FullTextSearch = function (readiumRef, title) {
 
@@ -58,7 +58,7 @@ define(['./Dialogs',
 
                 Keyboard.scope('reader');
 
-                //$("#searchbox").keydown(function (event) {
+                //$("#search").keydown(function (event) {
                 //
                 //    if (event.which === 13) { // enter key
                 //
@@ -66,16 +66,6 @@ define(['./Dialogs',
                 //    }
                 //    event.stopPropagation();
                 //});
-
-                $("#searchbox").keyup(function (event) {
-
-                    if (event.which === 13)
-                        return;
-
-                    instantSearch();
-                    newSearch = true;
-                    // event.stopPropagation();
-                });
 
                 Keyboard.on(Keyboard.FullTextSearchForwards, 'reader', forwards);
                 Keyboard.on(Keyboard.FullTextSearchBackwards, 'reader', backwards);
@@ -96,7 +86,7 @@ define(['./Dialogs',
                 });
 
                 setUpSpinner();
-                require(['jquery.accessible.autocomplete.list.aria']);
+                autocomplete = new Autocomplete();
             };
 
             // search forwards
@@ -104,7 +94,7 @@ define(['./Dialogs',
 
                 direction = NEXT;
 
-                var q = $("#searchbox").val();
+                var q = $("#search").val();
 
                 if (q === "") { //no search string entered
                     signalNoQuery();
@@ -123,7 +113,7 @@ define(['./Dialogs',
 
                 direction = PREVIOUS;
 
-                var q = $("#searchbox").val();
+                var q = $("#search").val();
 
                 if (q === "") { //no search string entered
                     signalNoQuery();
@@ -168,50 +158,6 @@ define(['./Dialogs',
                     });
             }
 
-            // looking for suggestions 
-            function instantSearch() {
-
-                var q = $("#searchbox").val();
-                if (q === '' || q.length < 3)
-                    return;
-
-                var matcher = "/matcher?beginsWith=" + q;
-                var title = '&t=' + epubTitle;
-                var request = host + matcher + title;
-
-                //console.debug(request);
-
-                $.getJSON(request, '', {})
-                    .done(function (data) {
-
-                        // $("#searchbox").autocomplete({
-                        //     source: data,
-                        //     select: function (event) {
-                        //         event.stopPropagation();
-                        //         $("#search-btn-next").trigger("click");
-                        //     }
-                        // });
-                        if (data.length > 0) {
-
-                            $('#suggestions').remove();
-
-                            const dataList = $('<datalist>');
-                            dataList.attr('id', 'suggestions');
-                            dataList.insertAfter($('.js-combobox'));
-
-                            data.forEach(function (item) {
-                                var option = $('<option>');
-                                option.attr('value', item);
-                                dataList.append(option);
-                            });
-
-                        }
-                    })
-                    .fail(function (jqxhr, textStatus, error) {
-                    var err = textStatus + ", " + error;
-                    console.error("Request " + request + " Failed: " + err);
-                });
-            }
 
             function hightlightNextHit() {
 
@@ -368,11 +314,11 @@ define(['./Dialogs',
                 var firstKeyDown = true;
                 var KeyUpAfterFocusingInput = true;
 
-                $('#searchbox').attr("placeholder", Strings.enter_text);
-                $('#searchbox').attr("role", "alert");
-                $('#searchbox').addClass("error");
+                $('#search').attr("placeholder", Strings.enter_text);
+                $('#search').attr("role", "alert");
+                $('#search').addClass("error");
 
-                $('#searchbox').on("keydown", function (event) {
+                $('#search').on("keydown", function (event) {
 
                     if (event.keyCode != 13 && firstKeyDown) {
                         setToDefault();
@@ -383,9 +329,9 @@ define(['./Dialogs',
 
                 });
 
-                $('#searchbox').on("keyup", function () {
+                $('#search').on("keyup", function () {
                     if (KeyUpAfterFocusingInput) {
-                        $('#searchbox').val("");
+                        $('#search').val("");
                     }
                     KeyUpAfterFocusingInput = false;
                 });
@@ -394,20 +340,20 @@ define(['./Dialogs',
                     setToDefault();
                 });
 
-                $('#searchbox').focus();
+                $('#search').focus();
 
             };
 
             function setToDefault() {
-                $('#searchbox').removeClass("error");
-                $('#searchbox').attr("placeholder", Strings.full_text_search);
-                $('#searchbox').removeAttr("role");
+                $('#search').removeClass("error");
+                $('#search').attr("placeholder", Strings.full_text_search);
+                $('#search').removeAttr("role");
 
             };
 
             function setFocusOnSearchInput() {
                 setTimeout(function () {
-                    $('#searchbox')[0].focus();
+                    $('#search')[0].focus();
                 }, 100);
             }
 
@@ -516,11 +462,11 @@ define(['./Dialogs',
                     $(overlayDiv).css('z-index', '1000');
                     $(overlayDiv).css('pointer-events', 'none');
                     $(overlayDiv).css('opacity', '0.4');
-                    overlayDiv.style.border = '1px solid ' + borderColor;
-                    overlayDiv.style.background = 'yellow';
+                    overlayDiv.style.border = '1500px solid ' + borderColor;
+                    // overlayDiv.style.background = 'yellow';
                     overlayDiv.style.margin = overlayDiv.style.padding = '0';
-                    overlayDiv.style.top = (rect.top - 2) + 'px';
-                    overlayDiv.style.left = (rect.left - 2) + 'px';
+                    overlayDiv.style.top = (rect.top - 1502) + 'px';
+                    overlayDiv.style.left = (rect.left - 1502) + 'px';
                     // we want rect.width to be the border width, so content width is 2px less.
                     overlayDiv.style.width = (rect.width + 3) + 'px';
                     overlayDiv.style.height = (rect.height) + 'px';
@@ -587,6 +533,262 @@ define(['./Dialogs',
                 return $(startContainer).parents("html").parent()[0];
             };
 
+        };
+
+
+        /**
+         * ACCESSIBLE AUTOCOMPLETE
+         *
+         *
+         * Inspiration and code parts from here
+         * http://haltersweb.github.io/Accessibility/autocomplete.html
+         *
+         */
+        const Autocomplete = function () {
+
+            const $widget = $('[data-widget="accessible-autocomplete"]'),
+                $input = $widget.find('#search'),
+                $clearText = $('#clearText'),
+                $results = $widget.find('#results'),
+                $live = $widget.find('[aria-live]'),
+                key = {
+                    back: 8, // delete key on mac
+                    tab: 9,
+                    enter: 13,
+                    shift: 16, // shiftKey = true
+                    ctrl: 17, // ctrlKey = true
+                    alt: 18, // (a.k.a. option on Mac) altKey = true
+                    esc: 27,
+                    space: 32,
+                    pageUp: 33, // fn + up on mac
+                    pageDown: 34, // fn + down on mac
+                    end: 35, // fn + right on mac
+                    home: 36, // fn + left on mac
+                    left: 37,
+                    up: 38,
+                    right: 39,
+                    down: 40,
+                    del: 46, // fn + delete on mac
+                    command: 91 // metaKey = true (mac and sun machines)
+                },
+                directions = "Keyboard Nutzer, nutzen Pfeil rauf und runter zum Ansehen der Ergebnisse und Eingabe Taste zur Auswahl.",
+                liMarkup = '<li id="" class="autocomplete-item" role="option" aria-selected="false" tabindex="-1">'
+
+            var inputVal = "",
+                results = [];
+
+
+            function positionResults() {
+                // stop if this has already been set
+                if ($results.is('[style*="width"]')) {
+                    return;
+                }
+                $results.css({
+                    left: $input.position().left + "px",
+                    top: $input.position().top + $input.outerHeight() + "px",
+                    "min-width": $input.outerWidth() + "px"
+                });
+
+            }
+
+            function buildListHtml (results) {
+                var resultsMarkup = "", i = 0;
+                for (i = 0; i < results.length; i += 1) {
+                    resultsMarkup += liMarkup + results[i] + "</li>";
+                }
+                $results.html(resultsMarkup);
+                $results.show();
+                $input.attr('aria-expanded', 'true');
+            };
+
+            function announceResults() {
+                
+                var number = results.length,
+                    textToRead = number + " Ergebnisse verfügbar. " + directions;
+                // if results length === 0 then say "no search results"
+                if (results.length === 0) {
+                    textToRead = "Die Suche ergab keine Ergebnisse.";
+                }
+                announcements($live, textToRead);
+            }
+
+            function announcements($ariaContainer, textToRead) {
+                $ariaContainer.text(textToRead);
+                setTimeout(function () {
+                    $ariaContainer.text('');
+                }, 1000);
+            }
+
+
+            function markSelected($selectionToMark) {
+                // don't mark anything on the results list if we're back at the input field
+                if ($selectionToMark.length === 0) {
+                    return;
+                }
+                var activeItemId = 'selectedOption';
+                $selectionToMark.attr('aria-selected', 'true').attr('id', activeItemId);
+                $input.attr('aria-activedescendant', activeItemId);
+            }
+
+            function clearSelected() {
+                $input.attr('aria-activedescendant', '');
+                $results.find('[aria-selected="true"]').attr('aria-selected', 'false').attr('id', '');
+            }
+
+            function closeResults() {
+                clearSelected();
+                $results.hide();
+                $input.attr('aria-expanded', 'false');
+            }
+
+
+            function autocomplete() {
+
+                // if input value didn't change, return
+                if ($input.val() === inputVal)
+                    return;
+                // save new input value
+                inputVal = $input.val();
+
+                if (inputVal === '' || inputVal.length < 3)
+                    return;
+
+                var matcher = "/matcher?beginsWith=" + inputVal;
+                var title = '&t=' + epubTitle;
+                var request = host + matcher + title;
+
+                //console.debug(request);
+
+                $.getJSON(request, '', {})
+                    .done(function (data) {
+
+                        results = data;
+                        
+                        if (results.length > 0)
+                            buildListHtml(results);
+                        else
+                            closeResults();
+
+                        // aria-live results
+                        announceResults();
+                    })
+                    .fail(function (jqxhr, textStatus, error) {
+                        var err = textStatus + ", " + error;
+                        console.error("Request " + request + " Failed: " + err);
+                    });
+            }
+
+            function arrowing(kc) {
+                var $thisActiveItem = $results.find('[aria-selected="true"]'),
+                    $nextMenuItem;
+                // don't do anything if no results
+                if (!results.length) {
+                    return;
+                }
+                if (kc === key.down) {
+                    // find the next list item to be arrowed to
+                    $nextMenuItem = ($thisActiveItem.length !== 0)
+                        ? $thisActiveItem.next('li')
+                        : $results.children().eq(0); //first item in list
+                }
+                if (kc === key.up) {
+                    // find the previous list to be arrowed to
+                    $nextMenuItem = ($thisActiveItem.length !== 0)
+                        ? $thisActiveItem.prev('li')
+                        : $results.children().eq(-1); //last item in list
+                }
+                clearSelected();
+                markSelected($nextMenuItem);
+            }
+
+            function populating() {
+                var selectedText = $results.find('[aria-selected="true"]').text();
+                if (selectedText === "") {
+                    selectedText = inputVal;
+                }
+                $input.val(selectedText);
+            }
+
+            function senseClickOutside ($evtTarget, $container) {
+                if (($evtTarget).closest($container).length === 0) {
+                    // click target is outside
+                    return true;
+                }
+            }
+            
+            function eventListeners() {
+                
+                /*
+                 * close results if click outside $input and $results
+                 */
+                $(document).on('click', function (e) {
+                    var $container = $input.add($results);
+                    if (senseClickOutside($(e.target), $container)) {
+                        closeResults();
+                        return;
+                    }
+                });
+                /*
+                 * keyup
+                 */
+                $input.on('keyup', function (e) {
+                    var kc = e.keyCode;
+                    if (kc === key.up || kc === key.down || kc === key.tab || kc === key.enter || kc === key.esc) {
+                        return;
+                    };
+                    autocomplete();
+                    newSearch = true;
+                });
+
+                /*
+                 * down
+                 */
+                $input.on('keydown', function (e) {
+                    var kc = e.keyCode;
+                    if (kc === key.tab) {
+                        closeResults();
+                        return;
+                    }
+                    if (kc === key.enter) {
+                        e.preventDefault();
+                        closeResults();
+                        $("#search-btn-next").trigger("click");
+                        return;
+                    }
+                    if (kc === key.up || kc === key.down) {
+                        e.preventDefault();
+                        arrowing(kc);
+                        populating();
+                        return;
+                    }
+                    if (kc === key.esc) {
+                        $input.val(inputVal);
+                        closeResults();
+                    }
+                });
+
+                $results.on('click', function (e) {
+                    $input.val(e.target.textContent);
+                    closeResults();
+                    $input.focus();
+                });
+
+                $results.hover(function () {
+                    clearSelected();
+                });
+
+                $clearText.on('click', function () {
+                    inputVal = '';
+                    $input.val(inputVal);
+                });
+            }
+
+            function init() {
+                eventListeners();
+                positionResults();
+            }
+
+            init();
         };
 
         return FullTextSearch;

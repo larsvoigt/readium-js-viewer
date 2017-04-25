@@ -6,27 +6,28 @@
 </button>
 <ul id="search-menu" class="dropdown-menu">
     <li>
-        <input type="text" name="searchbox" id="searchbox" class="js-combobox" list="suggestions" data-combobox-prefix-class="combobox" />
-        <datalist id="suggestions"></datalist>
-
-        <!--<input type="text" name="searchbox" id="searchbox" class="js-combobox" list="beers" data-combobox-prefix-class="combobox" />-->
-        <!--<datalist id="beers">-->
-            <!--<option value="Meteor">-->
-            <!--<option value="Pils">-->
-            <!--<option value="Kronenbourg">-->
-            <!--<option value="Kronenbourg 2 (for test)">-->
-            <!--<option value="Kronenbourg 3 (for test)">-->
-            <!--<option value="Grimbergen">-->
-        <!--</datalist>-->
-        
+        <form action="">
+            <div data-widget="accessible-autocomplete">
+                <label for="search">Suche nach:</label>
+                <input type="text" id="search" autocomplete="off" class="autocomplete-search-field" aria-describedby="initInstr" aria-owns="results" aria-expanded="false" aria-autocomplete="both" aria-activedescendant="">
+                <button type="button" id="clearText" class="btn" title="Eingabe löschen" aria-label="Eingabe löschen">
+                    <span class="glyphicon glyphicon-remove-circle"></span>
+                </button>
+                <ul id="results" class="autocomplete-list" role="listbox" tabindex="0" style="display: none; left: 296.375px; top: 268.484px; min-width: 260px;"></ul>
+                <span id="initInstr" style="display: none;">When autocomplete results are available use up and down arrows to review and enter to select.  Touch device users, explore by touch or with swipe gestures.</span>
+                <div aria-live="assertive" class="screen-reader-text"></div>
+            </div>
+        </form>
         <br>
         <div class="full-text-search-btn-group">
             <div id="search-spinner"></div>
             <button id="search-btn-previous" type="button" class="btn"
+                    title="{{strings.search_backwards}} [{{keyboard.FullTextSearchBackwards}}]"
                     aria-label="{{strings.search_backwards}} [{{keyboard.FullTextSearchBackwards}}]">
                 <span class="glyphicon glyphicon-arrow-left"></span>
             </button>
             <button id="search-btn-next" type="button" class="btn"
+                    title="{{strings.search_forwards}} [{{keyboard.FullTextSearchForwards}}]"
                     aria-label="{{strings.search_forwards}} [{{keyboard.FullTextSearchForwards}}]">
                 <span class="glyphicon glyphicon-arrow-right"></span>
             </button>

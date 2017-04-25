@@ -92,13 +92,6 @@ require.config({
         
         // 'remotestorage':
         //     process._RJS_rootDir(3) + '/node_modules/remotestoragejs/release/head/remotestorage',
-
-        'jquery.ui.autocomplete': process._RJS_rootDir(3) + '/node_modules/jquery-ui/ui/autocomplete',
-        'core': process._RJS_rootDir(3) + '/node_modules/jquery-ui/ui/core',
-        'menu': process._RJS_rootDir(3) + '/node_modules/jquery-ui/ui/menu',
-        'widget': process._RJS_rootDir(3) + '/node_modules/jquery-ui/ui/widget',
-        'position': process._RJS_rootDir(3) + '/node_modules/jquery-ui/ui/position',
-        'jquery.accessible.autocomplete.list.aria': process._RJS_rootDir(3) + '/node_modules/jquery-accessible-autocomplete-list-aria/jquery-accessible-autocomplet-list-aria'
     },
 
     shim:
